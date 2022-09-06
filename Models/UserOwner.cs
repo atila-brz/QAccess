@@ -18,13 +18,13 @@ namespace QAccess.Models
         {
 
         }
-        
+
         // precisa rever se vai ter a possibilidade de ter varia unidade por pessoa pq ai vai ter de usar uma lista de unidades
-        public Unit Unit { get; set; }
+        public ICollection<Unit> Units { get; set; }
 
         private bool ValidateCpf(string cpf)
         {
-            
+
         }
 
     }

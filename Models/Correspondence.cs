@@ -10,14 +10,14 @@ namespace QAccess.Models
         
         public string Id { get; set; }
         public string TrackingCode { get; set; }
-        public DateTime dateDelivery { get; set; }
-        public DateTime dateWithdrawal { get; set; }
-        public string status { get; set; }
-        public string sender { get; set; }
+        public DateTime DateDelivery { get; set; }
+        public DateTime DateWithdrawal { get; set; }
+        public string Status { get; set; }
+        public string Sender { get; set; }
         public string Addressee { get; set; }
-        public Unit unit { get; set; }
-        public UserEmployee employeeWithdrawn { get; set; }
-        public UserEmployee employeeDelivery { get; set; }
+        public Unit Unit { get; set; }
+        public UserEmployee EmployeeWithdrawn { get; set; }
+        public UserEmployee EmployeeDelivery { get; set; }
 
     }
 }

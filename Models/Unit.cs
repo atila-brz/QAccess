@@ -11,6 +11,6 @@ namespace QAccess.Models
         public string Tower { get; set; }
         public string Block { get; set; }
         public int Number { get; set; }
-        public Adress Adress {get; set;}
+        public Address Address {get; set;}
     }
 }

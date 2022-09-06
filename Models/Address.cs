@@ -17,7 +17,9 @@ namespace QAccess.Models
         public string Number { get; set; }
         public string Complement { get; set; }        
         
-        private bool ValidateCep(string Cep)
+        private bool ValidateCep(string Cep){
+            
+        }
         
 
     }

@@ -124,6 +124,10 @@ main.container-lg{
     font-size: 0.9rem;
   }
 
+  .menu-container ul li a{
+    font-size: 0.8rem;
+  }
+
   .baseboard a p{
     font-size: 0.9rem;
   }
@@ -154,6 +158,9 @@ main.container-lg{
     font-size: 0.7rem;
   }
 
+  .menu-container ul li a{
+    font-size: 0.7rem;
+  }
   .menu-container .h6{
     font-size: 0.8rem;
   }

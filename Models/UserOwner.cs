@@ -16,7 +16,13 @@ namespace QAccess.Models
         private string cpf;
         public string Cpf
         {
+            set{
+                
+            }
 
+            get{
+                return cpf;
+            }
         }
 
         // precisa rever se vai ter a possibilidade de ter varia unidade por pessoa pq ai vai ter de usar uma lista de unidades
@@ -24,7 +30,7 @@ namespace QAccess.Models
 
         private bool ValidateCpf(string cpf)
         {
-
+            return false;
         }
 
     }

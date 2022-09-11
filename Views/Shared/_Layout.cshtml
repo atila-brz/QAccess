@@ -3,44 +3,147 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - QAccess</title>
+    <title>@ViewData["Title"] - TesteMvc</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/QAccess.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">QAccess</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+    <div class="container-fluid">
+        <div class="container-screen row">
+            <div class="menu-container d-flex justify-content-between border-end p-3 bg-light col-2 d-none d-lg-flex d-xl-flex d-xxl-flex ">
+                <div class="col-12 d-flex flex-column justify-content-between">
+                    <div class="d-flex flex-column">
+                        <div class="row">
+                            <img class="logo img-fluid rounded float-start" src="~/images/Logo.svg" alt="">
+                        </div>
+                        <div class="row justify-content-between">
+                            <div class="col-3 customs-align-vertical">
+                                <a href=""><img class="icons-profile ounded mx-auto d-block img-fluid" src="~/images/Icon-profile.svg" alt=""></a>
+                            </div>
+                            <div class="col-3 customs-align-vertical">
+                                <a href=""><img class="icons-profile rounded mx-auto d-block img-fluid" src="~/images/Icon-points.svg" alt=""></a>
+                            </div>               
+                        </div>
+                        <div class=" row justify-content-center customs-align-vertical">
+                            <img class="profile" class="rounded mx-auto d-block img-fluid" src="~/images/User.svg" alt="">
+                        </div>
+
+                        <div class="row text-center profile-text">
+                            <div class="col-12">
+                                <p class="h6 m-0"><strong>Atila Bezerra</strong></p>
+                            </div>
+                            <div class="col-12">
+                                <p class="h6 m-0">atila@gmail.com</p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <ul class="list-unstyled list-group ps-0 nav nav-pills mb-auto">
+                                <li class="mb-1">
+                                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                                            <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                                        </svg>
+                                        <span class="ps-2">Home</span>
+                                    </button>
+                                    <div class="collapse" id="home-collapse" style="">
+                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                        <li><a href="#" class="d-inline-flex text-decoration-none rounded">Overview</a></li>
+                                        <li><a href="#" class="d-inline-flex text-decoration-none rounded">Updates</a></li>
+                                        <li><a href="#" class="d-inline-flex text-decoration-none rounded">Reports</a></li>
+                                    </ul>
+                                    </div>
+                                </li>
+                                <li class="mb-1">
+                                    <button class="btn btn-correspondencia btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                                            <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+                                        </svg>
+                                        <span class="ps-2">Correspondências</span>
+                                    </button>
+                                    <div class="collapse" id="dashboard-collapse">
+                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                        <li><a href="encomendas.html" class="link-dark d-inline-flex text-decoration-none rounded">Registradas</a></li>
+                                    </ul>
+                                    </div>
+                                </li>
+                                <li class="mb-1">
+                                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-text" viewBox="0 0 16 16">
+                                            <path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                                            <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
+                                            <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+                                        </svg>
+                                        <span class="ps-2">Ocorrência</span>
+                                    </button>
+                                    <div class="collapse" id="orders-collapse">
+                                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                            <li><a href="ocorrencia.html" class="d-inline-flex text-decoration-none rounded">Registradas</a></li>
+                                            <li><a href="consulta.html" class="d-inline-flex text-decoration-none rounded">Em análise</a></li>
+                                            <li><a href="consulta.html" class="d-inline-flex text-decoration-none rounded">Resolvidas</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="mb-1">
+                                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#classif-collapse" aria-expanded="false">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-text" viewBox="0 0 16 16">
+                                            <path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                                            <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
+                                            <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+                                        </svg>
+                                        <span class="ps-2">Classificados</span>
+                                    </button>
+                                    <div class="collapse" id="classif-collapse">
+                                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                            <li><a href="classificados.html" class="d-inline-flex text-decoration-none rounded">Registrar</a></li>
+                                            <li><a href="listaAnuncios.html" class="d-inline-flex text-decoration-none rounded">Feed</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="baseboard">
+                        <div class="row">
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15.3334 3.33331H4.66671C3.93337 3.33331 3.34004 3.93331 3.34004 4.66665L3.33337 16.6666L6.00004 14H15.3334C16.0667 14 16.6667 13.4 16.6667 12.6666V4.66665C16.6667 3.93331 16.0667 3.33331 15.3334 3.33331ZM6.66667 8H13.3333C13.7 8 14 8.3 14 8.66667C14 9.03333 13.7 9.33333 13.3333 9.33333H6.66667C6.3 9.33333 6 9.03333 6 8.66667C6 8.3 6.3 8 6.66667 8ZM10.6667 11.3333H6.66667C6.3 11.3333 6 11.0333 6 10.6667C6 10.3 6.3 10 6.66667 10H10.6667C11.0333 10 11.3333 10.3 11.3333 10.6667C11.3333 11.0333 11.0333 11.3333 10.6667 11.3333ZM13.3333 7.33333H6.66667C6.3 7.33333 6 7.03333 6 6.66667C6 6.3 6.3 6 6.66667 6H13.3333C13.7 6 14 6.3 14 6.66667C14 7.03333 13.7 7.33333 13.3333 7.33333Z" fill="white"/>
+                                    </svg>
+                                    <p class="fw-bold stext-center m-0 ps-2">Feedback</p>
+                                </div>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M6.39998 12.474H15.336L11.432 16.378C11.12 16.69 11.12 17.202 11.432 17.514C11.744 17.826 12.248 17.826 12.56 17.514L17.832 12.242C18.144 11.93 18.144 11.426 17.832 11.114L12.568 5.83396C12.4185 5.68416 12.2156 5.59998 12.004 5.59998C11.7924 5.59998 11.5894 5.68416 11.44 5.83396C11.128 6.14596 11.128 6.64996 11.44 6.96196L15.336 10.874H6.39998C5.95998 10.874 5.59998 11.234 5.59998 11.674C5.59998 12.114 5.95998 12.474 6.39998 12.474Z" fill="white"/>
+                                </svg>
+                            </div>
+                            <div class="d-flex justify-content-between mt-1">
+                                <div class="d-flex align-items-center">
+                                    <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                      <path fill-rule="evenodd" clip-rule="evenodd" d="M9.49996 3.16669C6.00396 3.16669 3.16663 6.00402 3.16663 9.50002C3.16663 12.996 6.00396 15.8334 9.49996 15.8334C12.996 15.8334 15.8333 12.996 15.8333 9.50002C15.8333 6.00402 12.996 3.16669 9.49996 3.16669ZM10.1333 13.9333H8.86667V12.6667H10.1333V13.9333ZM11.4443 9.02498L10.8743 9.60765C10.5577 9.93065 10.3297 10.222 10.2157 10.678C10.165 10.8806 10.1333 11.1086 10.1333 11.4H8.86666V11.0833C8.86666 10.792 8.91733 10.5133 9.006 10.2536C9.13266 9.88631 9.34166 9.55698 9.60766 9.29098L10.393 8.49298C10.6843 8.21431 10.8237 7.79631 10.7413 7.35298C10.659 6.89698 10.3043 6.51065 9.861 6.38398C9.158 6.18765 8.50566 6.58665 8.29666 7.18831C8.22066 7.42265 8.02433 7.59998 7.77733 7.59998H7.58733C7.22 7.59998 6.96666 7.24531 7.068 6.89065C7.34033 5.95965 8.132 5.25031 9.11366 5.09831C10.0763 4.94631 10.9947 5.44665 11.5647 6.23831C12.312 7.27065 12.0903 8.37898 11.4443 9.02498Z" fill="white"/>
+                                    </svg>
+                                    <p class="fw-bold text-center m-0 ps-2">Suporte</p>
+                                </div>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M6.39998 12.474H15.336L11.432 16.378C11.12 16.69 11.12 17.202 11.432 17.514C11.744 17.826 12.248 17.826 12.56 17.514L17.832 12.242C18.144 11.93 18.144 11.426 17.832 11.114L12.568 5.83396C12.4185 5.68416 12.2156 5.59998 12.004 5.59998C11.7924 5.59998 11.5894 5.68416 11.44 5.83396C11.128 6.14596 11.128 6.64996 11.44 6.96196L15.336 10.874H6.39998C5.95998 10.874 5.59998 11.234 5.59998 11.674C5.59998 12.114 5.95998 12.474 6.39998 12.474Z" fill="white"/>
+                                </svg>
+                            </div>
+                           
+                        </div>
+                        <div class="row"></div>
+                    </div>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - QAccess - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="col-10">
+                <main role="main" class="pb-3">
+                     @RenderBody()
+                </main>       
+            </div>
         </div>
-    </footer>
+    </div>
+    
+    
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

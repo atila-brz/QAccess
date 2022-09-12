@@ -4,7 +4,7 @@ html{
 }
 
 body{
-   background-color: #eff1f5 !important;
+  background-color: #eff1f5 !important;
 }
 /* ------------------------------ */
 
@@ -30,6 +30,22 @@ body{
   max-width: 200px;
   min-width: 120px;
 }
+
+/* CSS card */
+
+.font-body-card{
+  font-size: 10px;
+}
+
+.img-card{
+  height: 15vh;
+}
+
+.col-card{
+  width: 21%;
+}
+
+/* CSS card end */
 
 .profile{
   max-width: 200px;

@@ -37,12 +37,19 @@ body{
   font-size: 10px;
 }
 
-.img-card{
-  height: 15vh;
+.card-footer .btn-primary{
+  background-color:#7749F8;
 }
 
-.col-card{
-  width: 21%;
+::-webkit-scrollbar-track {
+  background-color: #F4F4F4;
+}
+::-webkit-scrollbar {
+  width: 6px;
+  background: #F4F4F4;
+}
+::-webkit-scrollbar-thumb {
+  background: #dad7d7;
 }
 
 /* CSS card end */
@@ -111,6 +118,7 @@ main.container-lg{
   line-height: 0;
   content: url("../images/triangle.svg");
   transition: transform .35s ease;
+  transform: rotate(90deg);
   transform-origin: .5em 50%;
   order: 2;  
 }

@@ -13,7 +13,7 @@ namespace QAccess.Models
         public DbSet<Unit> units { get; set; }
         public DbSet<Correspondence> correspondences { get; set; }
         public DbSet<Ocurrence> ocurrences { get; set; }
-        public DbSet<UserEmployee> userEmployees { get; set; }
-        public DbSet<UserOwner> userOwners { get; set; }
+        public DbSet<Employee> userEmployees { get; set; }
+        public DbSet<Condominium> userOwners { get; set; }
     }
 }

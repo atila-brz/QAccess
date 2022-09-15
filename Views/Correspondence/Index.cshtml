@@ -1,0 +1,65 @@
+@model IEnumerable<QAccess.Models.Correspondence>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TrackingCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateDelivery)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateWithdrawal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResponsibleWithdrawal)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrackingCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateDelivery)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateWithdrawal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResponsibleWithdrawal)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CorrespondenceId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CorrespondenceId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CorrespondenceId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

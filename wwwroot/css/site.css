@@ -4,7 +4,7 @@ html{
 }
 
 body{
-   background-color: #eff1f5 !important;
+  background-color: #eff1f5 !important;
 }
 /* ------------------------------ */
 
@@ -30,6 +30,29 @@ body{
   max-width: 200px;
   min-width: 120px;
 }
+
+/* CSS card */
+
+.font-body-card{
+  font-size: 10px;
+}
+
+.card-footer .btn-primary{
+  background-color:#7749F8;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #F4F4F4;
+}
+::-webkit-scrollbar {
+  width: 6px;
+  background: #F4F4F4;
+}
+::-webkit-scrollbar-thumb {
+  background: #dad7d7;
+}
+
+/* CSS card end */
 
 .profile{
   max-width: 200px;
@@ -95,6 +118,7 @@ main.container-lg{
   line-height: 0;
   content: url("../images/triangle.svg");
   transition: transform .35s ease;
+  transform: rotate(90deg);
   transform-origin: .5em 50%;
   order: 2;  
 }

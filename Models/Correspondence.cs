@@ -14,10 +14,10 @@ namespace QAccess.Models
         public string Sender { get; set; }
         public Unit Unit { get; set; }
         public DateTime DateDelivery { get; set; }
-        public DateTime DateWithdrawal { get; set; }
-        public Employee EmployeeWithdrawn { get; set; }
+        public DateTime? DateWithdrawal { get; set; }
+        public Employee? EmployeeWithdrawn { get; set; }
         public Employee EmployeeDelivery { get; set; }
-        public string ResponsibleWithdrawal{ get; set; }
+        public string? ResponsibleWithdrawal{ get; set; }
 
     }
 }

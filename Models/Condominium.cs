@@ -14,7 +14,7 @@ namespace QAccess.Models
         public string MaritalStatus { get; set; }
         public string ContactNumber { get; set; }
         public string Cpf { get; set; }
-        public ICollection<Unit> Units { get; set; }
+        public virtual ICollection<Unit>? Units { get; set; }
 
         private bool ValidateCpf(string cpf)
         {

@@ -9,7 +9,6 @@ namespace QAccess.Models
 {
     public class Condominium
     {
-        [Required]
         [Key]
         public string CondominiumId { get; set; }
 

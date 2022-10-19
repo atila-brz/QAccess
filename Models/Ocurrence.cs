@@ -10,7 +10,7 @@ namespace QAccess.Models
     public class Ocurrence
     {
         [Key]
-        public string OcurrenceId { get; set; }
+        public string OcurrenceId { get;}
         
         [Required]
         [StringLength(100)]
@@ -45,6 +45,9 @@ namespace QAccess.Models
         [StringLength(100)]
         [Display(Name = "Titulo")]
         public string Title { get; set; }
+
+        [Display(Name = "Fotos")]
+        public ICollection<string>? PhotosBase64 { get; set; }
 
     }
 }

@@ -10,10 +10,10 @@ namespace QAccess.Models
     {
         public QAccessContext(DbContextOptions<QAccessContext> options) : base(options){}
 
-        public DbSet<Unit> units { get; set; }
-        public DbSet<Correspondence> correspondences { get; set; }
-        public DbSet<Ocurrence> ocurrences { get; set; }
-        public DbSet<Employee> userEmployees { get; set; }
-        public DbSet<Condominium> userOwners { get; set; }
+        public DbSet<Unit> Units { get; set; }
+        public DbSet<Correspondence> Correspondences { get; set; }
+        public DbSet<Ocurrence> Ocurrences { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Condominium> Codominiums { get; set; }
     }
 }

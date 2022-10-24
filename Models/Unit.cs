@@ -21,7 +21,7 @@ namespace QAccess.Models
         
         [Required]
         [StringLength(6)]
-        [Display(Name = "Número")]
+        [Display(Name = "NÃºmero")]
         public string Number { get; set; }
 
         [StringLength(20)]
@@ -43,8 +43,5 @@ namespace QAccess.Models
         [StringLength(100)]
         [Display(Name = "Complemento")]
         public string? Complement { get; set; }
-
-        [Display(Name = "Condôminos")]
-        public virtual ICollection<Condominium>? Condominiuns { get; set; }
     }
 }

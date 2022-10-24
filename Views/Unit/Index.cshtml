@@ -1,0 +1,187 @@
+@model IEnumerable<QAccess.Models.Unit>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div>
+    <div class="row">
+        <h3>Unidades</h3>
+    </div>
+    <div class="row ">
+        <div class="buttons-actions d-flex flex-row-reverse">
+            <button data-bs-toggle="modal" data-bs-target="#exampleModal" style="border: none;" class="btn btn-primary ms-2" role="button">Adicionar</button>
+            <a asp-action="Edit" style="background-color: #CC9A06; border: none;" class="btn btn-primary ms-2" role="button">Editar</a>
+            <a asp-action="Delete" style="background-color: #C81313; border: none;" class="btn btn-primary ms-2" role="button">Excluir</a>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            @section scripts{
+                <script>
+                    $(function () {
+                        $(".details").click(function () {
+                            var id = $(this).attr("data-id");
+                            alert(id);
+                            $("#modal").load("Details?id=" + id, function () {
+                                $("#modal").modal();
+                            })
+                        });
+
+                        $(".edit").click(function () {
+                            var id = $(this).attr("data-id");
+                            alert(id);
+                            $("#modal").load("Edit?id=" + id, function () {
+                                $("#modal").modal();
+                            })
+                        });
+
+                        $(".delete").click(function () {
+                            var id = $(this).attr("data-id");
+                            alert(id);
+                            $("#modal").load("Delete?id=" + id, function () {
+                                $("#modal").modal();
+                            })
+                        });
+
+                    $(".create").click(function () {
+                            $("#modal").load("Create", function () {
+                                $("#modal").modal();
+                            })
+                        });
+
+                    })
+                </script>
+            }
+        </div>
+
+
+    </div>
+    <div class="row">
+        <div class="d-flex row my-3 flex-nowrap flex-lg-row flex-column justify-content-between ">
+            <div class="col-lg-6 col-sm-12 ">
+                <div class="input-group ">
+                    <input class="form-control" type="search" placeholder="Pesquise...">
+                    <span class="input-group-text" id="addon-wrapping">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                        </svg>
+                    </span>
+                </div>
+            </div>
+            <div class="d-flex flex-shrink-1">
+                <div class="col-md-3 me-4">
+                    <select id="inputState" placeholder="Torre" class="form-select">
+                        <option selected disabled hidden>Torre</option>
+
+                        @foreach (var item in Model)
+                        {
+                            <option>@Html.DisplayFor(modelItem => item.Tower)</option>
+                        }
+                        
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select id="inputState" placeholder="Mês" class="form-select">
+                        <option selected disabled hidden>Bloco</option>
+                        @foreach (var item in Model)
+                        {
+                            <option>@Html.DisplayFor(modelItem => item.Block)</option>
+                        }
+                    </select>
+                </div>
+            </div> 
+        </div>
+    </div>
+
+<div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                
+                    <th scope="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        </div>
+                    </th>
+                    
+                    <th>
+                        @Html.DisplayNameFor(model => model.Tower)
+                    </th>
+
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.Block)
+                    </th>
+
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.Number)
+                    </th>
+
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.Country)
+                    </th>
+
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.State)
+                    </th>
+
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.City)
+                    </th>
+
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.Road)
+                    </th>
+
+                    <th scope="col">
+                        @Html.DisplayNameFor(model => model.Complement)
+                    </th>
+                </tr>
+
+            </thead>
+             <tbody>
+                @foreach (var item in Model) {
+                    <tr>
+                        <td scope="col">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            </div>
+                        </td> 
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Tower)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Block)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Number)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Country)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.State)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.City)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Road)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Complement)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -10,7 +10,7 @@ namespace QAccess.Models
     public class Employee
     {
         [Key]
-        public string EmployeeId { get; set; }
+        public string EmployeeId { get; }
 
         [Required]
         [StringLength(100)]

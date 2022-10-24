@@ -10,12 +10,22 @@ namespace QAccess.Models
     public class Condominium
     {
         [Key]
-        public string CondominiumId { get; set; }
+        public string CondominiumId { get;}
 
         [Required]
         [StringLength(100)]
         [Display(Name = "Nome")]
         public string Name { get; set; }
+
+        [Required]
+        [StringLength(30)]
+        [Display(Name = "Login")]
+        public string UserName { get; set; }
+
+        [Required]
+        [StringLength(20)]
+        [Display(Name = "Senha")]
+        public string Password { get; set; }
 
         [Required]
         [Display(Name = "Gênero")]

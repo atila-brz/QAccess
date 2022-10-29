@@ -46,6 +46,9 @@ namespace QAccess.Models
         [Required]
         [StringLength(11)]
         public string Cpf { get; set; }
+
+        // TODO: add reference of which units should be in this list of the Condominium
+        // [ForeignKey("CondominiumId")]
         public virtual ICollection<Unit>? Units { get; set; }
 
         private bool ValidateCpf(string cpf)

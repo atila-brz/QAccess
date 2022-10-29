@@ -21,20 +21,20 @@ namespace QAccess.Controllers
         // GET: Unit
         public async Task<IActionResult> Index()
         {
-              return _context.units != null ? 
-                          View(await _context.units.ToListAsync()) :
+              return _context.Units != null ? 
+                          View(await _context.Units.ToListAsync()) :
                           Problem("Entity set 'QAccessContext.units'  is null.");
         }
 
         // GET: Unit/Details/5
         public async Task<IActionResult> Details(string id)
         {
-            if (id == null || _context.units == null)
+            if (id == null || _context.Units == null)
             {
                 return NotFound();
             }
 
-            var unit = await _context.units
+            var unit = await _context.Units
                 .FirstOrDefaultAsync(m => m.UnitId == id);
             if (unit == null)
             {
@@ -69,12 +69,12 @@ namespace QAccess.Controllers
         // GET: Unit/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
-            if (id == null || _context.units == null)
+            if (id == null || _context.Units == null)
             {
                 return NotFound();
             }
 
-            var unit = await _context.units.FindAsync(id);
+            var unit = await _context.Units.FindAsync(id);
             if (unit == null)
             {
                 return NotFound();
@@ -120,12 +120,12 @@ namespace QAccess.Controllers
         // GET: Unit/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
-            if (id == null || _context.units == null)
+            if (id == null || _context.Units == null)
             {
                 return NotFound();
             }
 
-            var unit = await _context.units
+            var unit = await _context.Units
                 .FirstOrDefaultAsync(m => m.UnitId == id);
             if (unit == null)
             {
@@ -140,14 +140,14 @@ namespace QAccess.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            if (_context.units == null)
+            if (_context.Units == null)
             {
                 return Problem("Entity set 'QAccessContext.units'  is null.");
             }
-            var unit = await _context.units.FindAsync(id);
+            var unit = await _context.Units.FindAsync(id);
             if (unit != null)
             {
-                _context.units.Remove(unit);
+                _context.Units.Remove(unit);
             }
             
             await _context.SaveChangesAsync();
@@ -156,7 +156,7 @@ namespace QAccess.Controllers
 
         private bool UnitExists(string id)
         {
-          return (_context.units?.Any(e => e.UnitId == id)).GetValueOrDefault();
+          return (_context.Units?.Any(e => e.UnitId == id)).GetValueOrDefault();
         }
     }
 }

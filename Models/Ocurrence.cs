@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace QAccess.Models
 {
@@ -22,9 +23,16 @@ namespace QAccess.Models
         public string Status { get; set; }
         
         [Required]
+        [ForeignKey("Condominium")]
+        public string CondominiumId { get; set; }
+        
+        [Required]
         [Display(Name = "Responsável")]
         public virtual Condominium Responsable { get; set; }
         
+        [ForeignKey("Employee")]
+        public string? EmployeeId { get; set; }
+
         [Display(Name = "Funcionario Responsável")]
         public virtual Employee? ResponsibleOfficial { get; set; }
 
@@ -47,7 +55,7 @@ namespace QAccess.Models
         public string Title { get; set; }
 
         [Display(Name = "Fotos")]
-        public ICollection<string>? PhotosBase64 { get; set; }
+        public string PhotoBase64 { get; set; }
 
     }
 }

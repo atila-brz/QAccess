@@ -10,7 +10,7 @@ namespace QAccess.Models
     public class Condominium
     {
         [Key]
-        public string CondominiumId { get;}
+        public int CondominiumId { get; set; }
 
         [Required]
         [StringLength(100)]
@@ -18,12 +18,15 @@ namespace QAccess.Models
         public string Name { get; set; }
 
         [Required]
-        [StringLength(30)]
-        [Display(Name = "Login")]
-        public string UserName { get; set; }
+        [EmailAddress]
+        [StringLength(50)]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
 
         [Required]
-        [StringLength(20)]
+        [DataType(DataType.Password)]
+        [RegularExpression("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s).{8,16}$", ErrorMessage = "A senha deve conter de 8 a 16 caracteres, pelo menos um número, uma letra maiúscula e uma letra minúscula.")]
+        [StringLength(16, MinimumLength = 8)]
         [Display(Name = "Senha")]
         public string Password { get; set; }
 
@@ -35,6 +38,7 @@ namespace QAccess.Models
         [Display(Name = "Data de Nascimento")]
         public DateTime BirthDate { get; set; }
 
+        [Required]
         [Display(Name = "Estado Civil")]
         public string MaritalStatus { get; set; }
 
@@ -47,8 +51,6 @@ namespace QAccess.Models
         [StringLength(11)]
         public string Cpf { get; set; }
 
-        // TODO: add reference of which units should be in this list of the Condominium
-        // [ForeignKey("CondominiumId")]
         public virtual ICollection<Unit>? Units { get; set; }
 
         private bool ValidateCpf(string cpf)

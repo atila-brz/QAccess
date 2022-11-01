@@ -10,7 +10,7 @@ namespace QAccess.Models
     public class Correspondence
     {
         [Key]
-        public string CorrespondenceId { get; }
+        public int CorrespondenceId { get; set; }
 
         [Required]
         [StringLength(30)]
@@ -27,7 +27,7 @@ namespace QAccess.Models
         public string Sender { get; set; }
         
         [ForeignKey("Unit")]
-        public string UnitId { get; set; }
+        public int UnitId { get; set; }
         
         [Required]
         [Display(Name = "Unidade")]
@@ -40,14 +40,14 @@ namespace QAccess.Models
         [Display(Name = "Data de retirada")]
         public DateTime? DateWithdrawal { get; }
 
-        public string EmployeeDeliveryId { get; set; }
+        public int EmployeeDeliveryId { get; set; }
         
         [ForeignKey("EmployeeDeliveryId")]
         [Required]
         [Display(Name = "Funcionario que recebeu")]
         public Employee EmployeeDelivery { get; set; }
 
-        public string EmployeeWithdrawalId { get; set; }
+        public int EmployeeWithdrawalId { get; set; }
 
         [ForeignKey("EmployeeWithdrawalId")]
         [Display(Name = "Funcionario que entregou")]

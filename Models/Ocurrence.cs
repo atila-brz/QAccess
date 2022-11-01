@@ -11,8 +11,8 @@ namespace QAccess.Models
     public class Ocurrence
     {
         [Key]
-        public string OcurrenceId { get;}
-        
+        public int OcurrenceId { get; set; }
+
         [Required]
         [StringLength(100)]
         [Display(Name = "Local")]
@@ -21,17 +21,17 @@ namespace QAccess.Models
         [Required]
         [StringLength(20)]
         public string Status { get; set; }
-        
+
         [Required]
-        [ForeignKey("Condominium")]
-        public string CondominiumId { get; set; }
-        
+        [ForeignKey("Responsable")]
+        public int CondominiumId { get; set; }
+
         [Required]
         [Display(Name = "Responsável")]
-        public virtual Condominium Responsable { get; set; }
-        
-        [ForeignKey("Employee")]
-        public string? EmployeeId { get; set; }
+        public virtual Condominium? Responsable { get; set; }
+
+        [ForeignKey("ResponsibleOfficial")]
+        public int? EmployeeId { get; set; }
 
         [Display(Name = "Funcionario Responsável")]
         public virtual Employee? ResponsibleOfficial { get; set; }
@@ -56,6 +56,7 @@ namespace QAccess.Models
 
         [Display(Name = "Fotos")]
         public string PhotoBase64 { get; set; }
+
 
     }
 }

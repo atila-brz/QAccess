@@ -7,7 +7,7 @@ namespace QAccess.Models
     public class Unit
     {
         [Key]
-        public string UnitId { get; }
+        public int UnitId { get; set; }
 
         [Required]
         [StringLength(30)]

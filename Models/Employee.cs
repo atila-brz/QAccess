@@ -10,7 +10,7 @@ namespace QAccess.Models
     public class Employee
     {
         [Key]
-        public string EmployeeId { get; }
+        public int EmployeeId { get; set; }
 
         [Required]
         [StringLength(100)]
@@ -18,8 +18,21 @@ namespace QAccess.Models
         public string Name { get; set; }
 
         [Required]
+        [EmailAddress]
+        [StringLength(100)]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+        
+        [Required]
+        [DataType(DataType.Password)]
+        [RegularExpression("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s).{8,16}$", ErrorMessage = "A senha deve conter de 4 a 8 caracteres, pelo menos um número, uma letra maiúscula e uma letra minúscula.")]
+        [StringLength(16, MinimumLength = 8)]
+        [Display(Name = "Senha")]
+        public string Password { get; set; }
+
+        [Required]
         [StringLength(20)]
-        [Display(Name = "Genero")]
+        [Display(Name = "Gênero")]
         public string Gender { get; set; }
 
         [Required]

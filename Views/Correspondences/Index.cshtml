@@ -99,7 +99,7 @@ ViewData["Title"] = "Correspondêcia";
                                 <td>@Html.DisplayFor(modelItem => item.TrackingCode)</td>
                                 <td>@Html.DisplayFor(modelItem => item.DateDelivery)</td>
                                 <td>@Html.DisplayFor(modelItem => item.EmployeeDelivery.Name)</td>
-                                if(item.employeeWithdrawn != null)
+                                @if(item.EmployeeWithdrawalId != null)
                                 {
                                     <td>@Html.DisplayFor(modelItem => item.EmployeeWithdrawn.Name)</td>
                                 }
@@ -108,7 +108,7 @@ ViewData["Title"] = "Correspondêcia";
                                     <td>Não Entregue</td>
                                 }
                                 <td>@Html.DisplayFor(modelItem => item.DateWithdrawal)</td>
-                                if(item.ResponsibleWithdrawal != null)
+                                @if(item.ResponsibleWithdrawal != null)
                                 {
                                     <td>@Html.DisplayFor(modelItem => item.ResponsibleWithdrawal)</td>
                                 }

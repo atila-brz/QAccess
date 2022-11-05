@@ -214,3 +214,26 @@ main.container-lg{
   }
 }
 /* ------------------------------ */
+
+.imagem_table{
+  width: 100px;
+  height: 100px;
+}
+
+.ocurrence_add_button{
+  width: 8rem;
+  height: 2.5rem;
+  font-size: 1.2rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  border-radius: .5rem;
+}
+
+.ocurrence_add_button span{
+  margin-left: -0.7rem;
+}
+.ocurrence_add_button i{
+  font-size: 3rem;
+  
+}
+

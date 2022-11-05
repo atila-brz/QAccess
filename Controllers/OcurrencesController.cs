@@ -48,8 +48,7 @@ namespace QAccess.Controllers
         // GET: Ocurrences/Create
         public IActionResult Create()
         {
-            ViewData["CondominiumId"] = new SelectList(_context.Codominiums, "CondominiumId", "ContactNumber");
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "ContactNumber");
+            ViewData["CondominiumId"] = new SelectList(_context.Codominiums, "CondominiumId", "Name");
             return View();
         }
 
@@ -58,20 +57,18 @@ namespace QAccess.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OcurrenceId,Locale,Status,CondominiumId,EmployeeId,Date,Description,Answer,Title,PhotoBase64")] Ocurrence ocurrence)
+        public async Task<IActionResult> Create([Bind("OcurrenceId,Locale,Status,CondominiumId,Description,Answer,Title,PhotoBase64")] Ocurrence ocurrence)
         {
-            Condominium condominium = _context.Codominiums.Find(ocurrence.CondominiumId);
-            ocurrence.Responsable = condominium;
-            Employee employee = _context.Employees.Find(ocurrence.EmployeeId);
-            ocurrence.ResponsibleOfficial = employee;
+            DateTime date = DateTime.Now;
+            ocurrence.CreationDate = date;
+            ocurrence.Status = Ocurrence.StatusOcurrence.Open;
             if (ModelState.IsValid)
             {
                 _context.Add(ocurrence);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CondominiumId"] = new SelectList(_context.Codominiums, "CondominiumId", "ContactNumber", ocurrence.CondominiumId);
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "ContactNumber", ocurrence.EmployeeId);
+            ViewData["CondominiumId"] = new SelectList(_context.Codominiums, "CondominiumId", "Name", ocurrence.CondominiumId);
             return View(ocurrence);
         }
 
@@ -164,14 +161,14 @@ namespace QAccess.Controllers
             {
                 _context.Ocurrences.Remove(ocurrence);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool OcurrenceExists(int id)
         {
-          return (_context.Ocurrences?.Any(e => e.OcurrenceId == id)).GetValueOrDefault();
+            return (_context.Ocurrences?.Any(e => e.OcurrenceId == id)).GetValueOrDefault();
         }
     }
 }

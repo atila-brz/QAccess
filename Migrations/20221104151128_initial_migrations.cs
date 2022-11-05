@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace QAccess.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class initial_migrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -169,11 +169,10 @@ namespace QAccess.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Locale = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Status = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     CondominiumId = table.Column<int>(type: "int", nullable: false),
                     EmployeeId = table.Column<int>(type: "int", nullable: true),
-                    Date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Description = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Answer = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: true)
@@ -215,7 +214,7 @@ namespace QAccess.Migrations
                     UnitId = table.Column<int>(type: "int", nullable: false),
                     DateDelivery = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     EmployeeDeliveryId = table.Column<int>(type: "int", nullable: false),
-                    EmployeeWithdrawalId = table.Column<int>(type: "int", nullable: false)
+                    EmployeeWithdrawalId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {

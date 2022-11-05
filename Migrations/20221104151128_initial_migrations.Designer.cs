@@ -11,8 +11,8 @@ using QAccess.Models;
 namespace QAccess.Migrations
 {
     [DbContext(typeof(QAccessContext))]
-    [Migration("20221101152318_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20221104151128_initial_migrations")]
+    partial class initial_migrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -108,13 +108,14 @@ namespace QAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DateDelivery")
+                    b.Property<DateTime?>("DateDelivery")
+                        .IsRequired()
                         .HasColumnType("datetime(6)");
 
                     b.Property<int>("EmployeeDeliveryId")
                         .HasColumnType("int");
 
-                    b.Property<int>("EmployeeWithdrawalId")
+                    b.Property<int?>("EmployeeWithdrawalId")
                         .HasColumnType("int");
 
                     b.Property<string>("Sender")
@@ -216,7 +217,7 @@ namespace QAccess.Migrations
                     b.Property<int>("CondominiumId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Description")
@@ -236,10 +237,8 @@ namespace QAccess.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("varchar(20)");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()

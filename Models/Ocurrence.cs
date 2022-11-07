@@ -19,15 +19,13 @@ namespace QAccess.Models
         public string Locale { get; set; }
 
         [Required]
-        [StringLength(20)]
-        public string Status { get; set; }
+        public StatusOcurrence Status { get; set; }
 
         [Required]
         [ForeignKey("Responsable")]
         public int CondominiumId { get; set; }
 
-        [Required]
-        [Display(Name = "Responsável")]
+        [Display(Name = "Autor")]
         public virtual Condominium? Responsable { get; set; }
 
         [ForeignKey("ResponsibleOfficial")]
@@ -38,7 +36,7 @@ namespace QAccess.Models
 
         [Required]
         [Display(Name = "Data de criação")]
-        public DateTime Date { get; set; }
+        public DateTime CreationDate { get; set; }
 
         [Required]
         [StringLength(255)]
@@ -57,6 +55,14 @@ namespace QAccess.Models
         [Display(Name = "Fotos")]
         public string PhotoBase64 { get; set; }
 
-
+        public enum StatusOcurrence
+        {
+            [Display(Name = "REGISTRADA")]
+            Open,
+            [Display(Name = "ANALISE")]
+            InProgress,
+            [Display(Name = "FINALIZADA")]
+            Closed
+        }
     }
 }

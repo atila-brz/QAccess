@@ -21,7 +21,9 @@ namespace QAccess.Controllers
         // GET: Ocurrences
         public async Task<IActionResult> Index()
         {
-            var qAccessContext = _context.Ocurrences.Include(o => o.Responsable).Include(o => o.ResponsibleOfficial);
+            var qAccessContext = _context.Ocurrences
+            .Include(o => o.Responsable)
+            .Include(o => o.ResponsibleOfficial);
             return View(await qAccessContext.ToListAsync());
         }
 
@@ -57,7 +59,7 @@ namespace QAccess.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OcurrenceId,Locale,Status,CondominiumId,Description,Answer,Title,PhotoBase64")] Ocurrence ocurrence)
+        public async Task<IActionResult> Create([Bind("OcurrenceId,Locale,CondominiumId,Description,Title,PhotoBase64")] Ocurrence ocurrence)
         {
             DateTime date = DateTime.Now;
             ocurrence.CreationDate = date;
@@ -85,8 +87,8 @@ namespace QAccess.Controllers
             {
                 return NotFound();
             }
-            ViewData["CondominiumId"] = new SelectList(_context.Codominiums, "CondominiumId", "ContactNumber", ocurrence.CondominiumId);
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "ContactNumber", ocurrence.EmployeeId);
+            Condominium condominium = _context.Codominiums.Find(ocurrence.CondominiumId);
+            ViewData["Responsable"] = condominium.Name;
             return View(ocurrence);
         }
 
@@ -95,7 +97,7 @@ namespace QAccess.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OcurrenceId,Locale,Status,CondominiumId,EmployeeId,Date,Description,Answer,Title,PhotoBase64")] Ocurrence ocurrence)
+        public async Task<IActionResult> Edit(int id, [Bind("OcurrenceId,CreationDate,Locale,Status,CondominiumId,Description,Title,PhotoBase64")] Ocurrence ocurrence)
         {
             if (id != ocurrence.OcurrenceId)
             {
@@ -122,8 +124,6 @@ namespace QAccess.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CondominiumId"] = new SelectList(_context.Codominiums, "CondominiumId", "ContactNumber", ocurrence.CondominiumId);
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "ContactNumber", ocurrence.EmployeeId);
             return View(ocurrence);
         }
 

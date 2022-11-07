@@ -1,54 +1,96 @@
 @model QAccess.Models.Ocurrence
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Criar Ocorrência";
 }
 
-<h1>Create</h1>
+<div class="row mt-3 mb-3 flex-nowrap w-100 ms-1 d-flex ">
+    <H3 class="d-flex justify-content-between title_ocurrence">
+        Criar Ocorrêcia
+        <a asp-action="Index"><i class="bi bi-arrow-down-left-circle-fill"></i></a></H3>
+</div>
 
-<h4>Ocurrence</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="body_ocurrence_create p-3">
+        <span class="boder_title_ocurrence">PREENCHA A OCURRÊCIA</span>
+        <div class="d-flex justify-content-between initial_margin_negative ">
+            <div class="col-lg-5 me-3 col-sm-12">
+                <label asp-for="CondominiumId" class="control-label"></label>
+                <select asp-for="CondominiumId" class ="form-control" asp-items="ViewBag.CondominiumId"></select>
+            </div>
+            <div class="col-lg-5 me-3 col-sm-12">
                 <label asp-for="Locale" class="control-label"></label>
                 <input asp-for="Locale" class="form-control" />
                 <span asp-validation-for="Locale" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="CondominiumId" class="control-label"></label>
-                <select asp-for="CondominiumId" class ="form-control" asp-items="ViewBag.CondominiumId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Answer" class="control-label"></label>
-                <input asp-for="Answer" class="form-control" />
-                <span asp-validation-for="Answer" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+        </div>
+        <div class="mt-3 d-flex justify-content-between">
+            <div class="col-sm-12">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="file" id="photoPath">
-                <input asp-for="PhotoBase64" id="photo" class="form-control" />
-                <span asp-validation-for="PhotoBase64" class="text-danger"></span>
+        </div>
+        <div class="form-group mt-2">
+            <label asp-for="Description" class="control-label"></label>
+            <textarea asp-for="Description" rows="3" class="form-control"></textarea>
+        </div>
+        <div class="form-group my-2">
+            <label asp-for="PhotoBase64"  class="control-label label_photos"></label>
+            <input type="file" class="form-control" id="photo_path" multiple>
+            <input asp-for="PhotoBase64" id="photo" type="hidden" />
+            <span asp-validation-for="PhotoBase64" class="text-danger"></span>
+        </div>
+        <div>
+            <div class="gallery" id="gallery">
+                
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="form-group ocu">
+                    <input type="submit" value="Criar" class="btn btn-primary" />
             </div>
-        </form>
+        </div>
+    </div>
+</form>
+
+<div class="modal fade" id="image_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Imagem</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex justify-content-center">
+                <img src="" class="img-fluid" alt="">
+            </div>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#image_modal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var recipient = button.data('bs-whatever');
+                var modal = $(this);
+                modal.find('.modal-body img').attr('src', recipient);
+            });
+            $('#photo_path').on('change', function () {
+                for (var i = 0; i < this.files.length; i++) {
+                    let file = this.files[i];
+                    let reader = new FileReader();
+                    reader.onloadend = function () {
+                    $('#photo').val(reader.result);
+                    $('#gallery').append('<img src="' + reader.result + '" class="img-thumbnail image_detail_ocurrence" data-bs-whatever="' + reader.result + '" data-bs-target="#image_modal" data-bs-toggle="modal" alt="" />');
+                    }
+                    if (file) {
+                    reader.readAsDataURL(file);
+                    }
+                }
+            });
+        });
+    </script>
+
+
+}
 

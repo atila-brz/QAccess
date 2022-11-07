@@ -25,7 +25,7 @@ namespace QAccess.Models
         [ForeignKey("Responsable")]
         public int CondominiumId { get; set; }
 
-        [Display(Name = "Responsável")]
+        [Display(Name = "Autor")]
         public virtual Condominium? Responsable { get; set; }
 
         [ForeignKey("ResponsibleOfficial")]
@@ -57,11 +57,11 @@ namespace QAccess.Models
 
         public enum StatusOcurrence
         {
-            [Display(Name = "Aberta")]
+            [Display(Name = "REGISTRADA")]
             Open,
-            [Display(Name = "Em andamento")]
+            [Display(Name = "ANALISE")]
             InProgress,
-            [Display(Name = "Fechada")]
+            [Display(Name = "FINALIZADA")]
             Closed
         }
     }

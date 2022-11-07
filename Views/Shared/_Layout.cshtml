@@ -6,7 +6,11 @@
     <title>@ViewData["Title"] - QAccess</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-</head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,500;0,600;0,700;0,800;1,200;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet"></head>
 <body>
     <div class="container-fluid " style="height: 100vh;">
         <div class="container-screen row">
@@ -37,7 +41,7 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row menu">
                             <ul class="list-unstyled list-group ps-0 nav nav-pills mb-auto">
                                 <li class="mb-1" style="width: 100%;">
                                     <button style="width: 100%;" class="justify-content-between btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
@@ -67,7 +71,8 @@
                                     </button>
                                     <div class="collapse" id="dashboard-collapse">
                                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Registradas</a></li>
+                                        <li><a href="/Correspondences/Index" class="link-dark d-inline-flex text-decoration-none rounded">Visualizar</a></li>
+                                        <li><a href="/Correspondences/Create" class="link-dark d-inline-flex text-decoration-none rounded">Registrar</a></li>
                                     </ul>
                                     </div>
                                 </li>
@@ -144,7 +149,7 @@
         </div>
     </div>
     
-    
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

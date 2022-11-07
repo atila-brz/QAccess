@@ -34,7 +34,7 @@ namespace QAccess.Models
         public Unit Unit { get; set; }
 
         [Required]
-        [Display(Name = "Data de recebimento")]
+        [Display(Name = "Data Recebida")]
         public DateTime DateDelivery { get; set; }
 
         [Display(Name = "Data de retirada")]

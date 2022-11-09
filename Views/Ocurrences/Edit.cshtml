@@ -76,18 +76,11 @@
         </div>
         <div class="form-group my-2">
             <label asp-for="PhotoBase64"  class="control-label label_photos"></label>
-            <input type="file" class="form-control" id="photoPath" multiple>
+            <input type="file" class="form-control" id="photo_path" multiple>
         </div>
         <input asp-for="PhotoBase64" id="photo" type="hidden" />
-        <div>
-            <img 
-                src="@Model.PhotoBase64"  
-                class="img-thumbnail image_detail_ocurrence"
-                data-bs-whatever="@Model.PhotoBase64" 
-                data-bs-target="#image_modal" 
-                data-bs-toggle="modal" 
-                alt=""
-            />
+        <div id="gallery">
+            
         </div>
         <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -112,11 +105,29 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
+            var phto_old = $('#photo').val();
+            $('#gallery').append('<img src="' + phto_old + '" class="img-thumbnail image_detail_ocurrence" data-bs-whatever="' + phto_old + '" data-bs-target="#image_modal" data-bs-toggle="modal" alt="" />');
             $('#image_modal').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget);
                 var recipient = button.data('bs-whatever');
                 var modal = $(this);
                 modal.find('.modal-body img').attr('src', recipient);
+            });
+            $('#photo_path').on('change', function () {
+                $('#gallery').empty();
+                console.log(this.files);
+                for (var i = 0; i < this.files.length; i++) {
+                    let file = this.files[i];
+                    let reader = new FileReader();
+                    reader.onloadend = function () {
+                    $('#photo').val('')
+                    $('#photo').val(reader.result);
+                    $('#gallery').append('<img src="' + reader.result + '" class="img-thumbnail image_detail_ocurrence" data-bs-whatever="' + reader.result + '" data-bs-target="#image_modal" data-bs-toggle="modal" alt="" />');
+                    }
+                    if (file) {
+                    reader.readAsDataURL(file);
+                    }
+                }
             });
         });
     </script>

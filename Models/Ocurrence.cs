@@ -64,5 +64,29 @@ namespace QAccess.Models
             [Display(Name = "FINALIZADA")]
             Closed
         }
+        
+        public  bool selectedForEmployee(int employeeId)
+        {
+
+            this.Status = StatusOcurrence.InProgress;
+            this.EmployeeId = employeeId;
+            return true;
+
+        }
+
+        public bool closeOcurrence()
+        {
+            if(this.Answer != null)
+            {
+                this.Status = StatusOcurrence.Closed;
+                return true;
+            }
+            return false;
+        
+        }
+        
+
+
     }
+
 }

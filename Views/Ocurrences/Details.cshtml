@@ -24,14 +24,24 @@
         }
         
     </div>
-    <div>@if(@Model.Status == Ocurrence.StatusOcurrence.Open){
-        <a asp-action="Delete" asp-route-id="@Model?.OcurrenceId" class="btn ocurrence_delete_button">
+    <div class="d-flex">@if(@Model.Status == Ocurrence.StatusOcurrence.Open){
+        <form class="d-flex me-2" asp-action="Select">
+            <input type="hidden" name="id" value="@Model?.OcurrenceId"/>
+            <button type="submit" class="btn ocurrence_select_button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                </svg>
+                Selecionar
+            </button>
+        </form>
+        <button  asp-route-id="@Model?.OcurrenceId" data-bs-target="#delete_modal" data-bs-toggle="modal" class="btn ocurrence_delete_button">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                 <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
             </svg>
             Excluir
-        </a>
+        </button>
         <a asp-action="Edit" asp-route-id="@Model?.OcurrenceId" class="btn ocurrence_edit_button">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                 <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
@@ -40,29 +50,40 @@
             Editar
         </a>
         }else if(@Model.Status == Ocurrence.StatusOcurrence.InProgress){
-            <a asp-action="Delete" asp-route-id="@Model?.OcurrenceId" class="btn disabled ocurrence_delete_button">
+        <form class="d-flex" id="finish-form" asp-action="Finish">
+            <input type="hidden" name="id" value="@Model?.OcurrenceId"/>
+            <button type="submit" id="finish" class="btn ocurrence_finish_button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                </svg>
+                Finalizar
+            </button>
+        </form>
+        <a  class="btn disabled ocurrence_delete_button">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                 <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
             </svg>
             Excluir
         </a>
-        <a asp-action="Edit" asp-route-id="@Model?.OcurrenceId" class="btn disabled ocurrence_edit_button">
+        <a class="btn disabled ocurrence_edit_button">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                 <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                 <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
             </svg>
             Editar
         </a>
+        
         }else if(@Model.Status == Ocurrence.StatusOcurrence.Closed){
-        <a asp-action="Delete" asp-route-id="@Model?.OcurrenceId" class="btn ocurrence_delete_button">
+        <button data-bs-target="#delete_modal" data-bs-toggle="modal" asp-route-id="@Model?.OcurrenceId" class="btn ocurrence_delete_button">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                 <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
             </svg>
             Excluir
-        </a>
-        <a asp-action="Edit" asp-route-id="@Model?.OcurrenceId" class="btn disabled ocurrence_edit_button">
+        </button>
+        <a  class="btn disabled ocurrence_edit_button">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                 <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                 <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
@@ -96,10 +117,26 @@
             <input asp-for="OcurrenceId" disabled class="form-control" />
         </div>
     </div>
-    <div class="form-group mt-2">
-        <label asp-for="Description" class="control-label"></label>
-        <textarea asp-for="Description" rows="3" disabled class="form-control"></textarea>
-    </div>
+    @if (@Model.Status == Ocurrence.StatusOcurrence.Open)
+    {
+        <div class="form-group mt-2">
+            <label asp-for="Description" class="control-label"></label>
+            <textarea asp-for="Description" rows="3" disabled class="form-control"></textarea>
+        </div>
+    }else if(@Model.Status == Ocurrence.StatusOcurrence.InProgress)
+    {
+        <div class="mt-3 d-flex justify-content-between">
+            <div class="form-group col-lg-6 mt-2">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" rows="3" disabled class="form-control"></textarea>
+            </div>
+            <div class="form-group col-lg-5 mt-2 ">
+                <label asp-for="Answer"  class="control-label"></label>
+                <textarea asp-for="Answer" rows="3" id="answer" class="form-control"></textarea>
+            </div>
+        </div>
+    }
+    
     <div class="form-group mt-2">
         <label asp-for="PhotoBase64" class="control-label label_photos"></label>
         <div class="lightbox"  >
@@ -128,6 +165,26 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="delete_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Atenção</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza que deseja excluir esta ocorrência?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <form asp-action="Delete">
+                    <input type="hidden" name="id" value="@Model?.OcurrenceId"/>
+                    <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Excluir</button> 
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @section Scripts {
@@ -138,6 +195,26 @@
                 var recipient = button.data('bs-whatever');
                 var modal = $(this);
                 modal.find('.modal-body img').attr('src', recipient);
+            });
+            $('#delele_modal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var recipient = button.data('bs-whatever');
+                var modal = $(this);
+                modal.find('.modal-body input').val(recipient);
+            });
+            $('#answer').on('blur', function(){
+                console.log('teste');
+                var answer = $(this).val();
+                if(answer.length > 0){
+                    $('#finish-form').append('<input type="hidden" name="answer" value="'+answer+'"/>');
+                }
+            });
+            $('#finish').click(function(event) {
+                var answer = $('#answer').val();
+                if (answer == null || answer == "") {
+                    alert("Preencha o campo resposta");
+                    return false;
+                }
             });
         });
     </script>

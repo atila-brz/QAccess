@@ -127,6 +127,83 @@ namespace QAccess.Controllers
             return View(ocurrence);
         }
 
+        // POST: Ocurrences/Select/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Select(int id)
+        {
+            Ocurrence ocurrence = await _context.Ocurrences.FindAsync(id);
+            if(await _context.Employees.FindAsync(1)==null)
+            {
+                return NotFound();
+            }
+            ocurrence.selectedForEmployee(1);
+
+            if (id != ocurrence.OcurrenceId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(ocurrence);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!OcurrenceExists(ocurrence.OcurrenceId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(ocurrence);
+        }
+
+        //post: Ocurrences/Finish/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Finish(int id, string answer )
+        {
+            Ocurrence ocurrence = await _context.Ocurrences.FindAsync(id);
+            ocurrence.Answer = answer;
+            ocurrence.closeOcurrence();
+
+            if (id != ocurrence.OcurrenceId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(ocurrence);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!OcurrenceExists(ocurrence.OcurrenceId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(ocurrence);
+        }
+
         // GET: Ocurrences/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

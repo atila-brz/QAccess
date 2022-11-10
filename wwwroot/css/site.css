@@ -361,6 +361,7 @@ main.container-lg{
   line-height: 1.5;
   background-color: #C81313;
   transition: all 0.3s ease-in-out;
+  margin-left: 16px;
 }
 .ocurrence_delete_button:hover{
   color: #FFF;
@@ -412,4 +413,39 @@ main.container-lg{
 .filter{
   cursor: pointer;
   
+}
+
+.ocurrence_select_button{
+  color: #ffffff;
+  padding: 3px 5px 3px 5px;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  border-radius: .5rem;
+  line-height: 1.5;
+  background-color: #01ce0b;
+  transition: all 0.3s ease-in-out;
+}
+.ocurrence_select_button:hover{
+  color: #FFF;
+  background-color: #01b30b;
+  transform: scale(1.05);
+}
+
+.ocurrence_finish_button{
+  color: #ffffff;
+  padding: 3px 5px 3px 5px;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  border-radius: .5rem;
+  line-height: 1.5;
+  background-color: #016bce;
+  transition: all 0.3s ease-in-out;
+
+}
+.ocurrence_select_button:hover{
+  color: #FFF;
+  background-color: #0056a7;;
+  transform: scale(1.05);
 }

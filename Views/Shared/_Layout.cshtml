@@ -6,15 +6,12 @@
     <title>@ViewData["Title"] - QAccess</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,500;0,600;0,700;0,800;1,200;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <div class="container-fluid " style="height: 100vh;">
@@ -94,9 +91,10 @@
                                     </button>
                                     <div class="collapse" id="orders-collapse">
                                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                            <li><a asp-controller="Ocurrences" asp-action="Index" class="d-inline-flex text-decoration-none rounded">Registradas</a></li>
-                                            <li><a href="#" class="d-inline-flex text-decoration-none rounded">Em análise</a></li>
-                                            <li><a href="#" class="d-inline-flex text-decoration-none rounded">Resolvidas</a></li>
+                                            <li><a asp-controller="Ocurrences" asp-action="Index" class="d-inline-flex text-decoration-none rounded">Lista todas</a></li>
+                                            <li><a asp-controller="Ocurrences" asp-action="List_in_progress" class="d-inline-flex text-decoration-none rounded">Em análise</a></li>
+                                            <li><a asp-controller="Ocurrences" asp-action="List_finished" class="d-inline-flex text-decoration-none rounded">Finalizadas</a></li>
+                                            <li><a asp-controller="Ocurrences" asp-action="Create" class="d-inline-flex text-decoration-none rounded">Criar Ocorrência</a></li>
                                         </ul>
                                     </div>
                                 </li>

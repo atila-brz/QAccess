@@ -27,6 +27,24 @@ namespace QAccess.Controllers
             return View(await qAccessContext.ToListAsync());
         }
 
+        // GET: Ocurrences
+        public async Task<IActionResult> List_finished()
+        {
+            var qAccessContext = _context.Ocurrences.Where(o => o.Status == Ocurrence.StatusOcurrence.Closed)
+            .Include(o => o.Responsable)
+            .Include(o => o.ResponsibleOfficial);
+            return View(await qAccessContext.ToListAsync());
+        }
+
+        // GET: Ocurrences
+        public async Task<IActionResult> List_in_progress()
+        {
+            var qAccessContext = _context.Ocurrences.Where(o => o.Status == Ocurrence.StatusOcurrence.InProgress)
+            .Include(o => o.Responsable)
+            .Include(o => o.ResponsibleOfficial);
+            return View(await qAccessContext.ToListAsync());
+        }
+
         // GET: Ocurrences/Details/5
         public async Task<IActionResult> Details(int? id)
         {

@@ -391,9 +391,10 @@ main.container-lg{
 
 .body_ocurrence_create{
   margin-top: 2.5vh;
-  height: 76vh;
+  height: 100%;
   border-radius: 10px;
   border: #000000  1px solid;
+  box-sizing: border-box;
 }
 
 .label_photos{
@@ -423,12 +424,13 @@ main.container-lg{
   font-weight: 500;
   border-radius: .5rem;
   line-height: 1.5;
-  background-color: #01ce0b;
+  background-color: #198754;
   transition: all 0.3s ease-in-out;
 }
 .ocurrence_select_button:hover{
   color: #FFF;
-  background-color: #01b30b;
+  background-color: #198754;
+  opacity: 0.8;
   transform: scale(1.05);
 }
 
@@ -444,8 +446,25 @@ main.container-lg{
   transition: all 0.3s ease-in-out;
 
 }
-.ocurrence_select_button:hover{
+.ocurrence_finish_button:hover{
   color: #FFF;
   background-color: #0056a7;;
+  transform: scale(1.05);
+}
+
+.ocurrence_save_button{
+  color: #ffffff;
+  padding: 3px 5px 3px 5px;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  border-radius: .5rem;
+  line-height: 1.5;
+  background-color: #01c0ce;
+  transition: all 0.3s ease-in-out;
+}
+.ocurrence_save_button:hover{
+  color: #ffffff;
+  background-color: #009da8;
   transform: scale(1.05);
 }

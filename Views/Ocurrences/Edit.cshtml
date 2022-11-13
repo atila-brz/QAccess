@@ -10,7 +10,9 @@
         Visualizar Ocorrêcia
         <a asp-action="Index"><i class="bi bi-arrow-down-left-circle-fill"></i></a></H3>
 </div>
-<div class="d-flex justify-content-between">
+
+<form asp-action="Edit">
+    <div class="d-flex justify-content-between">
     <div class="ms-2">
         <span class="sub_titulo_ocurence">STATUS: </span>
         @if(@Model.Status == Ocurrence.StatusOcurrence.Open){
@@ -24,7 +26,13 @@
         }
         
     </div>
-    <div>
+    <div class="d-flex">
+        <div class="form-group">
+            <button type="submit" value="Salvar" class="btn ocurrence_save_button">
+                <i class="fa fa-floppy-o" style="font-size:16px;"></i>
+                Salvar
+            </button>
+        </div>
         <a asp-action="Delete" asp-route-id="@Model?.OcurrenceId" class="btn ocurrence_delete_button">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
@@ -33,15 +41,12 @@
             Excluir
         </a>
         <a asp-action="Edit" asp-route-id="@Model?.OcurrenceId" class="btn ocurrence_edit_button disabled">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-            </svg>
+            <img width="20px" style="margin-right: 3px;" src="~/images/pencil-square.svg" alt="">
             Editar
         </a>
     </div>
 </div>
-<form asp-action="Edit">
+    
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="OcurrenceId" />
     <input type="hidden" asp-for="CreationDate"  />
@@ -81,9 +86,6 @@
         <input asp-for="PhotoBase64" id="photo" type="hidden" />
         <div id="gallery">
             
-        </div>
-        <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
         </div>
     </div>
 </form>

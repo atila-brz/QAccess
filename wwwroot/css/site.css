@@ -257,6 +257,10 @@ main.container-lg{
   }
 }
 /* ------------------------------ */
+.scrollarea_ocurrence{
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
 
 .imagem_table{
   width: 100px;
@@ -270,7 +274,7 @@ main.container-lg{
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
-  border-radius: .5rem;
+  border-radius: .3rem;
   line-height: 1.5;;
 }
 
@@ -291,6 +295,12 @@ main.container-lg{
   height: 9.5rem;
 }
 
+@media (min-width: 1350px){
+  .card_ocurrence{
+    min-width: 500PX;
+  }
+}
+
 .sub_titulo_ocurence{
   font-family: 'Roboto', sans-serif;
   font-style: normal;
@@ -302,6 +312,11 @@ main.container-lg{
 
 .title_ocurrence a{
   color: #000000;
+}
+.desciption_ocurrence{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .status_ocurrence_open{
@@ -336,11 +351,11 @@ main.container-lg{
 
 .ocurrence_edit_button{
   color: #ffffff;
-  padding: 3px 5px 3px 5px;
+  
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
-  border-radius: .5rem;
+  border-radius: .3rem;
   line-height: 1.5;
   background-color: #CC9A06;
   transition: all 0.3s ease-in-out;
@@ -353,11 +368,11 @@ main.container-lg{
 }
 .ocurrence_delete_button{
   color: #ffffff;
-  padding: 3px 5px 3px 5px;
+  
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
-  border-radius: .5rem;
+  border-radius: .3rem;
   line-height: 1.5;
   background-color: #C81313;
   transition: all 0.3s ease-in-out;
@@ -384,7 +399,7 @@ main.container-lg{
 
 .body_ocurrence{
   margin-top: 2.5vh;
-  height: 69vh;
+  max-height: 69vh;
   border-radius: 10px;
   border: #000000  1px solid;
 }
@@ -418,11 +433,11 @@ main.container-lg{
 
 .ocurrence_select_button{
   color: #ffffff;
-  padding: 3px 5px 3px 5px;
+  
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
-  border-radius: .5rem;
+  border-radius: .3rem;
   line-height: 1.5;
   background-color: #198754;
   transition: all 0.3s ease-in-out;
@@ -436,11 +451,11 @@ main.container-lg{
 
 .ocurrence_finish_button{
   color: #ffffff;
-  padding: 3px 5px 3px 5px;
+  
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
-  border-radius: .5rem;
+  border-radius: .3rem;
   line-height: 1.5;
   background-color: #016bce;
   transition: all 0.3s ease-in-out;
@@ -454,11 +469,11 @@ main.container-lg{
 
 .ocurrence_save_button{
   color: #ffffff;
-  padding: 3px 5px 3px 5px;
+  
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
-  border-radius: .5rem;
+  border-radius: .3rem;
   line-height: 1.5;
   background-color: #01c0ce;
   transition: all 0.3s ease-in-out;

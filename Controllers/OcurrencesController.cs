@@ -222,25 +222,6 @@ namespace QAccess.Controllers
             return View(ocurrence);
         }
 
-        // GET: Ocurrences/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.Ocurrences == null)
-            {
-                return NotFound();
-            }
-
-            var ocurrence = await _context.Ocurrences
-                .Include(o => o.Responsable)
-                .Include(o => o.ResponsibleOfficial)
-                .FirstOrDefaultAsync(m => m.OcurrenceId == id);
-            if (ocurrence == null)
-            {
-                return NotFound();
-            }
-
-            return View(ocurrence);
-        }
 
         // POST: Ocurrences/Delete/5
         [HttpPost, ActionName("Delete")]

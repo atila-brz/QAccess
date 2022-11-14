@@ -5,7 +5,7 @@
 }
 
 
-<div class="row mt-3 mb-3 flex-nowrap w-100 ms-1 d-flex ">
+<div class="row mb-2 flex-nowrap w-100 d-flex ">
     <H3 class="d-flex justify-content-between title_ocurrence">
         Visualizar Ocorrêcia
         <a asp-action="Index"><i class="bi bi-arrow-down-left-circle-fill"></i></a></H3>
@@ -13,39 +13,39 @@
 
 <form asp-action="Edit">
     <div class="d-flex justify-content-between">
-    <div class="ms-2">
-        <span class="sub_titulo_ocurence">STATUS: </span>
-        @if(@Model.Status == Ocurrence.StatusOcurrence.Open){
-            <span class="status_ocurrence_open">@Html.DisplayFor(model => model.Status)</span>
-        }
-        else if(@Model.Status == Ocurrence.StatusOcurrence.InProgress){
-            <span class="status_ocurrence_inprogress">@Html.DisplayFor(model => model.Status)</span>
-        }
-        else if(@Model.Status == Ocurrence.StatusOcurrence.Closed){
-        <span class="status_ocurrence_closed">@Html.DisplayFor(model => model.Status)</span>            
-        }
-        
-    </div>
-    <div class="d-flex">
-        <div class="form-group">
-            <button type="submit" value="Salvar" class="btn ocurrence_save_button">
-                <i class="fa fa-floppy-o" style="font-size:16px;"></i>
-                Salvar
-            </button>
+        <div class="ms-2">
+            <span class="sub_titulo_ocurence">STATUS: </span>
+            @if(@Model.Status == Ocurrence.StatusOcurrence.Open){
+                <span class="status_ocurrence_open">@Html.DisplayFor(model => model.Status)</span>
+            }
+            else if(@Model.Status == Ocurrence.StatusOcurrence.InProgress){
+                <span class="status_ocurrence_inprogress">@Html.DisplayFor(model => model.Status)</span>
+            }
+            else if(@Model.Status == Ocurrence.StatusOcurrence.Closed){
+            <span class="status_ocurrence_closed">@Html.DisplayFor(model => model.Status)</span>            
+            }
+            
         </div>
-        <a asp-action="Delete" asp-route-id="@Model?.OcurrenceId" class="btn ocurrence_delete_button">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-            </svg>
-            Excluir
-        </a>
-        <a asp-action="Edit" asp-route-id="@Model?.OcurrenceId" class="btn ocurrence_edit_button disabled">
-            <img width="20px" style="margin-right: 3px;" src="~/images/pencil-square.svg" alt="">
-            Editar
-        </a>
+        <div class="d-flex">
+            <div class="form-group">
+                <button type="submit" value="Salvar" class=" btn ocurrence_save_button pb-2">
+                    <i class="fa fa-floppy-o me-1" style="font-size:16px;"></i>
+                    Salvar
+                </button>
+            </div>
+            <a asp-action="Delete" asp-route-id="@Model?.OcurrenceId" class="btn ocurrence_delete_button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                </svg>
+                Excluir
+            </a>
+            <a asp-action="Edit" asp-route-id="@Model?.OcurrenceId" class="btn ocurrence_edit_button disabled">
+                <img width="20px" style="margin-right: 3px;" src="~/images/pencil-square.svg" alt="">
+                Editar
+            </a>
+        </div>
     </div>
-</div>
     
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="OcurrenceId" />

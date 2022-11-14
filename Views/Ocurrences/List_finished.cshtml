@@ -6,58 +6,59 @@
 
 
 
-<div class="row mt-3 mb-3  ms-1">
+<div class="row mb-1 ms-1">
     <H3>Ocorrêcias Registradas</H3>
 </div>
-    <div class="row flex-row-reverse justify-content-start">
-        <a asp-action="Create" class="btn btn-primary align-items-center  me-4 ocurrence_add_button " role="button">
-            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-plus" viewBox="4 4 8 8">
-                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+<div class="row flex-row-reverse justify-content-start">
+    <a asp-action="Create" class="btn btn-primary align-items-center  me-4 ocurrence_add_button " role="button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-plus" viewBox="4 4 8 8">
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+        </svg>
+        <span class="">Adicionar</span>
+    </a>
+</div>
+<div class="d-flex row my-2  mx-1 flex-nowrap flex-lg-row flex-column justify-content-between ">
+    <div id="filter">
+        <span class="filter">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16">
+                <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z"/>
             </svg>
-            <span class="">Adicionar</span>
-        </a>
+            <span>Filtros</span>
+        </span>
     </div>
-    <div class="d-flex row my-2  mx-1 flex-nowrap flex-lg-row flex-column justify-content-between ">
-        <div id="filter">
-            <span class="filter">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16">
-                    <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z"/>
+    <div class="col-lg-6 d-none col-sm-12 me-5 " id="search">
+        <div class="input-group">
+            <input class="form-control" type="search" placeholder="PESQUISE">
+            <span class="input-group-text" id="addon-wrapping">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                 </svg>
-                <span>Filtros</span>
             </span>
         </div>
-        <div class="col-lg-6 d-none col-sm-12 me-5 " id="search">
-            <div class="input-group">
-                <input class="form-control" type="search" placeholder="PESQUISE">
-                <span class="input-group-text" id="addon-wrapping">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                    </svg>
-                </span>
-            </div>
+    </div>
+    <div class="d-flex d-none justify-content-between flex-shrink-1" id="calendar">
+        <div class="col-md-5 ">
+            <input type="Date" class="form-control">
         </div>
-        <div class="d-flex d-none justify-content-between flex-shrink-1" id="calendar">
-            <div class="col-md-5 ">
-                <input type="Date" class="form-control">
-            </div>
-            <div>
-                <span class="mx-2">até</span>
-            </div>
-            <div class="col-md-5">
-                <input type="Date" class="form-control">
-            </div>
-            <div id="close_filter">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-x" viewBox="3 3 10 10">
-                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                </svg>
-            </div>
+        <div>
+            <span class="mx-2">até</span>
+        </div>
+        <div class="col-md-5">
+            <input type="Date" class="form-control">
+        </div>
+        <div id="close_filter">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-x" viewBox="3 3 10 10">
+                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+            </svg>
         </div>
     </div>
-    <div class="d-flex justify-content-center overflow-scroll">
-        <div class="row row-cols-1 mx-lg-3  mx-md-2 row-cols-md-2 d-flex " style="height: 65vh">
-            @foreach (var item in Model)
-            {
-                <div class="card card_ocurrence mb-3 pe-0 me-4 ps-2" style="max-width: 47.8%;">
+</div>
+<div class="d-flex justify-content-center scrollarea_ocurrence">
+    <div class="row row-cols-1 mx-lg-3 mx-md-2 row-cols-lg-2 g-2 " style="max-height: 65vh">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card card_ocurrence mb-3 pe-0 me-4 ps-2">
                     <div class="row g-0 ">
                         <div class="col-md-4 py-1">
                             <img src="@Html.DisplayFor(modelItem => item.PhotoBase64)" class=" imagem_ocurrence rounded-start" alt="...">
@@ -65,7 +66,7 @@
                         <div class="col-md-8">
                             <div class="card-body">
                                 <h5 class="card-title fs-6 fw-bold">@Html.DisplayFor(modelItem => item.Title)</h5>
-                                <p class="card-text font-body-card">@Html.DisplayFor(modelItem => item.Description)</p>
+                                <p class="card-text desciption_ocurrence font-body-card">@Html.DisplayFor(modelItem => item.Description)</p>
                                 <p class="card-text font-body-card">Por:<a class="text-primary">@Html.DisplayFor(modelItem => item.Responsable.Name)</a></p>
                             </div>
                             <div class="card-footer d-flex align-items-center justify-content-between">
@@ -75,10 +76,10 @@
                         </div>
                     </div>
                 </div>
-
-            }
-        </div>
+            </div>
+        }
     </div>
+</div>
 
 
 @section Scripts {

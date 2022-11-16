@@ -10,16 +10,17 @@ namespace QAccess.Models
     public class Employee
     {
         [Key]
+        [Display(Name = "Identificação do Funcionário")]
         public int EmployeeId { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(50)]
         [Display(Name = "Nome")]
         public string Name { get; set; }
 
         [Required]
         [EmailAddress]
-        [StringLength(100)]
+        [StringLength(50)]
         [Display(Name = "Email")]
         public string Email { get; set; }
         

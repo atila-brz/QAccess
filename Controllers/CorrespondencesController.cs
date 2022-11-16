@@ -58,27 +58,16 @@ namespace QAccess.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CorrespondenceId,TrackingCode,Status,Sender,UnitId,DateDelivery,EmployeeDeliveryId")] Correspondence correspondence)
+        public async Task<IActionResult> Create([Bind("CorrespondenceId,TrackingCode,Status,Sender,UnitId,DateDelivery,EmployeeDeliveryId,EmployeeWithdrawalId")] Correspondence correspondence)
         {
-            Employee employee = await _context.Employees.FindAsync(correspondence.EmployeeDeliveryId);
-            correspondence.EmployeeDelivery = employee;
-            Unit unit = await _context.Units.FindAsync(correspondence.UnitId);
-            correspondence.Unit = unit;
             if (ModelState.IsValid)
             {
                 _context.Add(correspondence);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }else
-            {
-                var messsage = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
-                foreach (var item in messsage)
-                {
-                    ModelState.AddModelError("", item);
-                }
             }
-            ViewData["EmployeeDeliveryId"] = new SelectList(_context.Employees, "EmployeeId", "Name", correspondence.EmployeeDeliveryId);
-            ViewData["UnitId"] = new SelectList(_context.Units, "UnitId", "Number", correspondence.UnitId);
+            ViewData["EmployeeDeliveryId"] = new SelectList(_context.Employees, "EmployeeId", "ContactNumber", correspondence.EmployeeDeliveryId);
+            ViewData["UnitId"] = new SelectList(_context.Units, "UnitId", "Block", correspondence.UnitId);
             return View(correspondence);
         }
 

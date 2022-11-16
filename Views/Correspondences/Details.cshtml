@@ -2,59 +2,139 @@
 
 @{
     ViewData["Title"] = "Details";
+
+    @* Verification should be done by the current status of the mail. *@ 
+    bool status = false;
 }
 
-<h1>Details</h1>
+<div>
+    <div class="row">
+        <h3 style="font-weight: 500;">Correspondências</h3>
+    </div>
+    <nav class="nav-breadcrumb d-flex justify-content-between align-items-center" aria-label="breadcrumb">
+        <ol class="breadcrumb mx-0 my-0">
+            <li class="breadcrumb-item"><a asp-controller="Correspondences" asp-action="Index">Correspondências</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.TrackingCode</li>
+        </ol>
+    </nav>
 
-<div>
-    <h4>Correspondence</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TrackingCode)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TrackingCode)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Sender)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Sender)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Unit)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Unit.Block)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateDelivery)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateDelivery)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EmployeeDelivery)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EmployeeDelivery.ContactNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EmployeeWithdrawalId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EmployeeWithdrawalId)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.CorrespondenceId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div class=" my-3 buttons-actions d-flex flex-row-reverse">
+        @{
+            if(!status)
+            {
+                <a class="btn btn-primary ms-2 d-flex align-items-center"  style="background-color: #198754; border: none;" href="#" role="button"><img width="15px" style="margin-right: 3px;" src="~/images/check.svg" alt="">Entregar</a>
+            }
+        }
+        <a class="btn btn-primary ms-2 d-flex align-items-center" asp-action="Edit" asp-controller="Correspondences" asp-route-id="1" role="button" style="background-color: #CC9A06; border: none;"><img width="20px" style="margin-right: 3px;" src="~/images/pencil-square.svg" alt="">Editar</a>
+    </div>
+                
+    <form class="row my-4">
+        <div class="form-group-contour p-3">
+            <span class="form-group-title">Dados da Correspondência</span>
+            <fieldset disabled>
+                <div class="row">
+                     <div class="col-lg-6">
+                        <label for="inputSender" class="form-label">@Html.DisplayNameFor(Model => Model.Sender):</label>
+                        <input asp-for="Sender" type="text" class="form-control" id="inputSender">
+                    </div>
+                    <div class="col-lg-3">
+                        <label for="inputTrackingCode" class="form-label">@Html.DisplayNameFor(Model => Model.TrackingCode):</label>
+                        <input asp-for="TrackingCode" type="text" class="form-control" id="inputTrackingCode">
+                    </div>
+                    <div class="col-lg-3">
+                        <label for="inputDateDelivery" class="form-label">@Html.DisplayNameFor(Model => Model.DateDelivery):</label>
+                        <input asp-for="DateDelivery" type="text" class="form-control" id="inputDateDelivery">
+                    </div>
+                </div>
+
+                <div class="row my-4">
+                    <div class="col-lg-6">
+                        <label for="inputResponsibleWithdrawal" class="form-label">@Html.DisplayNameFor(Model => Model.ResponsibleWithdrawal):</label>
+                        <input asp-for="ResponsibleWithdrawal" type="text" class="form-control" id="inputResponsibleWithdrawal">
+                    </div>
+                    <div class="col-lg-3">
+                        <label for="inputDateWithdrawal" class="form-label">@Html.DisplayNameFor(Model => Model.DateWithdrawal):</label>
+                        <input asp-for="DateWithdrawal" type="text" class="form-control" id="inputDateWithdrawal">
+                    </div>
+
+                    <div class="col-lg-3">
+                        <label class="col-form-label col-sm-2 pt-0">@Html.DisplayNameFor(Model => Model.Status):</label>
+                        <div style="gap: 20px;" class="d-flex justify-content-start align-items-center">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gridRadios" id="checkboxDelivery" value="">
+                                <label class="form-check-label" for="checkboxDelivery">Entregue</label>
+                            </div>
+                            <div class="form-check my-1">
+                                <input class="form-check-input" type="radio" name="gridRadios" id="checkboxAvailable" value="option2" checked>
+                                <label class="form-check-label" for="checkboxAvailable">Disponível</label>
+                            </div>
+                            @{
+                                    if(status)
+                                    {
+                                        <script>
+
+                                            var checkboxDelivery = document.querySelector("#checkboxDelivery");
+                                            var checkboxAvailable = document.querySelector("#checkboxAvailable");
+
+                                            checkboxAvailable.checked = false;
+                                            checkboxDelivery.checked = true;
+                                        </script>
+                                    }      
+                            }
+                        </div>
+                    </div>                       
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3">
+                        <label for="inputUnitNumber" class="form-label">@Html.DisplayNameFor(Model => Model.Unit.Number):</label>
+                        <input asp-for="@Model.Unit.Number" type="text" class="form-control" id="inputUnitNumber">
+                    </div>
+                    <div class="col-lg-3">
+                        <label for="inputUnitBlock" class="form-label">@Html.DisplayNameFor(Model => Model.Unit.Block):</label>
+                        <input asp-for="@Model.Unit.Block" type="text" class="form-control" id="inputUnitBlock">
+                    </div>
+                    <div class="col-lg-3">
+                        <label for="inputUnitTower" class="form-label">@Html.DisplayNameFor(Model => Model.Unit.Tower):</label>
+                        <input type="text" class="form-control" id="inputUnitTower">
+                    </div>
+                    <div class="col-lg-3">
+                        <label for="inputUnitId" class="form-label">@Html.DisplayNameFor(Model => Model.Unit.UnitId):</label>
+                        <input type="text" class="form-control" id="inputUnitId">
+                    </div>
+                </div>
+                
+            </fieldset>
+        </div>
+        <div class="form-group-contour p-3 my-4">
+            <span class="form-group-title">Dados do funcionário</span>
+            <fieldset disabled>
+                
+                <div class="row">
+                    <h6>Entrega na Portaria:</h6>
+                     <div class="col-lg-6">
+                        <label for="inputRemetente" class="form-label">@Html.DisplayNameFor(Model => Model.EmployeeDelivery.Name)</label>
+                        <input type="text" class="form-control" id="inputRemetente">
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="inputRemetente" class="form-label">@Html.DisplayNameFor(Model => Model.EmployeeDelivery.EmployeeId)</label>
+                        <input type="text" class="form-control" id="inputRemetente">
+                    </div>
+                </div>
+
+                <div class="row my-4">
+                    <h6>Retirada na Portaria:</h6>
+                    <div class="col-lg-6">
+                        <label for="inputEmployeeWithdrawn" class="form-label">@Html.DisplayNameFor(Model => Model.EmployeeWithdrawn.Name)</label>
+                        <input type="text" class="form-control" id="inputEmployeeWithdrawn">
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="inputEmployeeWithdrawn" class="form-label">@Html.DisplayNameFor(Model => Model.EmployeeWithdrawn.EmployeeId)</label>
+                        <input type="text" class="form-control" id="inputEmployeeWithdrawn">
+                    </div>               
+                </div>
+                
+            </fieldset>
+        </div>
+    </form>
+

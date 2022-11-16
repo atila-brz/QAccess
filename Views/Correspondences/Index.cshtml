@@ -1,12 +1,7 @@
 @model IEnumerable<QAccess.Models.Correspondence>
 
 @{
-ViewData["Title"] = "Correspondêcia";
-}
-
-@{ 
-    List<int> correspondencesCheck = null;
-    bool buttonEnable = false;
+    ViewData["Title"] = "Correspondêcia";
 }
 
 <div style="height: 100%; position: relative;">
@@ -16,12 +11,16 @@ ViewData["Title"] = "Correspondêcia";
     
     <div class="row buttons-icons">
         <div class="buttons-actions d-flex flex-row-reverse">
-            <a class="btn btn-primary ms-2 d-flex align-items-center"  style="background-color: #198754; border: none;" href="#" role="button"><img width="15px" style="margin-right: 3px;" src="~/images/check.svg" alt="">Entregar</a>
+
+            @* Need to add actions of the other buttons when available in the corresponding controllers. *@
+
+            <a class="btn btn-primary ms-2 d-flex align-items-center" style="background-color: #198754; border: none;" href="#" role="button"><img width="15px" style="margin-right: 3px;" src="~/images/check.svg" alt="">Entregar</a>
             <a class="btn btn-primary ms-2 d-flex align-items-center" style="background-color: #C81313; border: none;" href="#" role="button"><img width="17px" style="margin-right: 3px;" src="~/images/trash.svg" alt="">Excluir</a>
-            <a class="btn btn-primary ms-2 d-flex align-items-center" href="#" role="button" style="background-color: #CC9A06; border: none;"><img width="20px" style="margin-right: 3px;" src="~/images/pencil-square.svg" alt="">Editar</a>
-            <a asp-action="Create" class="btn btn-primary ms-2 d-flex align-items-center" role="button"><img width="15px" style="margin-right: 3px;" src="~/images/add.svg" alt="">Adicionar</a>
+            <a class="btn disable btn-primary ms-2 d-flex align-items-center" href="#" role="button" style="background-color: #CC9A06; border: none;"><img width="20px" style="margin-right: 3px;" src="~/images/pencil-square.svg" alt="">Editar</a>
+            <a asp-controller="Correspondences" asp-action="Create" class="btn btn-primary ms-2 d-flex align-items-center" role="button"><img width="15px" style="margin-right: 3px;" src="~/images/add.svg" alt="">Adicionar</a>
         </div>
     </div>
+
     <div class="row filter">
         <ul class="list-unstyled list-group ps-0 nav nav-pills mb-auto">
             <li class="mb-1" style="width: 100%;">
@@ -32,6 +31,9 @@ ViewData["Title"] = "Correspondêcia";
                     </div>
                 </button>
                 <div class="collapse filter-group" id="filter-collapse" style="">
+
+                    @* Need to add actions using filters. *@
+
                     <div class="d-flex row flex-nowrap flex-lg-row flex-column">
                         <div class="col-lg-6 col-sm-5">
                             <div class="input-group mb-3">
@@ -74,7 +76,7 @@ ViewData["Title"] = "Correspondêcia";
             </thead>
             <tbody>
                 @{
-                    @for (int i = 0; i < 10; i++)
+                    @foreach (var item in Model)
                     {
                         <tr style="text-align: center;">
                             <th scope="col">
@@ -82,23 +84,15 @@ ViewData["Title"] = "Correspondêcia";
                                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                 </div>
                             </th>                                
-                            @* <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Status)</td>
                             <td>@Html.DisplayFor(modelItem => item.Sender)</td>
                             <td>@Html.DisplayFor(modelItem => item.Unit.Number)</td>
-                            <td>@Html.DisplayFor(modelItem => item.TrackingCode)</td>
-                            <td>@Html.DisplayFor(modelItem => item.DateDelivery)</td> *@
-                            <td>Teste</td>
-                            <td>Teste</td>
-                            <td>Teste</td>
-                            <td>Teste</td>
-                            <td>Teste</td>
+                            <td><a asp-action="Detail" asp-controller="Correspondences" asp-route-id="@item.CorrespondenceId">@Html.DisplayFor(modelItem => item.TrackingCode)</a></td>
+                            <td>@Html.DisplayFor(modelItem => item.DateDelivery)</td>
                             <td>
                                 <div class="d-flex justify-content-center align-items-center items-actions" style="gap: 20px;">
-                                    <div><a href="#"><img width="22px" src="~/images/trash-red.svg" alt=""></a></div>
-                                    <div><a href="#"><img width="24px" src="~/images/pencil-square-yellow.svg" alt=""></a></div>
-                                    @* 
-                                    <div><a asp-action="Delete" asp-route-id="@item.UnitId"><img width="22px" src="~/images/trash-red.svg" alt=""></a></div>
-                                    <div><a asp-action="Edit" asp-route-id="@item.UnitId"><img width="24px" src="~/images/pencil-square-yellow.svg" alt=""></a></div> *@
+                                    <div><a asp-action="Delete" asp-route-id="@item.CorrespondenceId"><img width="22px" src="~/images/trash-red.svg" alt=""></a></div>
+                                    <div><a asp-action="Edit" asp-route-id="@item.CorrespondenceId"><img width="24px" src="~/images/pencil-square-yellow.svg" alt=""></a></div>
                                     <div><a href="#"><img width="24px" src="~/images/check-green.svg" alt=""></a></div>
                                 </div>
                             </td>
@@ -109,11 +103,12 @@ ViewData["Title"] = "Correspondêcia";
         </table>
     </div>
 
+    @* Need to implement paging functionality. *@
     <div class=" pagination-group d-flex flex-row-reverse">
         <nav aria-label="...">
             <ul class="pagination">
                 <li class="page-item disabled">
-                    <a class="page-link">Previous</a>
+                    <a class="page-link">Anterior</a>
                 </li>
                 
                 <li class="page-item">
@@ -129,9 +124,9 @@ ViewData["Title"] = "Correspondêcia";
                 </li>
 
                 <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
+                    <a class="page-link" href="#">Próximo</a>
                 </li>
             </ul>
-            </nav>
+        </nav>
     </div>
 </div>

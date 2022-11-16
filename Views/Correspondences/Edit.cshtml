@@ -4,58 +4,138 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>Correspondence</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="CorrespondenceId" />
-            <div class="form-group">
-                <label asp-for="TrackingCode" class="control-label"></label>
-                <input asp-for="TrackingCode" class="form-control" />
-                <span asp-validation-for="TrackingCode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Sender" class="control-label"></label>
-                <input asp-for="Sender" class="form-control" />
-                <span asp-validation-for="Sender" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UnitId" class="control-label"></label>
-                <select asp-for="UnitId" class="form-control" asp-items="ViewBag.UnitId"></select>
-                <span asp-validation-for="UnitId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateDelivery" class="control-label"></label>
-                <input asp-for="DateDelivery" class="form-control" />
-                <span asp-validation-for="DateDelivery" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EmployeeDeliveryId" class="control-label"></label>
-                <select asp-for="EmployeeDeliveryId" class="form-control" asp-items="ViewBag.EmployeeDeliveryId"></select>
-                <span asp-validation-for="EmployeeDeliveryId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EmployeeWithdrawalId" class="control-label"></label>
-                <input asp-for="EmployeeWithdrawalId" class="form-control" />
-                <span asp-validation-for="EmployeeWithdrawalId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
 <div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div class="row">
+        <h3 style="font-weight: 500;">Correspondências</h3>
+    </div>
+    <nav class="nav-breadcrumb d-flex justify-content-between align-items-center" aria-label="breadcrumb">
+        <ol class="breadcrumb mx-0 my-0">
+            <li class="breadcrumb-item"><a asp-controller="Correspondences" asp-action="Index">Correspondências</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.TrackingCode</li>
+        </ol>
+    </nav>
 
+  <form asp-action="Edit" class="row my-2">
+        <div class=" my-3 buttons-actions d-flex flex-row-reverse">
+            <input type="submit" value="Salvar" style="background-color: #014023;" class="btn btn-primary ms-2 d-flex align-items-center">
+            <a asp-controller="Correspondences" asp-action="Index" type="submit" style="background-color: #590202;" class="btn btn-primary ms-2 d-flex align-items-center">Cancelar</a>
+        </div>
+            
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="CorrespondenceId" />
+
+        <div class="form-group-contour p-3">
+            <span class="form-group-title">Dados da Correspondência</span>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <span><img width="12px" src="~/images/pencil-fill.svg" alt=""></span>
+                        <label asp-for="Sender" class="form-label"></label>
+                        <input asp-for="Sender" class="form-control" />
+                        
+                        <span asp-validation-for="Sender" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-3">
+                        <span><img width="12px" src="~/images/pencil-fill.svg" alt=""></span>
+                        <label asp-for="TrackingCode" class="form-label"></label>
+                        <input asp-for="TrackingCode" class="form-control" />
+                        <span asp-validation-for="TrackingCode" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-3">
+                        <label for="inputDateDelivery" class="form-label">@Html.DisplayNameFor(Model => Model.DateDelivery):</label>
+                        <input disabled asp-for="DateDelivery" type="text" class="form-control" id="inputDateDelivery">
+                    </div>
+                </div>
+
+                <div class="row my-4">
+                    <div class="col-lg-6">
+                        <span><img width="12px" src="~/images/pencil-fill.svg" alt=""></span>
+                        <label for="inputResponsibleWithdrawal" class="form-label">@Html.DisplayNameFor(Model => Model.ResponsibleWithdrawal):</label>
+                        <input asp-for="ResponsibleWithdrawal" type="text" class="form-control" id="inputResponsibleWithdrawal">
+                    </div>
+                    <div class="col-lg-3">
+                        <label for="inputDateWithdrawal" class="form-label">@Html.DisplayNameFor(Model => Model.DateWithdrawal):</label>
+                        <input disabled asp-for="DateWithdrawal" type="text" class="form-control" id="inputDateWithdrawal">
+                    </div>   
+                        <div class="col-lg-3">
+                            <label class="col-form-label col-sm-2 pt-0">@Html.DisplayNameFor(Model => Model.Status):</label>
+                            <fieldset disabled>
+                                <div style="gap: 20px;" class="d-flex justify-content-start align-items-center">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gridRadios" id="checkboxDelivery" value="">
+                                            <label class="form-check-label" for="checkboxDelivery">Entregue</label>
+                                        </div>
+                                        <div class="form-check my-1">
+                                            <input class="form-check-input" type="radio" name="gridRadios" id="checkboxAvailable" value="option2" checked>
+                                            <label class="form-check-label" for="checkboxAvailable">Disponível</label>
+                                        </div>
+                                    @{
+                                            bool check = true;
+                                            if(check == true)
+                                            {
+                                                <script>
+
+                                                    var checkboxDelivery = document.querySelector("#checkboxDelivery");
+                                                    var checkboxAvailable = document.querySelector("#checkboxAvailable");
+
+                                                    checkboxAvailable.checked = false;
+                                                    checkboxDelivery.checked = true;
+                                                </script>
+                                            }      
+                                    }
+                                </div>
+                            </fieldset>
+                        </div>   
+                </div>
+
+                <fieldset disabled>
+
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <label for="inputUnitNumber" class="form-label">@Html.DisplayNameFor(Model => Model.Unit.Number):</label>
+                            <input asp-for="Unit.Number" type="text" class="form-control" id="inputUnitNumber">
+                        </div>
+                        <div class="col-lg-3">
+                            <label for="inputUnitBlock" class="form-label">@Html.DisplayNameFor(Model => Model.Unit.Block):</label>
+                            <input asp-for="Unit.Block" type="text" class="form-control" id="inputUnitBlock">
+                        </div>
+                        <div class="col-lg-3">
+                            <label for="inputUnitTower" class="form-label">@Html.DisplayNameFor(Model => Model.Unit.Tower):</label>
+                            <input asp-for="Unit.Tower" type="text" class="form-control" id="inputUnitTower">
+                        </div>
+                        <div class="col-lg-3">
+                            <label for="inputUnitId" class="form-label">@Html.DisplayNameFor(Model => Model.Unit.UnitId):</label>
+                            <input asp-for="Unit.UnitId" type="text" class="form-control" id="inputUnitId">
+                        </div>
+                    </div>
+                </fieldset>
+        </div>
+
+        <fieldset disabled>
+            <div class="form-group-contour p-3 my-4">
+                <span class="form-group-title">Dados do funcionário</span>                
+                <div class="row">
+                    <h6>Entrega na Portaria:</h6>
+                     <div class="col-lg-6">
+                        <label for="inputRemetente" class="form-label">@Html.DisplayNameFor(Model => Model.EmployeeDelivery.Name)</label>
+                        <input asp-for="EmployeeDelivery.Name" type="text" class="form-control" id="inputRemetente">
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="inputRemetente" class="form-label">@Html.DisplayNameFor(Model => Model.EmployeeDelivery.EmployeeId)</label>
+                        <input asp-for="EmployeeDelivery.EmployeeId" type="text" class="form-control" id="inputRemetente">
+                    </div>
+                </div>
+
+                <div class="row my-4">
+                    <h6>Retirada na Portaria:</h6>
+                    <div class="col-lg-6">
+                        <label for="inputEmployeeWithdrawn" class="form-label">@Html.DisplayNameFor(Model => Model.EmployeeWithdrawn.Name)</label>
+                        <input asp-for="EmployeeWithdrawn.Name" type="text" class="form-control" id="inputEmployeeWithdrawn">
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="inputEmployeeWithdrawn" class="form-label">@Html.DisplayNameFor(Model => Model.EmployeeWithdrawn.EmployeeId)</label>
+                        <input asp-for="EmployeeWithdrawn.EmployeeId" type="text" class="form-control" id="inputEmployeeWithdrawn">
+                    </div>                  
+                </div>
+            </div>
+        </fieldset>
+    </form>

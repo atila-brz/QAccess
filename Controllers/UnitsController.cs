@@ -45,10 +45,10 @@ namespace QAccess.Controllers
         }
 
         // GET: Units/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
+        // public IActionResult Create()
+        // {
+        //     return View();
+        // }
 
         // POST: Units/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -112,7 +112,7 @@ namespace QAccess.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details), new { id = unit.UnitId});
             }
             return View(unit);
         }

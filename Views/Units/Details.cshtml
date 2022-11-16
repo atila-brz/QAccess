@@ -8,7 +8,7 @@
     <div class="row">
         <h3 style="font-weight: 500;">Unidades</h3>
     </div>
-    <nav class="nav-breadcrumb d-flex justify-content-between align-items-center" aria-label="breadcrumb">
+    <nav class="rounded-3 nav-breadcrumb d-flex justify-content-between align-items-center" aria-label="breadcrumb">
         <ol class="breadcrumb mx-0 my-0">
             <li class="breadcrumb-item"><a asp-controller="Units" asp-action="Index">Unidades</a></li>
             <li class="breadcrumb-item active" aria-current="page">@Model.UnitId</li>
@@ -16,12 +16,12 @@
     </nav>
 
     <div class=" my-3 d-flex flex-row-reverse buttons-group-actions">
-        <a class="btn btn-danger ms-2 d-flex align-items-center" asp-action="Delete" asp-controller="Units" asp-route-id="@Model.UnitId"><img width="17px" src="~/images/trash.svg" alt="">Excluir</a>
-        <a class="btn btn-edit ms-2 d-flex align-items-center" asp-action="Edit" asp-controller="Units" asp-route-id="@Model.UnitId" ><img width="20px" src="~/images/pencil-square.svg" alt="">Editar</a>
+        <button data-bs-whatever="@Model.UnitId" data-bs-toggle="modal" data-bs-target="#unitsModal" type="button" class="btn btn-danger ms-2 d-flex align-items-center"><img width="17px" src="~/images/trash.svg" alt="">Excluir</button>
+        <a class="btn btn-edit ms-2 d-flex align-items-center" asp-action="Edit" asp-route-id="@Model.UnitId" ><img width="20px" src="~/images/pencil-square.svg" alt="">Editar</a>
     </div>
                 
     <div class="row my-4">
-        <div class="form-group-contour p-3">
+        <div class="form-group-contour rounded-3 p-3">
             <span class="form-group-title">Dados da Unidade</span>
             <fieldset disabled>
                 <div class="row">
@@ -57,11 +57,39 @@
                     </div>
 
                     <div class="row">
-                        <label for="inputComplement" class="form-label">@Html.DisplayNameFor(Model => Model.Complement):</label>
-                        <textarea asp-for="Complement" style="max-height: 100px;" class="form-control" placeholder="@Model.Complement" id="inputComplement"></textarea>
+                        <div class="col-lg-12">
+                            <label for="inputComplement" class="form-label">@Html.DisplayNameFor(Model => Model.Complement):</label>
+                            <textarea asp-for="Complement" style="max-height: 100px;" class="form-control" placeholder="@Model.Complement" id="inputComplement"></textarea>
+                        </div>
                     </div>
                 </div>
             </fieldset>
         </div>
     </div>
 
+<!-- Modal -->
+<div class="modal fade" id="unitsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Deletar Unidade</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body my-2">
+                <div class="alert alert-danger" role="alert">
+                    <span><strong>Alerta!</strong> Não será possível refazer essa operação. O itém será deletado permanentemente.</span>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="awareUnits">
+                    <label class="form-check-label" for="awareUnits">Estou ciente!</label>
+                </div>
+            </div>
+            <div class="modal-footer"> 
+                <form asp-action="Delete">
+                    <input id="unitInputID" type="hidden" name="id"/>
+                    <button id="unitButtonId" class="btn bg-danger btn-primary ms-2 d-flex align-items-center" role="button" type="submit" class="btn btn-danger"><img width="17px" style="margin-right: 3px;" src="~/images/trash.svg" alt="">Excluir</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -9,7 +9,7 @@
         <h3>Unidades</h3>
     </div>
 
-    <nav class="nav-breadcrumb d-flex justify-content-between align-items-center" aria-label="breadcrumb">
+    <nav class="rounded-3 nav-breadcrumb d-flex justify-content-between align-items-center" aria-label="breadcrumb">
         <ol class="breadcrumb mx-0 my-0">
             <li class="breadcrumb-item"><a asp-controller="Units" asp-action="Index">Unidades</a></li>
             <li class="breadcrumb-item active" aria-current="page">@Model.UnitId</li>
@@ -26,7 +26,7 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="UnitId"/>
 
-        <div class="form-group-contour p-3">
+        <div class="form-group-contour rounded-3 p-3">
             <span class="form-group-title">Dados da Unidade</span>
             <div class="row">
                 <div class="row">
@@ -66,7 +66,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="">
+                    <div class="col-lg-12">
                         <span><img width="12px" src="~/images/pencil-fill.svg" alt=""></span>
                         <label asp-for="State" for="inputComplement" class="form-label">@Html.DisplayNameFor(Model => Model.Complement):</label>
                         <textarea asp-for="Complement" style="max-height: 100px;" class="form-control" id="inputComplement"></textarea>
@@ -87,7 +87,7 @@
                                 <span><strong>Atenção!</strong> Ao confirmar, os dados do item serão atualizados e não será possível reverter essa alteração.</span>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="0" id="awareUnits">
+                                <input class="form-check-input" type="checkbox" id="awareUnits">
                                 <label class="form-check-label" for="awareUnits">Estou ciente!</label>
                             </div>
                         </div>

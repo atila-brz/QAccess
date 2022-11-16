@@ -1,66 +1,107 @@
 @model QAccess.Models.Unit
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Unidades";
 }
 
-<h1>Edit</h1>
-
-<h4>Unit</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="UnitId" />
-            <div class="form-group">
-                <label asp-for="Tower" class="control-label"></label>
-                <input asp-for="Tower" class="form-control" />
-                <span asp-validation-for="Tower" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Block" class="control-label"></label>
-                <input asp-for="Block" class="form-control" />
-                <span asp-validation-for="Block" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Number" class="control-label"></label>
-                <input asp-for="Number" class="form-control" />
-                <span asp-validation-for="Number" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Country" class="control-label"></label>
-                <input asp-for="Country" class="form-control" />
-                <span asp-validation-for="Country" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="State" class="control-label"></label>
-                <input asp-for="State" class="form-control" />
-                <span asp-validation-for="State" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="City" class="control-label"></label>
-                <input asp-for="City" class="form-control" />
-                <span asp-validation-for="City" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Road" class="control-label"></label>
-                <input asp-for="Road" class="form-control" />
-                <span asp-validation-for="Road" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Complement" class="control-label"></label>
-                <input asp-for="Complement" class="form-control" />
-                <span asp-validation-for="Complement" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
 <div>
-    <a asp-action="Index">Back to List</a>
+    <div class="row">
+        <h3>Unidades</h3>
+    </div>
+
+    <nav class="nav-breadcrumb d-flex justify-content-between align-items-center" aria-label="breadcrumb">
+        <ol class="breadcrumb mx-0 my-0">
+            <li class="breadcrumb-item"><a asp-controller="Units" asp-action="Index">Unidades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.UnitId</li>
+        </ol>
+    </nav>
+
+    <div class=" my-3 d-flex flex-row-reverse">
+        <button data-bs-toggle="modal" data-bs-target="#unitsModal" type="button" class="btn btn-success ms-2">Salvar</button>
+        <a asp-controller="Units" asp-action="Index" class="btn btn-danger btn-secondary ms-2">Cancelar</a>
+    </div>
+
+    <form asp-action="Edit">
+            
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="UnitId"/>
+
+        <div class="form-group-contour p-3">
+            <span class="form-group-title">Dados da Unidade</span>
+            <div class="row">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label for="inputUnitId" class="form-label">@Html.DisplayNameFor(Model => Model.UnitId):</label>
+                        <input disabled value="@Model.UnitId" type="text" class="form-control" id="inputUnitId">
+                    </div>
+                    <div class="col-lg-4">
+                        <span><img width="12px" src="~/images/pencil-fill.svg" alt=""></span>
+                        <label asp-for="Block" for="inputBlock" class="form-label">@Html.DisplayNameFor(Model => Model.Block):</label>
+                        <input asp-for="Block" type="text" class="form-control" id="inputBlock">
+                        <span asp-validation-for="Block" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4">
+                        <span><img width="12px" src="~/images/pencil-fill.svg" alt=""></span>
+                        <label asp-for="Tower" for="inputTower" class="form-label">@Html.DisplayNameFor(Model => Model.Tower):</label>
+                        <input asp-for="Tower" type="text" class="form-control" id="inputTower">
+                        <span asp-validation-for="Tower" class="text-danger"></span>
+                    </div>
+                </div> 
+                <div class="row my-4">
+                    <div class="col-lg-4">
+                        <span><img width="12px" src="~/images/pencil-fill.svg" alt=""></span>
+                        <label asp-for="Number" for="inputNumber" class="form-label">@Html.DisplayNameFor(Model => Model.Number):</label>
+                        <input asp-for="Number" type="text" class="form-control" id="inputNumber">
+                        <span asp-validation-for="Number" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4">
+                        <span><img width="12px" src="~/images/pencil-fill.svg" alt=""></span>
+                        <label asp-for="State" for="inputState" class="form-label">@Html.DisplayNameFor(Model => Model.State):</label>
+                        <input asp-for="State" type="text" class="form-control" id="inputState">
+                    </div>
+                    <div class="col-lg-4">
+                        <span><img width="12px" src="~/images/pencil-fill.svg" alt=""></span>
+                        <label asp-for="State" for="inputCity" class="form-label">@Html.DisplayNameFor(Model => Model.City):</label>
+                        <input asp-for="City" type="text" class="form-control" id="inputCity">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="">
+                        <span><img width="12px" src="~/images/pencil-fill.svg" alt=""></span>
+                        <label asp-for="State" for="inputComplement" class="form-label">@Html.DisplayNameFor(Model => Model.Complement):</label>
+                        <textarea asp-for="Complement" style="max-height: 100px;" class="form-control" id="inputComplement"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="unitsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5">Editar Unidade</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body my-2">
+                            <div class="alert alert-warning" role="alert">
+                                <span><strong>Atenção!</strong> Ao confirmar, os dados do item serão atualizados e não será possível reverter essa alteração.</span>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="0" id="awareUnits">
+                                <label class="form-check-label" for="awareUnits">Estou ciente!</label>
+                            </div>
+                        </div>
+                        <div class="modal-footer"> 
+                            <div class="buttons-actions d-flex flex-row-reverse">
+                                <form asp-action="Edit">
+                                    <button id="unitButtonId" type="submit" class="btn btn-success ms-2">Salvar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 

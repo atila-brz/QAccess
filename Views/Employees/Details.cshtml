@@ -1,0 +1,110 @@
+@model QAccess.Models.Employee
+
+@{
+    ViewData["Title"] = "Funcionários";
+}
+
+<div>
+    <div class="row">
+        <h3>Funcionários</h3>
+    </div>
+
+    <nav class="rounded-3 nav-breadcrumb d-flex justify-content-between align-items-center" aria-label="breadcrumb">
+        <ol class="breadcrumb mx-0 my-0">
+            <li class="breadcrumb-item"><a asp-action="Index">Funcionarios</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.EmployeeId</li>
+        </ol>
+    </nav>
+
+    <div class=" my-3 d-flex flex-row-reverse buttons-group-actions">
+        <button data-bs-whatever="@Model.EmployeeId" data-bs-toggle="modal" data-bs-target="#unitsModal" type="button" class="btn btn-danger ms-2 d-flex align-items-center"><img width="17px" src="~/images/trash.svg" alt="">Excluir</button>
+        <a class="btn btn-edit ms-2 d-flex align-items-center" asp-action="Edit" asp-route-id="@Model.EmployeeId" ><img width="20px" src="~/images/pencil-square.svg" alt="">Editar</a>
+    </div>
+
+    <div class="form-group-contour rounded-3 p-3">
+        <span class="form-group-title">Dados do Funcionário</span>
+        <fieldset disabled>
+            <div class="row">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <label for="inputName" class="form-label">@Html.DisplayNameFor(Model => Model.Name):</label>
+                        <input asp-for="Name" type="text" class="form-control" id="inputName">
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="inputGender" class="form-label">@Html.DisplayNameFor(Model => Model.Gender):</label>
+                        <input asp-for="Gender" type="text" class="form-control" id="inputGender">
+                    </div>
+                </div> 
+                <div class="row my-4">
+                    <div class="col-lg-4">
+                        <label for="inputEmail" class="form-label">@Html.DisplayNameFor(Model => Model.Email):</label>
+                        <input asp-for="Email" type="text" class="form-control" id="inputEmail">
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="inputPassword" class="form-label">@Html.DisplayNameFor(Model => Model.Password):</label>
+                        <input asp-for="Password" type="text" class="form-control" id="inputPassword">
+                    </div>
+                    <div class="col-lg-4">
+                        <label class="form-label" for="BirthDate">Data de Nascimento</label>
+                        <input id="BirthDate" class="form-control" type="datetime-local" asp-for="BirthDate" placeholder="Data de Nascimento...">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label for="inputCpf" class="form-label">@Html.DisplayNameFor(Model => Model.Cpf):</label>
+                        <input asp-for="Cpf" type="text" class="form-control" id="inputCpf">
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="inputContactNumber" class="form-label">@Html.DisplayNameFor(Model => Model.ContactNumber):</label>
+                        <input asp-for="ContactNumber" type="text" class="form-control" id="inputContactNumber">
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="inputMaritalStatus" class="form-label">@Html.DisplayNameFor(Model => Model.MaritalStatus):</label>
+                        <input asp-for="MaritalStatus" type="text" class="form-control" id="inputMaritalStatus">
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col-lg-4">
+                        <label for="inputContactNumber" class="form-label">@Html.DisplayNameFor(Model => Model.ContactNumber):</label>
+                        <input asp-for="ContactNumber" type="text" class="form-control" id="inputContactNumber">
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="inputOffice" class="form-label">@Html.DisplayNameFor(Model => Model.Office):</label>
+                        <input asp-for="Office" type="text" class="form-control" id="inputState">
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="inputSector" class="form-label">@Html.DisplayNameFor(Model => Model.Sector):</label>
+                        <input asp-for="Sector" type="text" class="form-control" id="inputSector">
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="unitsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Deletar Funcionário</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body my-2">
+                <div class="alert alert-danger" role="alert">
+                    <span><strong>Alerta!</strong> Não será possível refazer essa operação. O itém será deletado permanentemente.</span>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="0" id="awareUnits">
+                    <label class="form-check-label" for="awareUnits">Estou ciente!</label>
+                </div>
+            </div>
+            <div class="modal-footer"> 
+                <form asp-action="Delete">
+                    <input id="unitInputID" type="hidden" name="id"/>
+                    <button id="unitButtonId" class="btn bg-danger btn-primary ms-2 d-flex align-items-center" role="button" type="submit" class="btn btn-danger"><img width="17px" style="margin-right: 3px;" src="~/images/trash.svg" alt="">Excluir</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

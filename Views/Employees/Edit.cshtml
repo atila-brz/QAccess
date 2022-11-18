@@ -1,0 +1,134 @@
+@model QAccess.Models.Employee
+
+@{
+    ViewData["Title"] = "Funcionários";
+}
+
+<div>
+    <div class="row">
+        <h3>Funcionários</h3>
+    </div>
+
+    <nav class="rounded-3 nav-breadcrumb d-flex justify-content-between align-items-center" aria-label="breadcrumb">
+        <ol class="breadcrumb mx-0 my-0">
+            <li class="breadcrumb-item"><a asp-controller="Employees" asp-action="Index">Funcionarios</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.EmployeeId</li>
+        </ol>
+    </nav>
+
+    <div class=" my-3 d-flex flex-row-reverse">
+        <button data-bs-toggle="modal" data-bs-target="#unitsModal" type="button" class="btn btn-success ms-2">Salvar</button>
+        <a asp-controller="Employees" asp-action="Index" class="btn btn-danger btn-secondary ms-2">Cancelar</a>
+    </div>
+
+    <form asp-action="Edit">
+            
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="EmployeeId"/>
+
+        <div class="form-group-contour rounded-3 p-3">
+            <span class="form-group-title">Dados do Funcionário</span>
+            <div class="row">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <span><img width="12px" src="~/images/pencil-fill.svg" alt=""></span>
+                        <label asp-for="Name" for="inputName" class="form-label">@Html.DisplayNameFor(Model => Model.Name):</label>
+                        <input asp-for="Name" type="text" class="form-control" id="inputName">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="inputGender" class="form-label">@Html.DisplayNameFor(Model => Model.Gender):</label>
+                        <input asp-for="Gender" value="@Model.Gender" type="text" class="form-control" id="inputGender">
+                    </div>
+                </div> 
+                <div class="row my-4">
+                    <div class="col-lg-4">
+                        <span><img width="12px" src="~/images/pencil-fill.svg" alt=""></span>
+                        <label asp-for="Email" for="inputEmail" class="form-label">@Html.DisplayNameFor(Model => Model.Email):</label>
+                        <input asp-for="Email" type="text" class="form-control" id="inputEmail">
+                        <span asp-validation-for="Cpf" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4">
+                        <span><img width="12px" src="~/images/pencil-fill.svg" alt=""></span>
+                        <label asp-for="Password" for="inputEmail" class="form-label">@Html.DisplayNameFor(Model => Model.Password):</label>
+                        <input asp-for="Password" type="text" class="form-control" id="inputPassword">
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4">
+                        <span><img width="12px" src="~/images/pencil-fill.svg" alt=""></span>
+                        <label asp-for="BirthDate" class="form-label" for="BirthDate">Data de Nascimento</label>
+                        <input id="BirthDate" class="form-control" type="datetime-local" asp-for="BirthDate" placeholder="Data de Nascimento...">
+                        <span asp-validation-for="BirthDate" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <span><img width="12px" src="~/images/pencil-fill.svg" alt=""></span>
+                        <label asp-for="Cpf" for="inputCpf" class="form-label">@Html.DisplayNameFor(Model => Model.Cpf):</label>
+                        <input asp-for="Cpf" type="text" class="form-control" id="inputCpf">
+                        <span asp-validation-for="Cpf" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4">
+                        <span><img width="12px" src="~/images/pencil-fill.svg" alt=""></span>
+                        <label asp-for="ContactNumber" for="inputContactNumber" class="form-label">@Html.DisplayNameFor(Model => Model.ContactNumber):</label>
+                        <input asp-for="ContactNumber" type="text" class="form-control" id="inputContactNumber">
+                        <span asp-validation-for="ContactNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4">
+                        <span><img width="12px" src="~/images/pencil-fill.svg" alt=""></span>
+                        <label asp-for="MaritalStatus" for="inputMaritalStatus" class="form-label">@Html.DisplayNameFor(Model => Model.MaritalStatus):</label>
+                        <input asp-for="MaritalStatus" type="text" class="form-control" id="inputMaritalStatus">
+                        <span asp-validation-for="MaritalStatus" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col-lg-4">
+                        <span><img width="12px" src="~/images/pencil-fill.svg" alt=""></span>
+                        <label asp-for="ContactNumber" for="inputContactNumber" class="form-label">@Html.DisplayNameFor(Model => Model.ContactNumber):</label>
+                        <input asp-for="ContactNumber" type="text" class="form-control" id="inputContactNumber">
+                        <span asp-validation-for="ContactNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-4">
+                        <span><img width="12px" src="~/images/pencil-fill.svg" alt=""></span>
+                        <label asp-for="Office" for="inputOffice" class="form-label">@Html.DisplayNameFor(Model => Model.Office):</label>
+                        <input asp-for="Office" type="text" class="form-control" id="inputState">
+                    </div>
+                    <div class="col-lg-4">
+                        <span><img width="12px" src="~/images/pencil-fill.svg" alt=""></span>
+                        <label asp-for="Sector" for="inputSector" class="form-label">@Html.DisplayNameFor(Model => Model.Sector):</label>
+                        <input asp-for="Sector" type="text" class="form-control" id="inputSector">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="unitsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5">Editar Unidade</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body my-2">
+                            <div class="alert alert-warning" role="alert">
+                                <span><strong>Atenção!</strong> Ao confirmar, os dados do item serão atualizados e não será possível reverter essa alteração.</span>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="awareUnits">
+                                <label class="form-check-label" for="awareUnits">Estou ciente!</label>
+                            </div>
+                        </div>
+                        <div class="modal-footer"> 
+                            <div class="buttons-actions d-flex flex-row-reverse">
+                                <form asp-action="Edit">
+                                    <button id="unitButtonId" type="submit" class="btn btn-success ms-2">Salvar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+

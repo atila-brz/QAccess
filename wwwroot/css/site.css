@@ -204,7 +204,7 @@ table tr{
 /* ------------------------------ */
 
 /* Setting spacing between inputs in the creation modal. */
-#registerUnitsModal .modal-body{
+#registerDefaultModalAction .modal-body{
   gap: 10px;
 }
 /* ------------------------------ */

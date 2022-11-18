@@ -16,7 +16,7 @@
     </nav>
 
     <div class=" my-3 d-flex flex-row-reverse buttons-group-actions">
-        <button data-bs-whatever="@Model.UnitId" data-bs-toggle="modal" data-bs-target="#unitsModal" type="button" class="btn btn-danger ms-2 d-flex align-items-center"><img width="17px" src="~/images/trash.svg" alt="">Excluir</button>
+        <button data-bs-whatever="@Model.UnitId" data-bs-toggle="modal" data-bs-target="#defaultModalAction" type="button" class="btn btn-danger ms-2 d-flex align-items-center"><img width="17px" src="~/images/trash.svg" alt="">Excluir</button>
         <a class="btn btn-edit ms-2 d-flex align-items-center" asp-action="Edit" asp-route-id="@Model.UnitId" ><img width="20px" src="~/images/pencil-square.svg" alt="">Editar</a>
     </div>
                 
@@ -68,7 +68,7 @@
     </div>
 
 <!-- Modal -->
-<div class="modal fade" id="unitsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="defaultModalAction" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -80,14 +80,14 @@
                     <span><strong>Alerta!</strong> Não será possível refazer essa operação. O itém será deletado permanentemente.</span>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="awareUnits">
-                    <label class="form-check-label" for="awareUnits">Estou ciente!</label>
+                    <input class="form-check-input" type="checkbox" value="0" id="awareId">
+                    <label class="form-check-label" for="awareId">Estou ciente!</label>
                 </div>
             </div>
             <div class="modal-footer"> 
                 <form asp-action="Delete">
-                    <input id="unitInputID" type="hidden" name="id"/>
-                    <button id="unitButtonId" class="btn bg-danger btn-primary ms-2 d-flex align-items-center" role="button" type="submit" class="btn btn-danger"><img width="17px" style="margin-right: 3px;" src="~/images/trash.svg" alt="">Excluir</button>
+                    <input id="defaultInputID" type="hidden" name="id"/>
+                    <button id="defaultButton" class="btn bg-danger btn-primary ms-2 d-flex align-items-center" role="button" type="submit" class="btn btn-danger"><img width="17px" style="margin-right: 3px;" src="~/images/trash.svg" alt="">Excluir</button>
                 </form>
             </div>
         </div>

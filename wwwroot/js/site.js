@@ -3,12 +3,12 @@
 
 // Write your JavaScript code.
 
-const unitsModal = document.getElementById('unitsModal');
+const defaultModalAction = document.getElementById('defaultModalAction');
 
-unitsModal.addEventListener('show.bs.modal', event => {
+defaultModalAction.addEventListener('show.bs.modal', event => {
 
-    const awareUnits = unitsModal.querySelector('#awareUnits');
-    const buttonUnitID = unitsModal.querySelector('#unitButtonId');
+    const awareUnits = defaultModalAction.querySelector('#awareId');
+    const buttonUnitID = defaultModalAction.querySelector('#defaultButton');
 
     buttonUnitID.disabled = true;
     awareUnits.checked = false;
@@ -20,7 +20,7 @@ unitsModal.addEventListener('show.bs.modal', event => {
         
         if(this.checked) {
             buttonUnitID.disabled = false;
-            const inputDeleteUnitID = unitsModal.querySelector('#unitInputID')
+            const inputDeleteUnitID = defaultModalAction.querySelector('#defaultInputID')
             inputDeleteUnitID.value = recipient
 
         } else {

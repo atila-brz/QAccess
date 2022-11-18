@@ -45,10 +45,10 @@ namespace QAccess.Controllers
         }
 
         // GET: Employees/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
+        // public IActionResult Create()
+        // {
+        //     return View();
+        // }
 
         // POST: Employees/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -63,7 +63,7 @@ namespace QAccess.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(employee);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Employees/Edit/5
@@ -112,7 +112,7 @@ namespace QAccess.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details), new { id = employee.EmployeeId});
             }
             return View(employee);
         }

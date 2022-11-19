@@ -27,7 +27,21 @@ namespace QAccess.Controllers
             return View(await qAccessContext.ToListAsync());
         }
 
-        // GET: Ocurrences
+        // GET: Ocurrences in progress
+        public async Task<IActionResult> List_in_progress()
+        {   
+            
+            var qAccessContext = _context.
+            Ocurrences.Where(o => o.Status == Ocurrence.StatusOcurrence.InProgress 
+                && 
+            // o valor 1 deve ser substituido pelo id do usuario logado
+            o.EmployeeId == 1)
+            .Include(o => o.Responsable)
+            .Include(o => o.ResponsibleOfficial);
+            return View(await qAccessContext.ToListAsync());
+        }
+
+        // GET: Ocurrences closed
         public async Task<IActionResult> List_finished()
         {
             var qAccessContext = _context.Ocurrences.Where(o => o.Status == Ocurrence.StatusOcurrence.Closed)
@@ -36,15 +50,7 @@ namespace QAccess.Controllers
             return View(await qAccessContext.ToListAsync());
         }
 
-        // GET: Ocurrences
-        public async Task<IActionResult> List_in_progress()
-        {
-            var qAccessContext = _context.Ocurrences.Where(o => o.Status == Ocurrence.StatusOcurrence.InProgress)
-            .Include(o => o.Responsable)
-            .Include(o => o.ResponsibleOfficial);
-            return View(await qAccessContext.ToListAsync());
-        }
-
+        
         // GET: Ocurrences/Details/5
         public async Task<IActionResult> Details(int? id)
         {

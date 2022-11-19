@@ -17,7 +17,7 @@
     </nav>
 
     <div class=" my-3 d-flex flex-row-reverse">
-        <button data-bs-toggle="modal" data-bs-target="#unitsModal" type="button" class="btn btn-success ms-2">Salvar</button>
+        <button data-bs-toggle="modal" data-bs-target="#defaultModalAction" type="button" class="btn btn-success ms-2">Salvar</button>
         <a asp-controller="Employees" asp-action="Index" class="btn btn-danger btn-secondary ms-2">Cancelar</a>
     </div>
 
@@ -102,11 +102,11 @@
             </div>
 
             <!-- Modal -->
-            <div class="modal fade" id="unitsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="defaultModalAction" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5">Editar Unidade</h1>
+                            <h1 class="modal-title fs-5">Editar Funcionario</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body my-2">
@@ -114,14 +114,14 @@
                                 <span><strong>Atenção!</strong> Ao confirmar, os dados do item serão atualizados e não será possível reverter essa alteração.</span>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="awareUnits">
-                                <label class="form-check-label" for="awareUnits">Estou ciente!</label>
+                                <input class="form-check-input" type="checkbox" id="awareId">
+                                <label class="form-check-label" for="awareId">Estou ciente!</label>
                             </div>
                         </div>
                         <div class="modal-footer"> 
                             <div class="buttons-actions d-flex flex-row-reverse">
                                 <form asp-action="Edit">
-                                    <button id="unitButtonId" type="submit" class="btn btn-success ms-2">Salvar</button>
+                                    <button id="defaultButton" type="submit" class="btn btn-success ms-2">Salvar</button>
                                 </form>
                             </div>
                         </div>

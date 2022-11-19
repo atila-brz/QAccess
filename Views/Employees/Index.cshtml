@@ -13,7 +13,7 @@
         <div class="d-flex flex-row-reverse buttons-group-actions">
             <button type="button" class="btn btn-danger ms-2 d-flex align-items-center"><img width="17px" src="~/images/trash.svg" alt="">Excluir</button>
             <a class="btn btn-edit ms-2 d-flex align-items-center"><img width="20px" src="~/images/pencil-square.svg" alt="">Editar</a>
-            <button data-bs-toggle="modal" data-bs-target="#registerUnitsModal" class="btn btn-primary ms-2 d-flex align-items-center"><img width="15px" src="~/images/add.svg" alt="">Adicionar</button>
+            <button data-bs-toggle="modal" data-bs-target="#registerdefaultModalAction" class="btn btn-primary ms-2 d-flex align-items-center"><img width="15px" src="~/images/add.svg" alt="">Adicionar</button>
         </div>
     </div>
 
@@ -123,7 +123,7 @@
                             </td>
                             <td>
                                 <div class="d-flex justify-content-center align-items-center items-actions" style="gap: 20px;">
-                                    <div><img data-bs-whatever="@item.EmployeeId" data-bs-toggle="modal" data-bs-target="#unitsModal" width="22px" src="~/images/trash-red.svg" alt=""></div>
+                                    <div><img data-bs-whatever="@item.EmployeeId" data-bs-toggle="modal" data-bs-target="#defaultModalAction" width="22px" src="~/images/trash-red.svg" alt=""></div>
                                     <div><a asp-action="Edit" asp-route-id="@item.EmployeeId"><img width="24px" src="~/images/pencil-square-yellow.svg" alt=""></a></div>
                                 </div>
                             </td>
@@ -163,7 +163,7 @@
 
 <!-- Modal -->
 <form asp-action="Create">
-    <div class="modal fade" id="registerUnitsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="registerdefaultModalAction" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                     <div class="modal-header">
@@ -234,11 +234,11 @@
 </form>
 
 <!-- Modal -->
-<div class="modal fade" id="unitsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="defaultModalAction" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5">Deletar Funcionário</h1>
+                <h1 class="modal-title fs-5">Deletar Unidade</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body my-2">
@@ -246,14 +246,14 @@
                     <span><strong>Alerta!</strong> Não será possível refazer essa operação. O itém será deletado permanentemente.</span>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="0" id="awareUnits">
-                    <label class="form-check-label" for="awareUnits">Estou ciente!</label>
+                    <input class="form-check-input" type="checkbox" value="0" id="awareId">
+                    <label class="form-check-label" for="awareId">Estou ciente!</label>
                 </div>
             </div>
             <div class="modal-footer"> 
                 <form asp-action="Delete">
-                    <input id="unitInputID" type="hidden" name="id"/>
-                    <button id="unitButtonId" class="btn bg-danger btn-primary ms-2 d-flex align-items-center" role="button" type="submit" class="btn btn-danger"><img width="17px" style="margin-right: 3px;" src="~/images/trash.svg" alt="">Excluir</button>
+                    <input id="defaultInputID" type="hidden" name="id"/>
+                    <button id="defaultButton" class="btn bg-danger btn-primary ms-2 d-flex align-items-center" role="button" type="submit" class="btn btn-danger"><img width="17px" style="margin-right: 3px;" src="~/images/trash.svg" alt="">Excluir</button>
                 </form>
             </div>
         </div>

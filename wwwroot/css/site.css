@@ -51,6 +51,7 @@ body{
   width: 6px;
   background: #F4F4F4;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #dad7d7;
 }
@@ -260,6 +261,7 @@ main.container-lg{
 .scrollarea_ocurrence{
   overflow-x: hidden;
   overflow-y: scroll;
+  height: 70vh;
 }
 
 .imagem_table{
@@ -312,6 +314,11 @@ main.container-lg{
 
 .title_ocurrence a{
   color: #000000;
+}
+.card-title{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .desciption_ocurrence{
   white-space: nowrap;
@@ -482,4 +489,14 @@ main.container-lg{
   color: #ffffff;
   background-color: #009da8;
   transform: scale(1.05);
+}
+
+.card-body .status_ocurrence_open{
+  font-size: 0.8rem;
+}
+.card-body .status_ocurrence_inprogress{
+  font-size: 0.8rem;
+}
+.card-body .status_ocurrence_closed{
+  font-size: 0.8rem;
 }

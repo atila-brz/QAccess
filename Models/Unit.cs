@@ -7,19 +7,20 @@ namespace QAccess.Models
     public class Unit
     {
         [Key]
+        [Display(Name = "Identificação da Unidade")]
         public int UnitId { get; set; }
 
-        [Required]
-        [StringLength(30)]
+        [Required(ErrorMessage = "Campo obrigatório!")]
+        [StringLength(10)]
         [Display(Name = "Torre")]
         public string Tower { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Campo obrigatório!")]
         [StringLength(10)]
         [Display(Name = "Bloco")]
         public string Block { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "Campo obrigatório!")]
         [StringLength(6)]
         [Display(Name = "Número")]
         public string Number { get; set; }

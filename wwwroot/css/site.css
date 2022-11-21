@@ -1,4 +1,4 @@
-/* ------------------------------ */
+/* Page Settings */
 html{
   overflow-y: hidden;
 }
@@ -10,31 +10,75 @@ body{
 *{
   font-family: 'Poppins', sans-serif;
 }
+
+:root{
+  --base-color-dark-yellow: #CC9A06;
+  --base-color-dark-yellow-hov: #9e7805;
+  --base-color-blue: #4763E4;
+  --base-color-grey: #6C757D;
+  --text-color-white: white;
+  --background-color-white: white;
+  --background-color-light: #F8F9FA;
+  --text-color-white-hov: #dbdbdb;
+  --base-color-input-border: #ced4da;
+  --menu-linear-gradient: linear-gradient(180deg, #0E1B6B 0%, rgba(14, 27, 107, 0.81875) 42.71%, rgba(14, 27, 107, 0.76) 100%);
+}
+
+::-webkit-scrollbar-track {
+  background-color: #F4F4F4;
+}
+::-webkit-scrollbar {
+  width: 6px;
+  background: #F4F4F4;
+}
+::-webkit-scrollbar-thumb {
+  background: #dad7d7;
+}
 /* ------------------------------ */
 
+/* Removing default bootstrap outlines and borders. */
+a,
+a:focus,
+button,
+button:focus{
+  outline: none !important; 
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.filter-group .btn,
+.filter-group .btn:focus,
+select,
+select:focus,
+input,
+input:focus,
+textarea:focus,
+textarea{
+  border: solid 1px var(--base-color-input-border) !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
 /* ------------------------------ */
+
+/* Customization of the side menu section */
 .menu-container{
-  background: linear-gradient(180deg, #0E1B6B 0%, rgba(14, 27, 107, 0.81875) 42.71%, rgba(14, 27, 107, 0.76) 100%) !important;
+  background: var(--menu-linear-gradient) !important;
 }
 
 .menu-container ul li a{
-  color: white !important;
+  color: var(--text-color-white) !important;
   width: calc(100% - 1.25rem);
 }
 
 .container-screen{
   height: 100%;
 }
-/* ------------------------------ */
 
-/* ------------------------------ */
 .logo{
   width: 50%;
   max-width: 200px;
   min-width: 120px;
 }
-
-/* CSS card */
 
 .font-body-card{
   font-size: 10px;
@@ -56,8 +100,6 @@ body{
   background: #dad7d7;
 }
 
-/* CSS card end */
-
 .profile{
   max-width: 200px;
   min-width: 150px;
@@ -72,49 +114,20 @@ body{
 .profile-text{
   margin-top: -1rem;
   margin-bottom: 1rem;
-  color: white;
+  color: var(--text-color-white);
 }
-/* ------------------------------ */
-
-/* ------------------------------ */
-main.container-lg{
-  background-color: white;
-  width: 100% !important;
-}
-
-.baseboard a{
-  text-decoration: none;
-  transition: ease-in 0.3s;
-}
-
-.icons-profile:hover,
-.baseboard a:hover{
-  transform: scale(1.2);
-}
-
-.baseboard p{
-  color: white;
-}
-/* ------------------------------ */
-
-/* ------------------------------ */
 .menu .btn-toggle {
   padding: .25rem .5rem;
   font-weight: 600;
-  color: white !important;
+  color: var(--text-color-white) !important;
   background-color: transparent;
 }
 
 .menu .btn-toggle:hover {
-  color: rgb(219, 219, 219) !important;
+  color: var(--text-color-white-hov) !important;
   width: 100%;
   box-shadow: 0 0 0 0 !important;
   outline: none;
-}
-
-.menu .btn-toggle:focus, .filter .btn-toggle:focus{
-  outline: none;
-  box-shadow: none;
 }
 
 .menu .btn-toggle::before {
@@ -136,6 +149,7 @@ main.container-lg{
   margin-top: .125rem;
   margin-left: 1.25rem;
 }
+
 .menu .btn-toggle-nav a:hover,
 .menu .btn-toggle-nav a:focus {
   background-color: #4763E4;
@@ -144,42 +158,104 @@ main.container-lg{
 .scrollarea {
   overflow-y: auto;
 }
+
+.baseboard a{
+  text-decoration: none;
+  transition: ease-in 0.3s;
+}
+
+.icons-profile:hover,
+.baseboard a:hover{
+  transform: scale(1.2);
+}
+
+.baseboard p{
+  color: var(--text-color-white);
+}
+/* ------------------------------ */
+
+/* Container bootstrap principal. */
+main.container-lg{
+  background-color: var(--background-color-white);
+  width: 100% !important;
+}
+/* ------------------------------ */
+
+/* Customization of the page's action buttons. */
+.buttons-group-actions img{
+  margin-right: 3px;
+}
+
+.filter button{
+  width: fit-content;
+  cursor: pointer;
+}
 .items-actions img{
   transition: ease-in 0.2s;
 }
 .items-actions img:hover{
   transform: scale(1.2);
-}
-/* ------------------------------ */
-
-.filter-group input, .filter-group input:focus, .filter-group  button, .filter-group .input-group button:focus, .filter-group .input-group button:hover{
-  border-color: #ced4da;
-  outline: none;
-  box-shadow: none;
-}
-
-.form-check input:hover{
   cursor: pointer;
 }
 
+.btn-edit{
+  background-color: var(--base-color-dark-yellow);
+  color: var(--text-color-white);
+}
+
+.btn-edit:hover{
+  background-color: var(--base-color-dark-yellow-hov);
+  color: var(--text-color-white);
+}
+/* ------------------------------ */
+
+/* Centering table elements. */
+table tr{
+  text-align: center;
+}
+/* ------------------------------ */
+
+/* Setting spacing between inputs in the creation modal. */
+#registerDefaultModalAction .modal-body{
+  gap: 10px;
+}
+/* ------------------------------ */
+
+/* Pointer courses for checkboxes */
+.form-check input:hover{
+  cursor: pointer;
+}
+/* ------------------------------ */
+
+/* Footer customization with pagination. */
 .pagination-group{
   width: 100%;
   position: absolute;
   bottom: 0;
 }
 
+.pagination .page-item.disabled{
+  background-color: var(--background-color-white);
+}
+
 .page-link{
-  color: #6C757D;
+  color: var(--base-color-grey);
   border: none;
 }
 
 .page-link:hover{
-  
+  border-radius: 5px;
+  color: var(--base-color-dark-yellow);
+}
+
+.page-link:focus{
+  border-radius: 5px;
+  color: var(--base-color-dark-yellow);
 }
 
 .page-item.active .page-link{
-  background-color: #CC9A06;
-  border-color: #CC9A06 ;
+  background-color: var(--base-color-dark-yellow);
+  border-color: var(--base-color-dark-yellow);
   border-radius: 5px;
 }
 
@@ -187,6 +263,36 @@ main.container-lg{
   margin: 2px;
 }
 /* ------------------------------ */
+
+/* Breadcrumb customization */
+.nav-breadcrumb a{
+  color: var(--base-color-blue);
+  text-decoration: none;
+}
+
+.nav-breadcrumb{
+  padding: 10px;
+  background-color: var(--background-color-light);
+}
+/* ------------------------------ */
+
+/* Customization of the models data display section. */
+.form-group-contour{
+  height: fit-content;
+  border: var(--base-color-input-border)  1px solid;
+}
+
+.form-group-title{
+  color: var(--base-color-grey);
+  background-color: var(--background-color-white);
+  position: relative;
+  top: -1.8rem;
+  padding: 0 0.5rem 0 0.5rem;
+  font-size: 1rem;
+}
+/* ------------------------------ */
+
+/* Responsiveness */
 @media screen and (max-width: 1400px) {
   .menu-container .list-group span{
     font-size: 0.9rem;
@@ -220,7 +326,7 @@ main.container-lg{
 }
 /* ------------------------------ */
 
-/* ------------------------------ */
+/* Responsiveness */
 @media screen and (max-width: 1250px) {
   .menu-container .list-group span{
     font-size: 0.7rem;
@@ -251,7 +357,7 @@ main.container-lg{
 }
 /* ------------------------------ */
 
-/* ------------------------------ */
+/* Responsiveness */
 @media screen and (min-width: 1250px) {
   main.container-lg{
     max-width: 100% !important;
@@ -335,7 +441,7 @@ main.container-lg{
   border-radius: 7px;
   padding: 0.2rem 0.5rem;
 }
-
+buttons-actions
 .status_ocurrence_inprogress{
   font-size: 1.2rem;
   color: #CC9A06;
@@ -372,7 +478,7 @@ main.container-lg{
   color: #FFF;
   background-color: #b48805;
   transform: scale(1.05);
-}
+}buttons-actions
 .ocurrence_delete_button{
   color: #ffffff;
   

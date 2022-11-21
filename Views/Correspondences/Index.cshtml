@@ -1,0 +1,137 @@
+@model IEnumerable<QAccess.Models.Correspondence>
+
+@{
+ViewData["Title"] = "Correspondêcia";
+}
+
+@{ 
+    List<int> correspondencesCheck = null;
+    bool buttonEnable = false;
+}
+
+<div style="height: 100%; position: relative;">
+    <div class="row">
+        <h3 style="font-weight: 500;">Correspondências</h3>
+    </div>
+    
+    <div class="row buttons-icons">
+        <div class="buttons-actions d-flex flex-row-reverse">
+            <a class="btn btn-primary ms-2 d-flex align-items-center"  style="background-color: #198754; border: none;" href="#" role="button"><img width="15px" style="margin-right: 3px;" src="~/images/check.svg" alt="">Entregar</a>
+            <a class="btn btn-primary ms-2 d-flex align-items-center" style="background-color: #C81313; border: none;" href="#" role="button"><img width="17px" style="margin-right: 3px;" src="~/images/trash.svg" alt="">Excluir</a>
+            <a class="btn btn-primary ms-2 d-flex align-items-center" href="#" role="button" style="background-color: #CC9A06; border: none;"><img width="20px" style="margin-right: 3px;" src="~/images/pencil-square.svg" alt="">Editar</a>
+            <a asp-action="Create" class="btn btn-primary ms-2 d-flex align-items-center" role="button"><img width="15px" style="margin-right: 3px;" src="~/images/add.svg" alt="">Adicionar</a>
+        </div>
+    </div>
+    <div class="row filter">
+        <ul class="list-unstyled list-group ps-0 nav nav-pills mb-auto">
+            <li class="mb-1" style="width: 100%;">
+                <button style="width: 100%;" class="justify-content-between btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#filter-collapse" aria-expanded="false">
+                    <div  class="d-flex align-items-center">
+                        <img width="17px" src="~/images/funnel.svg" alt="">
+                        <span class="ps-2">Filtros</span>
+                    </div>
+                </button>
+                <div class="collapse filter-group" id="filter-collapse" style="">
+                    <div class="d-flex row flex-nowrap flex-lg-row flex-column">
+                        <div class="col-lg-6 col-sm-5">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Pesquise por uma palavra chave..." aria-label="Recipient's username" aria-describedby="button-addon2">
+                                <button class="btn btn-outline-secondary" type="button" id="button-addon2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-5">
+                            <input class="form-control" type="text" placeholder="Data inicial..."onfocus="(this.type='date')" onblur="(this.type='text')">
+                        </div>
+                        <div class="col-lg-3 col-sm-5">
+                            <input class="form-control" type="text" placeholder="Data final..."onfocus="(this.type='date')" onblur="(this.type='text')">
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr style="text-align: center;">
+                    <th scope="col">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        </div>
+                    </th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Status)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Sender)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Unit)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.TrackingCode)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.DateDelivery)</th>
+                    <th></th>
+                <tr>
+            </thead>
+            <tbody>
+                @{
+                    @for (int i = 0; i < 10; i++)
+                    {
+                        <tr style="text-align: center;">
+                            <th scope="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                </div>
+                            </th>                                
+                            @* <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Sender)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Unit.Number)</td>
+                            <td>@Html.DisplayFor(modelItem => item.TrackingCode)</td>
+                            <td>@Html.DisplayFor(modelItem => item.DateDelivery)</td> *@
+                            <td>Teste</td>
+                            <td>Teste</td>
+                            <td>Teste</td>
+                            <td>Teste</td>
+                            <td>Teste</td>
+                            <td>
+                                <div class="d-flex justify-content-center align-items-center items-actions" style="gap: 20px;">
+                                    <div><a href="#"><img width="22px" src="~/images/trash-red.svg" alt=""></a></div>
+                                    <div><a href="#"><img width="24px" src="~/images/pencil-square-yellow.svg" alt=""></a></div>
+                                    @* 
+                                    <div><a asp-action="Delete" asp-route-id="@item.UnitId"><img width="22px" src="~/images/trash-red.svg" alt=""></a></div>
+                                    <div><a asp-action="Edit" asp-route-id="@item.UnitId"><img width="24px" src="~/images/pencil-square-yellow.svg" alt=""></a></div> *@
+                                    <div><a href="#"><img width="24px" src="~/images/check-green.svg" alt=""></a></div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class=" pagination-group d-flex flex-row-reverse">
+        <nav aria-label="...">
+            <ul class="pagination">
+                <li class="page-item disabled">
+                    <a class="page-link">Previous</a>
+                </li>
+                
+                <li class="page-item">
+                    <a class="page-link" href="#">1</a>
+                </li>
+
+                <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="#">2</a>
+                </li>
+
+                <li class="page-item">
+                    <a class="page-link" href="#">3</a>
+                </li>
+
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+            </nav>
+    </div>
+</div>

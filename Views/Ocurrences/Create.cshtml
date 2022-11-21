@@ -4,13 +4,20 @@
     ViewData["Title"] = "Criar Ocorrência";
 }
 
-<div class="row mt-3 mb-3 flex-nowrap w-100 ms-1 d-flex ">
+<div class="row mb-2 flex-nowrap w-100 ms-1 d-flex ">
     <H3 class="d-flex justify-content-between title_ocurrence">
         Criar Ocorrêcia
-        <a asp-action="Index"><i class="bi bi-arrow-down-left-circle-fill"></i></a></H3>
+        <a asp-action="Index"><i class="bi bi-arrow-down-left-circle-fill"></i></a>
+    </H3>
+    
 </div>
 
 <form asp-action="Create">
+    <div class="d-flex flex-row-reverse">
+        <div class="form-group ocu">
+            <input type="submit" value="Criar Ocorrência" class="btn btn-primary" />
+        </div>
+    </div>
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="body_ocurrence_create p-3">
         <span class="boder_title_ocurrence">PREENCHA A OCURRÊCIA</span>
@@ -45,9 +52,7 @@
             <div class="gallery" id="gallery">
                 
             </div>
-            <div class="form-group ocu">
-                    <input type="submit" value="Criar" class="btn btn-primary" />
-            </div>
+            
         </div>
     </div>
 </form>

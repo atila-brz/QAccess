@@ -27,6 +27,30 @@ namespace QAccess.Controllers
             return View(await qAccessContext.ToListAsync());
         }
 
+        // GET: Ocurrences in progress
+        public async Task<IActionResult> List_in_progress()
+        {   
+            
+            var qAccessContext = _context.
+            Ocurrences.Where(o => o.Status == Ocurrence.StatusOcurrence.InProgress 
+                && 
+            // o valor 1 deve ser substituido pelo id do usuario logado
+            o.EmployeeId == 1)
+            .Include(o => o.Responsable)
+            .Include(o => o.ResponsibleOfficial);
+            return View(await qAccessContext.ToListAsync());
+        }
+
+        // GET: Ocurrences closed
+        public async Task<IActionResult> List_finished()
+        {
+            var qAccessContext = _context.Ocurrences.Where(o => o.Status == Ocurrence.StatusOcurrence.Closed)
+            .Include(o => o.Responsable)
+            .Include(o => o.ResponsibleOfficial);
+            return View(await qAccessContext.ToListAsync());
+        }
+
+        
         // GET: Ocurrences/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -127,25 +151,83 @@ namespace QAccess.Controllers
             return View(ocurrence);
         }
 
-        // GET: Ocurrences/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // POST: Ocurrences/Select/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Select(int id)
         {
-            if (id == null || _context.Ocurrences == null)
+            Ocurrence ocurrence = await _context.Ocurrences.FindAsync(id);
+            if(await _context.Employees.FindAsync(1)==null)
+            {
+                return NotFound();
+            }
+            ocurrence.selectedForEmployee(1);
+
+            if (id != ocurrence.OcurrenceId)
             {
                 return NotFound();
             }
 
-            var ocurrence = await _context.Ocurrences
-                .Include(o => o.Responsable)
-                .Include(o => o.ResponsibleOfficial)
-                .FirstOrDefaultAsync(m => m.OcurrenceId == id);
-            if (ocurrence == null)
+            if (ModelState.IsValid)
             {
-                return NotFound();
+                try
+                {
+                    _context.Update(ocurrence);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!OcurrenceExists(ocurrence.OcurrenceId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
             }
-
             return View(ocurrence);
         }
+
+        //post: Ocurrences/Finish/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Finish(int id, string answer )
+        {
+            Ocurrence ocurrence = await _context.Ocurrences.FindAsync(id);
+            ocurrence.Answer = answer;
+            ocurrence.closeOcurrence();
+
+            if (id != ocurrence.OcurrenceId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(ocurrence);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!OcurrenceExists(ocurrence.OcurrenceId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(ocurrence);
+        }
+
 
         // POST: Ocurrences/Delete/5
         [HttpPost, ActionName("Delete")]

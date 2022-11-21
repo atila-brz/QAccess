@@ -14,7 +14,7 @@ namespace QAccess.Models
         public int OcurrenceId { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(30)]
         [Display(Name = "Local")]
         public string Locale { get; set; }
 
@@ -39,20 +39,21 @@ namespace QAccess.Models
         public DateTime CreationDate { get; set; }
 
         [Required]
-        [StringLength(255)]
+        [StringLength(200)]
         [Display(Name = "Descrição")]
         public string Description { get; set; }
 
-        [StringLength(100)]
+        [StringLength(200)]
         [Display(Name = "Resposta")]
         public string? Answer { get; set; }
 
-        [Required]
-        [StringLength(100)]
+        [Required (ErrorMessage = "O titulo é obrigadorio")]
+        [StringLength(30)]
         [Display(Name = "Titulo")]
         public string Title { get; set; }
 
         [Display(Name = "Fotos")]
+        [Required (ErrorMessage = "Por favor, adicione a foto ")]
         public string PhotoBase64 { get; set; }
 
         public enum StatusOcurrence
@@ -63,6 +64,26 @@ namespace QAccess.Models
             InProgress,
             [Display(Name = "FINALIZADA")]
             Closed
+        }
+        
+        public  bool selectedForEmployee(int employeeId)
+        {
+
+            this.Status = StatusOcurrence.InProgress;
+            this.EmployeeId = employeeId;
+            return true;
+
+        }
+
+        public bool closeOcurrence()
+        {
+            if(this.Answer != null)
+            {
+                this.Status = StatusOcurrence.Closed;
+                return true;
+            }
+            return false;
+        
         }
     }
 }

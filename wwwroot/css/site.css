@@ -88,6 +88,18 @@ textarea{
   background-color:#7749F8;
 }
 
+::-webkit-scrollbar-track {
+  background-color: #F4F4F4;
+}
+::-webkit-scrollbar {
+  width: 6px;
+  background: #F4F4F4;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #dad7d7;
+}
+
 .profile{
   max-width: 200px;
   min-width: 150px;
@@ -352,6 +364,11 @@ table tr{
   }
 }
 /* ------------------------------ */
+.scrollarea_ocurrence{
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 70vh;
+}
 
 .imagem_table{
   width: 100px;
@@ -365,7 +382,7 @@ table tr{
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
-  border-radius: .5rem;
+  border-radius: .3rem;
   line-height: 1.5;;
 }
 
@@ -386,6 +403,12 @@ table tr{
   height: 9.5rem;
 }
 
+@media (min-width: 1350px){
+  .card_ocurrence{
+    min-width: 500PX;
+  }
+}
+
 .sub_titulo_ocurence{
   font-family: 'Roboto', sans-serif;
   font-style: normal;
@@ -397,6 +420,16 @@ table tr{
 
 .title_ocurrence a{
   color: #000000;
+}
+.card-title{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.desciption_ocurrence{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .status_ocurrence_open{
@@ -431,11 +464,11 @@ buttons-actions
 
 .ocurrence_edit_button{
   color: #ffffff;
-  padding: 3px 5px 3px 5px;
+  
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
-  border-radius: .5rem;buttons-actions
+  border-radius: .3rem;
   line-height: 1.5;
   background-color: #CC9A06;
   transition: all 0.3s ease-in-out;
@@ -448,14 +481,15 @@ buttons-actions
 }buttons-actions
 .ocurrence_delete_button{
   color: #ffffff;
-  padding: 3px 5px 3px 5px;
+  
   font-size: 1rem;
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
-  border-radius: .5rem;
+  border-radius: .3rem;
   line-height: 1.5;
   background-color: #C81313;
   transition: all 0.3s ease-in-out;
+  margin-left: 16px;
 }
 .ocurrence_delete_button:hover{
   color: #FFF;
@@ -478,16 +512,17 @@ buttons-actions
 
 .body_ocurrence{
   margin-top: 2.5vh;
-  height: 69vh;
+  max-height: 69vh;
   border-radius: 10px;
   border: #000000  1px solid;
 }
 
 .body_ocurrence_create{
   margin-top: 2.5vh;
-  height: 76vh;
+  height: 100%;
   border-radius: 10px;
   border: #000000  1px solid;
+  box-sizing: border-box;
 }
 
 .label_photos{
@@ -498,4 +533,76 @@ buttons-actions
   width: 10vw;
   height: 10vw;
   margin: 0 0.5rem 0 0.5rem;
+}
+
+.disabled{
+  background-color: #6C757D;
+}
+
+.filter{
+  cursor: pointer;
+  
+}
+
+.ocurrence_select_button{
+  color: #ffffff;
+  
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  border-radius: .3rem;
+  line-height: 1.5;
+  background-color: #198754;
+  transition: all 0.3s ease-in-out;
+}
+.ocurrence_select_button:hover{
+  color: #FFF;
+  background-color: #198754;
+  opacity: 0.8;
+  transform: scale(1.05);
+}
+
+.ocurrence_finish_button{
+  color: #ffffff;
+  
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  border-radius: .3rem;
+  line-height: 1.5;
+  background-color: #016bce;
+  transition: all 0.3s ease-in-out;
+
+}
+.ocurrence_finish_button:hover{
+  color: #FFF;
+  background-color: #0056a7;;
+  transform: scale(1.05);
+}
+
+.ocurrence_save_button{
+  color: #ffffff;
+  
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  border-radius: .3rem;
+  line-height: 1.5;
+  background-color: #01c0ce;
+  transition: all 0.3s ease-in-out;
+}
+.ocurrence_save_button:hover{
+  color: #ffffff;
+  background-color: #009da8;
+  transform: scale(1.05);
+}
+
+.card-body .status_ocurrence_open{
+  font-size: 0.8rem;
+}
+.card-body .status_ocurrence_inprogress{
+  font-size: 0.8rem;
+}
+.card-body .status_ocurrence_closed{
+  font-size: 0.8rem;
 }

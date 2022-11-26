@@ -51,7 +51,7 @@ Change a `DefaultDatabas`e property according to your database access.
   }
 ```
 
-| Environment Variables | Description |
+| Properties | Description |
 | --- | --- |
 | `server` | Database execution address.  |
 | `database` | Name of the previously created database..  |

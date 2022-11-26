@@ -66,6 +66,12 @@ Before running the application, run the dotnet command below to create the table
 dotnet-ef migrations add CreateTables
 ```
 
+Update the database:
+
+```csharp
+dotnet-ef database update
+```
+
 Make the build:
 
 ```csharp

@@ -42,7 +42,7 @@ Access your database and create a database called `qaccess`
 
 Having an instance of the database running, we need to configure it in the [appsettings.json](./appsettings.json) file.
 
-In `DefaultDatabase` according to the access to your database.
+Change a `DefaultDatabas`e property according to your database access.
 
 ```json
  "ConnectionStrings": {

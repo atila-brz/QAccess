@@ -8,35 +8,36 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace QAccess.Models
 {
-    public class Ocurrence
+    public class Occurrence
     {
         [Key]
-        public int OcurrenceId { get; set; }
+        [Display(Name = "Identificação da Ocorrência")]
+        public int OccurrenceId { get; set; }
 
+        [Required (ErrorMessage = "O titulo é obrigadorio")]
+        [StringLength(30)]
+        [Display(Name = "Titulo")]
+        public string Title { get; set; }
+
+        [Required]
+        [ForeignKey("Responsable")]
+        public int CondominiumId { get; set; }
+        [Display(Name = "Autor")]
+        public virtual Condominium? Responsable { get; set; }
+        
+        [ForeignKey("ResponsibleOfficial")]
+        public int? EmployeeId { get; set; }
+
+        [Display(Name = "Funcionario Responsável")]
+        public virtual Employee? ResponsibleOfficial { get; set; }
+        
         [Required]
         [StringLength(30)]
         [Display(Name = "Local")]
         public string Locale { get; set; }
 
         [Required]
-        public StatusOcurrence Status { get; set; }
-
-        [Required]
-        [ForeignKey("Responsable")]
-        public int CondominiumId { get; set; }
-
-        [Display(Name = "Autor")]
-        public virtual Condominium? Responsable { get; set; }
-
-        [ForeignKey("ResponsibleOfficial")]
-        public int? EmployeeId { get; set; }
-
-        [Display(Name = "Funcionario Responsável")]
-        public virtual Employee? ResponsibleOfficial { get; set; }
-
-        [Required]
-        [Display(Name = "Data de criação")]
-        public DateTime CreationDate { get; set; }
+        public StatusOccurrence Status { get; set; }
 
         [Required]
         [StringLength(200)]
@@ -47,39 +48,38 @@ namespace QAccess.Models
         [Display(Name = "Resposta")]
         public string? Answer { get; set; }
 
-        [Required (ErrorMessage = "O titulo é obrigadorio")]
-        [StringLength(30)]
-        [Display(Name = "Titulo")]
-        public string Title { get; set; }
+        [Required]
+        [Display(Name = "Data de Criação")]
+        public DateTime CreationDate { get; set; }
 
         [Display(Name = "Fotos")]
         [Required (ErrorMessage = "Por favor, adicione a foto ")]
         public string PhotoBase64 { get; set; }
 
-        public enum StatusOcurrence
+        public enum StatusOccurrence
         {
-            [Display(Name = "REGISTRADA")]
+            [Display(Name = "Registrada")]
             Open,
-            [Display(Name = "ANALISE")]
+
+            [Display(Name = "Análise")]
             InProgress,
-            [Display(Name = "FINALIZADA")]
+
+            [Display(Name = "Finalizada")]
             Closed
         }
         
         public  bool selectedForEmployee(int employeeId)
         {
-
-            this.Status = StatusOcurrence.InProgress;
+            this.Status = StatusOccurrence.InProgress;
             this.EmployeeId = employeeId;
             return true;
-
         }
 
-        public bool closeOcurrence()
+        public bool closeOccurrence()
         {
             if(this.Answer != null)
             {
-                this.Status = StatusOcurrence.Closed;
+                this.Status = StatusOccurrence.Closed;
                 return true;
             }
             return false;

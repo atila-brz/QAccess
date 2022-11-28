@@ -1,6 +1,6 @@
 /* Page Settings */
 html{
-  overflow-y: hidden;
+  overflow-y: scroll;
 }
 
 body{
@@ -22,6 +22,7 @@ body{
   --text-color-white-hov: #dbdbdb;
   --base-color-input-border: #ced4da;
   --menu-linear-gradient: linear-gradient(180deg, #0E1B6B 0%, rgba(14, 27, 107, 0.81875) 42.71%, rgba(14, 27, 107, 0.76) 100%);
+  --base-color-red: #dc3545;
 }
 
 ::-webkit-scrollbar-track {
@@ -81,11 +82,7 @@ textarea{
 }
 
 .font-body-card{
-  font-size: 10px;
-}
-
-.card-footer .btn-primary{
-  background-color:#7749F8;
+  font-size: 16px;
 }
 
 ::-webkit-scrollbar-track {
@@ -106,7 +103,7 @@ textarea{
   width: 70%
 }
 
-.icons-profile{
+.icons-profile svg{
   transition: ease-in 0.3s;
   max-width: 32px;
 }
@@ -116,7 +113,13 @@ textarea{
   margin-bottom: 1rem;
   color: var(--text-color-white);
 }
+
+.menu{
+  max-height: 400px !important;
+}
+
 .menu .btn-toggle {
+  width: 100%;
   padding: .25rem .5rem;
   font-weight: 600;
   color: var(--text-color-white) !important;
@@ -155,10 +158,6 @@ textarea{
   background-color: #4763E4;
 }
 
-.scrollarea {
-  overflow-y: auto;
-}
-
 .baseboard a{
   text-decoration: none;
   transition: ease-in 0.3s;
@@ -175,25 +174,52 @@ textarea{
 /* ------------------------------ */
 
 /* Container bootstrap principal. */
+body > .container-fluid{
+  height: 100vh;
+}
+
+.container-main{
+  height: 100%; 
+  position: relative;
+}
 main.container-lg{
   background-color: var(--background-color-white);
   width: 100% !important;
+  height: 100%;
 }
 /* ------------------------------ */
 
 /* Customization of the page's action buttons. */
-.buttons-group-actions img{
+.buttons-group-actions svg{
   margin-right: 3px;
+}
+
+.buttons-group-actions .btn{
+  transition: 0.2s ease-in all;
+}
+
+.buttons-group-actions .btn:hover{
+  transform: scale(1.05);
+}
+
+.filter{
+  cursor: pointer;
 }
 
 .filter button{
   width: fit-content;
   cursor: pointer;
 }
-.items-actions img{
+
+.items-actions{
+  gap: 20px;
+}
+
+.items-actions span{
   transition: ease-in 0.2s;
 }
-.items-actions img:hover{
+
+.items-actions span:hover{
   transform: scale(1.2);
   cursor: pointer;
 }
@@ -215,32 +241,19 @@ table tr{
 }
 /* ------------------------------ */
 
-/* Setting spacing between inputs in the creation modal. */
-#registerDefaultModalAction .modal-body{
-  gap: 10px;
-}
-/* ------------------------------ */
-
 /* Pointer courses for checkboxes */
 .form-check input:hover{
   cursor: pointer;
 }
 /* ------------------------------ */
 
-/* Footer customization with pagination. */
-.pagination-group{
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-}
-
+/* pagination settings */
 .pagination .page-item.disabled{
   background-color: var(--background-color-white);
 }
 
 .page-link{
   color: var(--base-color-grey);
-  border: none;
 }
 
 .page-link:hover{
@@ -290,319 +303,180 @@ table tr{
   padding: 0 0.5rem 0 0.5rem;
   font-size: 1rem;
 }
-/* ------------------------------ */
-
-/* Responsiveness */
-@media screen and (max-width: 1400px) {
-  .menu-container .list-group span{
-    font-size: 0.9rem;
-  }
-
-  .menu-container ul li a{
-    font-size: 0.8rem;
-  }
-
-  .baseboard a p{
-    font-size: 0.9rem;
-  }
-
-  .baseboard svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  .menu-container .list-group svg{
-    width: 16px;
-    height: 16px;
-  }
-
-  .btn-toggle::before{
-    width: 0.6em;
-  }
-
-  .icons-profile{
-    max-width: 25px;
-  }
-}
-/* ------------------------------ */
-
-/* Responsiveness */
-@media screen and (max-width: 1250px) {
-  .menu-container .list-group span{
-    font-size: 0.7rem;
-  }
-
-  .menu-container ul li a{
-    font-size: 0.7rem;
-  }
-  .menu-container .h6{
-    font-size: 0.8rem;
-  }
-
-  .baseboard a p{
-    font-size: 0.7rem;
-  }
-
-  main.container-lg{
-    max-width: 100% !important;
-  }
-
-  .btn-toggle::before{
-    width: 0.2em;
-  }
-
-  .icons-profile{
-    max-width: 22px;
-  }
-}
-/* ------------------------------ */
-
-/* Responsiveness */
-@media screen and (min-width: 1250px) {
-  main.container-lg{
-    max-width: 100% !important;
-  }
-}
-/* ------------------------------ */
-.scrollarea_ocurrence{
-  overflow-x: hidden;
-  overflow-y: scroll;
-  height: 70vh;
-}
-
-.imagem_table{
-  width: 100px;
-  height: 100px;
-}
-
-.ocurrence_add_button{
-  padding: 5px 0 5px 0;
-  width: 7rem;
-  height: 2.2rem;
-  font-size: 1rem;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 700;
-  border-radius: .3rem;
-  line-height: 1.5;;
-}
-
-.ocurrence_add_button span{
-  margin-left: -0.1rem;
-}
-.ocurrence_add_button i{
-  font-size: 2rem;
-  margin:auto;
-}
-
-.imagem_ocurrence{
-  width: 100%;
-  height: 8.7rem;
-}
-
-.card_ocurrence{
-  height: 9.5rem;
-}
-
-@media (min-width: 1350px){
-  .card_ocurrence{
-    min-width: 500PX;
-  }
-}
-
-.sub_titulo_ocurence{
-  font-family: 'Roboto', sans-serif;
-  font-style: normal;
-  font-size: 1.5rem;
-  font-weight: 800;
-  margin-bottom: 0.5rem;
-  color: #6C757D;
-}
-
-.title_ocurrence a{
-  color: #000000;
-}
-.card-title{
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.desciption_ocurrence{
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.status_ocurrence_open{
-  font-size: 1.2rem;
-  color: #4763E4;
-  box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
-  border: 1px solid #4763E4;
-  border-radius: 7px;
-  padding: 0.2rem 0.5rem;
-}
-buttons-actions
-.status_ocurrence_inprogress{
-  font-size: 1.2rem;
-  color: #CC9A06;
-  box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
-  border: 1px solid #CC9A06;
-  border-radius: 7px;
-  padding: 0.2rem 0.5rem;
-}
-
-.status_ocurrence_closed{
-  font-size: 1.2rem;
-  color: #198754;
-  box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
-  border: 1px solid #198754;
-  border-radius: 7px;
-  padding: 0.2rem 0.5rem;
-}
-
-.ocurrence_edit_button{
-  color: #ffffff;
-  
-  font-size: 1rem;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 500;
-  border-radius: .3rem;
-  line-height: 1.5;
-  background-color: #CC9A06;
-  transition: all 0.3s ease-in-out;
-  margin-left: 16px;
-}
-.ocurrence_edit_button:hover{
-  color: #FFF;
-  background-color: #b48805;
-  transform: scale(1.05);
-}buttons-actions
-.ocurrence_delete_button{
-  color: #ffffff;
-  
-  font-size: 1rem;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 500;
-  border-radius: .3rem;
-  line-height: 1.5;
-  background-color: #C81313;
-  transition: all 0.3s ease-in-out;
-  margin-left: 16px;
-}
-.ocurrence_delete_button:hover{
-  color: #FFF;
-  background-color: #ad1010;
-  transform: scale(1.05);
-}
-
-.boder_title_ocurrence{
-  background-color: #FFF;
-  position: relative;
-  top: -1.8rem;
-  padding: 0 0.5rem 0 0.5rem;
-  font-size: 1rem;
-  font-weight: 700;
-}
 
 .initial_margin_negative{
   margin-top: -1.5rem;
 }
+/* ------------------------------ */
 
-.body_ocurrence{
-  margin-top: 2.5vh;
-  max-height: 69vh;
-  border-radius: 10px;
-  border: #000000  1px solid;
+
+/* Scroll areas */
+.scrollarea{
+  transition: 0.2s ease-in;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
-.body_ocurrence_create{
-  margin-top: 2.5vh;
-  height: 100%;
-  border-radius: 10px;
-  border: #000000  1px solid;
-  box-sizing: border-box;
+.scrollarea.details{
+  max-height: 65vh;
+}
+
+.scrollarea.list{
+  max-height: 70vh;
+}
+/* ------------------------------ */
+
+/* Settings for images of occurrences */
+.body-group-occurence{
+  width: 75%;
+}
+
+.imagem-occurrence-group{
+  width: 25%;
+}
+
+.imagem-occurrence{
+  width: 100%;
+  height: 10rem;
 }
 
 .label_photos{
   display: block;
 }
 
-.image_detail_ocurrence{
+.image_detail_occurrence{
   width: 10vw;
   height: 10vw;
-  margin: 0 0.5rem 0 0.5rem;
+}
+/* ------------------------------ */
+
+/* Utils */
+.text-collapsed{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.text-decoration-none{
+  text-decoration: none;
 }
 
 .disabled{
   background-color: #6C757D;
 }
+/* ------------------------------ */
 
-.filter{
-  cursor: pointer;
+/* Occurrence status buttons */
+.buttons_status span{
+  font-weight: 600;
+  border: 1.5px solid;
+}
+
+.button_inprogress{
+  color: var(--base-color-dark-yellow-hov) !important;
+  border-color: var(--base-color-dark-yellow-hov) !important;
+}
+
+/* Modal settings */
+.modal-button-close{
+  background-color: transparent;
+  width: fit-content;
+}
+
+.modal-button-close i{
+  font-size: 24px;
+  color: var(--base-color-red)
+}
+/* ------------------------------ */
+
+/* Missing records alert */
+.no-registry-message{
+  height: 50vh;
+}
+.no-registry-message p{
+  font-size: 30px;
+  color: var(--base-color-grey);
+}
+/* ------------------------------ */
+
+/* Responsiveness */
+  @media screen and (max-width: 1400px) {
+    .menu-container .list-group span{
+      font-size: 0.9rem;
+    }
   
-}
-
-.ocurrence_select_button{
-  color: #ffffff;
+    .menu-container ul li a{
+      font-size: 0.8rem;
+    }
   
-  font-size: 1rem;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 500;
-  border-radius: .3rem;
-  line-height: 1.5;
-  background-color: #198754;
-  transition: all 0.3s ease-in-out;
-}
-.ocurrence_select_button:hover{
-  color: #FFF;
-  background-color: #198754;
-  opacity: 0.8;
-  transform: scale(1.05);
-}
-
-.ocurrence_finish_button{
-  color: #ffffff;
+    .baseboard a p{
+      font-size: 0.9rem;
+    }
   
-  font-size: 1rem;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 500;
-  border-radius: .3rem;
-  line-height: 1.5;
-  background-color: #016bce;
-  transition: all 0.3s ease-in-out;
-
-}
-.ocurrence_finish_button:hover{
-  color: #FFF;
-  background-color: #0056a7;;
-  transform: scale(1.05);
-}
-
-.ocurrence_save_button{
-  color: #ffffff;
+    .baseboard svg {
+      width: 20px;
+      height: 20px;
+    }
   
-  font-size: 1rem;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 500;
-  border-radius: .3rem;
-  line-height: 1.5;
-  background-color: #01c0ce;
-  transition: all 0.3s ease-in-out;
-}
-.ocurrence_save_button:hover{
-  color: #ffffff;
-  background-color: #009da8;
-  transform: scale(1.05);
-}
-
-.card-body .status_ocurrence_open{
-  font-size: 0.8rem;
-}
-.card-body .status_ocurrence_inprogress{
-  font-size: 0.8rem;
-}
-.card-body .status_ocurrence_closed{
-  font-size: 0.8rem;
+    .menu-container .list-group svg{
+      width: 16px;
+      height: 16px;
+    }
+  
+    .btn-toggle::before{
+      width: 0.6em;
+    }
+  
+    .icons-profile{
+      max-width: 25px;
+    }
+  }
+  /* ------------------------------ */
+  
+  /* Responsiveness */
+  @media (min-width: 1350px){
+    .card_occurrence{
+      min-width: 500px;
+    }
+  }
+  /* ------------------------------ */
+  
+  /* Responsiveness */
+  @media screen and (max-width: 1250px) {
+    .menu-container .list-group span{
+      font-size: 0.7rem;
+    }
+  
+    .menu-container ul li a{
+      font-size: 0.7rem;
+    }
+    .menu-container .h6{
+      font-size: 0.8rem;
+    }
+  
+    .baseboard a p{
+      font-size: 0.7rem;
+    }
+  
+    main.container-lg{
+      max-width: 100% !important;
+    }
+  
+    .btn-toggle::before{
+      width: 0.2em;
+    }
+  
+    .icons-profile{
+      max-width: 22px;
+    }
+  }
+  /* ------------------------------ */
+  
+  /* Responsiveness */
+  @media screen and (min-width: 1250px) {
+    main.container-lg{
+      max-width: 100% !important;
+    }
+  }
+  /* ------------------------------ */
 }

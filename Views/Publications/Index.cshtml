@@ -4,68 +4,186 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="container-main">
+    <div class="row">
+        <h3>Classificados</h3>
+    </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Link)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Creator)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Type)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreateDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsActive)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Link)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Creator.ContactNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreateDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsActive)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.PublicationId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.PublicationId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.PublicationId">Delete</a>
-            </td>
-        </tr>
+    <div class="row">
+        <div class="d-flex flex-row-reverse buttons-group-actions">
+            <button data-bs-toggle="modal" data-bs-target="#modalForCreate" class="btn btn-primary ms-2 d-flex align-items-center">
+                <svg width="15" height="15" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="20.2942" y="0.441162" width="4.41176" height="41.9118" rx="2.20588" fill="white"/>
+                    <rect x="0.441223" y="24.7058" width="4.41176" height="41.9118" rx="2.20588" transform="rotate(-90 0.441223 24.7058)" fill="white"/>
+                </svg>
+                Adicionar
+            </button>
+        </div>
+    </div>
+
+    <div class="row filter">
+        <ul class="list-unstyled list-group ps-0 nav nav-pills mb-auto">
+            <li class="mb-1">
+                <button class="justify-content-between btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#filter-collapse" aria-expanded="false">
+                    <div  class="d-flex align-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-funnel-fill" viewBox="0 0 16 16">
+                            <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z"/>
+                        </svg>
+                        <span class="ps-2">Filtros</span>
+                    </div>
+                </button>
+                <div class="collapse filter-group" id="filter-collapse">
+                    <div class="d-flex row flex-nowrap flex-lg-row flex-column">
+                        <div class="col-lg-6 col-sm-5">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Pesquise por uma palavra chave..." aria-label="Recipient's username" aria-describedby="button-addon2">
+                                <a class="btn btn-outline-secondary" type="button" id="button-addon2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-sm-5">
+                            <input class="form-control" type="text" placeholder="Data inicial..."onfocus="(this.type='date')" onblur="(this.type='text')">
+                        </div>
+                        <div class="col-lg-3 col-sm-5">
+                            <input class="form-control" type="text" placeholder="Data final..."onfocus="(this.type='date')" onblur="(this.type='text')">
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="row d-flex scrollarea list">
+            @if (Model.Count() != 0)
+            {     
+                <div class="row row-cols-1 row-cols-lg-2 g-2" style="max-height: 100%">
+                    @foreach (var item in Model)
+                    {  
+                        <div class="col">
+                            <div class="card card_occurrence mb-3 pe-0 ps-2">
+                                <div class="row g-0 ">
+                                    <div class="col-md-4 py-1 ">
+                                        <img src="@Html.DisplayFor(modelItem => item.Photo)" class="rounded imagem-occurrence" alt="...">
+                                    </div>
+                                    <div class="col-md-8 body-group-occurence">
+                                        <div class="card-body ">
+                                            <div class="d-flex justify-content-between">
+                                                <h5 class="card-title text-collapsed fs-6 ">
+                                                    @Html.DisplayFor(modelItem => item.Title) 
+                                                </h5>
+                                            </div>
+                                            <p class="card-text text-collapsed font-body-card">@Html.DisplayFor(modelItem => item.Description)</p>
+                                            <p class="card-text font-body-card">Por: 
+                                                <a asp-action="Details" asp-controller="Condominiums" 
+                                                asp-route-id="@item.CondominiumId" class="text-decoration-none text-primary">
+                                                @Html.DisplayFor(modelItem => item.Creator.Name)</a></p>
+                                        </div>
+                                        <div class="card-footer d-flex align-items-center justify-content-between">
+                                            <small class="text-muted font-body-card">@Html.DisplayFor(modelItem => item.CreateDate)</small>
+                                            <a type="button" asp-action="Details" asp-route-id="@item.PublicationId" class="btn btn-primary btn-sm">Visualizar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>  
+
+            }
+            else
+            {
+                <div class="d-flex justify-content-center align-items-center no-registry-message">
+                    <img src="/images/not_found_ilustration.jpg" width="250px" class="img-fluid" alt="">
+                    <p>Não há registros!</p>
+                </div>
+
+                
+            }
+    </div>
+
+</div>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#image_modal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var recipient = button.data('bs-whatever');
+                var modal = $(this);
+                modal.find('.modal-body img').attr('src', recipient);
+            });
+            $('#photo_path').on('change', function () {
+                for (var i = 0; i < this.files.length; i++) {
+                    let file = this.files[i];
+                    let reader = new FileReader();
+                    reader.onloadend = function () {
+                    $('#photo').val(reader.result);
+                    $('#gallery').append('<img src="' + reader.result + '" class="img-thumbnail image_detail_occurrence" data-bs-whatever="' + reader.result + '" data-bs-target="#image_modal" data-bs-toggle="modal" alt="" />');
+                    }
+                    if (file) {
+                    reader.readAsDataURL(file);
+                    }
+                }
+            });
+        });
+    </script>
 }
-    </tbody>
-</table>
+
+<div class="modal fade" id="modalForCreate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <form asp-action="Create">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Criar Anúncio</h1>
+                        <button type="button" class="modal-button-close" data-bs-dismiss="modal" aria-label="Close">
+                            <i class="bi bi-x-circle-fill"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body d-flex flex-column gap-3">
+                        <div class="form-floating">
+                            <input placeholder="Titulo" id="Title" name="Title" class="form-control" />
+                            <label for="Title">Titulo</label>
+                        </div>
+                        <div class="form-floating">
+                            <textarea placeholder="Descrição" id="Description" name="Description" rows="3" class="form-control"></textarea>
+                            <label for="Description">Descrição</label>
+                        </div>
+                        <div class="form-floating">
+                            <input placeholder="Numero de contato" id="ContactNumber" name="ContactNumber" class="form-control" />
+                            <label for="ContactNumber">Número de contato</label>
+                        </div>
+                        <div class="form-floating">
+                            <input placeholder="Tipo de anúncio" id="Type" name="Type" class="form-control" />
+                            <label for="Type">Tipo de Anúncio</label>
+                        </div>
+                        <div class="form-group">
+                            <label name="PhotoBase64" class=" label_photos"></label>
+                            <input type="file" class="form-control" id="photo_path" multiple>
+                            <input name="PhotoBase64" id="photo" type="hidden" />
+                        </div>
+                        <div>
+                            <div class="gallery" id="gallery">
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer buttons-group-actions">
+                        <button type="button" class="btn-danger btn btn-primary d-flex align-items-center" data-bs-dismiss="modal" aria-label="Close">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-slash-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M11.354 4.646a.5.5 0 0 0-.708 0l-6 6a.5.5 0 0 0 .708.708l6-6a.5.5 0 0 0 0-.708z"/></svg>
+                            Cancelar
+                        </button>
+                        <button type="submit" class="btn-success btn btn-primary d-flex align-items-center" role="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
+                            Salvar
+                        </button>
+                    </div>
+            </div>
+        </div>
+    </form>
+</div>

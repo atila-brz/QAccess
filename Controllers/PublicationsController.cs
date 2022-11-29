@@ -44,27 +44,31 @@ namespace QAccess.Controllers
             return View(publication);
         }
 
-        // GET: Publications/Create
-        public IActionResult Create()
-        {
-            ViewData["CondominiumId"] = new SelectList(_context.Codominiums, "CondominiumId", "ContactNumber");
-            return View();
-        }
+        // // GET: Publications/Create
+        // public IActionResult Create()
+        // {
+        //     ViewData["CondominiumId"] = new SelectList(_context.Codominiums, "CondominiumId", "ContactNumber");
+        //     return View();
+        // }
 
         // POST: Publications/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PublicationId,Title,Description,Link,CondominiumId,Type,CreateDate,IsActive")] Publication publication)
+        public async Task<IActionResult> Create([Bind("PublicationId,Title,Description,Link,ContactNumber,Type,Photo")] Publication publication)
         {
+            publication.CreateDate = DateTime.Now;
+            publication.IsActive = false;
+            publication.Views = 0;
+            publication.UpdateDate = publication.CreateDate;
+            publication.CondominiumId = 0;// TODO: Change this to the logged user's condominium
             if (ModelState.IsValid)
             {
                 _context.Add(publication);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CondominiumId"] = new SelectList(_context.Codominiums, "CondominiumId", "ContactNumber", publication.CondominiumId);
             return View(publication);
         }
 
@@ -90,7 +94,7 @@ namespace QAccess.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PublicationId,Title,Description,Link,CondominiumId,Type,CreateDate,IsActive")] Publication publication)
+        public async Task<IActionResult> Edit(int id, [Bind("PublicationId,Title,Description,Link,CondominiumId,ContactNumber,Type,CreateDate,IsActive,UpdateDate,Views,Photo")] Publication publication)
         {
             if (id != publication.PublicationId)
             {
@@ -121,24 +125,24 @@ namespace QAccess.Controllers
             return View(publication);
         }
 
-        // GET: Publications/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.Publications == null)
-            {
-                return NotFound();
-            }
+        // // GET: Publications/Delete/5
+        // public async Task<IActionResult> Delete(int? id)
+        // {
+        //     if (id == null || _context.Publications == null)
+        //     {
+        //         return NotFound();
+        //     }
 
-            var publication = await _context.Publications
-                .Include(p => p.Creator)
-                .FirstOrDefaultAsync(m => m.PublicationId == id);
-            if (publication == null)
-            {
-                return NotFound();
-            }
+        //     var publication = await _context.Publications
+        //         .Include(p => p.Creator)
+        //         .FirstOrDefaultAsync(m => m.PublicationId == id);
+        //     if (publication == null)
+        //     {
+        //         return NotFound();
+        //     }
 
-            return View(publication);
-        }
+        //     return View(publication);
+        // }
 
         // POST: Publications/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -161,7 +165,7 @@ namespace QAccess.Controllers
 
         private bool PublicationExists(int id)
         {
-          return (_context.Publications?.Any(e => e.PublicationId == id)).GetValueOrDefault();
+            return (_context.Publications?.Any(e => e.PublicationId == id)).GetValueOrDefault();
         }
     }
 }

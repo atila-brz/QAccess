@@ -6,6 +6,7 @@
 const defaultModalAction = document.getElementById('defaultModalAction');
 const deliveryCorrespondenceModal = document.getElementById('deliveryCorrespondenceModal');
 
+
 if(defaultModalAction){
     defaultModalAction.addEventListener('show.bs.modal', event => {
     

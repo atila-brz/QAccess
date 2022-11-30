@@ -40,7 +40,12 @@ namespace QAccess.Controllers
             {
                 return NotFound();
             }
-
+            if(publication.CondominiumId != 2)
+            {
+                publication.Views++;
+                _context.Update(publication);
+                await _context.SaveChangesAsync();
+            }
             return View(publication);
         }
 
@@ -62,7 +67,7 @@ namespace QAccess.Controllers
             publication.IsActive = false;
             publication.Views = 0;
             publication.UpdateDate = publication.CreateDate;
-            publication.CondominiumId = 0;// TODO: Change this to the logged user's condominium
+            publication.CondominiumId = 1;// TODO: Change this to the logged user's condominium
             if (ModelState.IsValid)
             {
                 _context.Add(publication);
@@ -85,7 +90,7 @@ namespace QAccess.Controllers
             {
                 return NotFound();
             }
-            ViewData["CondominiumId"] = new SelectList(_context.Codominiums, "CondominiumId", "ContactNumber", publication.CondominiumId);
+            ViewData["CondominiumId"] = await _context.Codominiums.FindAsync(publication.CondominiumId);
             return View(publication);
         }
 
@@ -94,7 +99,7 @@ namespace QAccess.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PublicationId,Title,Description,Link,CondominiumId,ContactNumber,Type,CreateDate,IsActive,UpdateDate,Views,Photo")] Publication publication)
+        public async Task<IActionResult> Edit(int id, [Bind("PublicationId,Title,Description,Link,ContactNumber,Type,Photo,CondominiumId")] Publication publication)
         {
             if (id != publication.PublicationId)
             {
@@ -103,6 +108,7 @@ namespace QAccess.Controllers
 
             if (ModelState.IsValid)
             {
+                publication.UpdateDate = DateTime.Now;
                 try
                 {
                     _context.Update(publication);
@@ -121,7 +127,7 @@ namespace QAccess.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CondominiumId"] = new SelectList(_context.Codominiums, "CondominiumId", "ContactNumber", publication.CondominiumId);
+            ViewData["CondominiumId"] = await _context.Codominiums.FindAsync(publication.CondominiumId);
             return View(publication);
         }
 

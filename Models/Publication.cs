@@ -31,7 +31,7 @@ namespace QAccess.Models
         public int CondominiumId { get; set; }
 
         [Display(Name = "Condômino")]
-        public Condominium Creator { get; set; }
+        public virtual Condominium? Creator { get; set; }
         
         [StringLength(11)]
         [Display(Name = "Número de contato")]

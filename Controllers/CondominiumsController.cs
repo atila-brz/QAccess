@@ -45,25 +45,31 @@ namespace QAccess.Controllers
         }
 
         // GET: Condominiums/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
+        // public IActionResult Create()
+        // {
+        //     return View();
+        // }
 
         // POST: Condominiums/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CondominiumId,Name,Email,Password,Gender,BirthDate,MaritalStatus,ContactNumber,Cpf")] Condominium condominium)
+        public async Task<IActionResult> Create([Bind("CondominiumId,Name,Email,Gender,BirthDate,MaritalStatus,ContactNumber,Cpf")] Condominium condominium)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(condominium);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if(condominium.MaritalStatusIsValid(condominium.MaritalStatus) is not false && condominium.GenderIsValid(condominium.Gender) is not false)
+                {
+                    _context.Add(condominium);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }   
+                
+                return View(condominium);
+            
             }
-            return View(condominium);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Condominiums/Edit/5
@@ -87,7 +93,7 @@ namespace QAccess.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CondominiumId,Name,Email,Password,Gender,BirthDate,MaritalStatus,ContactNumber,Cpf")] Condominium condominium)
+        public async Task<IActionResult> Edit(int id, [Bind("CondominiumId,Name,Email,Gender,BirthDate,MaritalStatus,ContactNumber,Cpf")] Condominium condominium)
         {
             if (id != condominium.CondominiumId)
             {
@@ -98,8 +104,14 @@ namespace QAccess.Controllers
             {
                 try
                 {
-                    _context.Update(condominium);
-                    await _context.SaveChangesAsync();
+                    if(condominium.MaritalStatusIsValid(condominium.MaritalStatus) is not false && condominium.GenderIsValid(condominium.Gender) is not false)
+                    {
+                        _context.Update(condominium);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Details), new { id = condominium.CondominiumId});
+                    }
+
+                    return View(condominium);
                 }
                 catch (DbUpdateConcurrencyException)
                 {

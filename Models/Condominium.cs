@@ -10,10 +10,11 @@ namespace QAccess.Models
     public class Condominium
     {
         [Key]
+        [Display(Name = "Identificação do Condômino")]
         public int CondominiumId { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(50)]
         [Display(Name = "Nome")]
         public string Name { get; set; }
 
@@ -23,20 +24,24 @@ namespace QAccess.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
-        [DataType(DataType.Password)]
-        [RegularExpression("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s).{8,16}$", ErrorMessage = "A senha deve conter de 8 a 16 caracteres, pelo menos um número, uma letra maiúscula e uma letra minúscula.")]
-        [StringLength(16, MinimumLength = 8)]
-        [Display(Name = "Senha")]
-        public string Password { get; set; }
+        // [Required]
+        // [DataType(DataType.Password)]
+        // [RegularExpression("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s).{8,16}$", ErrorMessage = "A senha deve conter de 8 a 16 caracteres, pelo menos um número, uma letra maiúscula e uma letra minúscula.")]
+        // [StringLength(16, MinimumLength = 8)]
+        // [Display(Name = "Senha")]
+        // public string Password { get; set; }
 
         [Required]
-        [Display(Name = "Gênero")]
-        public string Gender { get; set; }
+        [StringLength(11)]
+        public string Cpf { get; set; }
 
         [Required]
         [Display(Name = "Data de Nascimento")]
         public DateTime BirthDate { get; set; }
+
+        [Required]
+        [Display(Name = "Gênero")]
+        public string Gender { get; set; }
 
         [Required]
         [Display(Name = "Estado Civil")]
@@ -47,16 +52,50 @@ namespace QAccess.Models
         [Display(Name = "Contato")]
         public string ContactNumber { get; set; }
 
-        [Required]
-        [StringLength(11)]
-        public string Cpf { get; set; }
 
         public virtual ICollection<Unit>? Units { get; set; }
 
-        private bool ValidateCpf(string cpf)
-        {
-            return false;
+        public bool MaritalStatusIsValid(string status){
+            foreach (string name in Enum.GetNames(typeof(Employee.MaritalStatusEnum)))  
+                {  
+                    if(String.Equals(status, name)){
+                        return true;
+                    }
+                }
+            return false;  
         }
 
+        public bool GenderIsValid(string gender){
+
+                foreach (string name in Enum.GetNames(typeof(Employee.GenderEnum)))  
+                {  
+                    if(String.Equals(gender, name)){
+                        return true;
+                    }
+                }
+            return false;
+        }
+        
+        public enum GenderEnum
+        {
+            Masculino,
+
+            Feminino,
+
+            Outros
+        }
+
+        public enum MaritalStatusEnum
+        {
+            Solteiro,
+
+            Casado,
+
+            Separado,
+
+            Divorciado,
+
+            Viúvo
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace QAccess.Models
 
         public DbSet<Unit> Units { get; set; }
         public DbSet<Correspondence> Correspondences { get; set; }
-        public DbSet<Ocurrence> Ocurrences { get; set; }
+        public DbSet<Occurrence> Occurrences { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Condominium> Codominiums { get; set; }
         public DbSet<Assembly> Assemblies { get; set; }

@@ -1,49 +1,91 @@
-## __Padrões de Commit__
+## QAccess - Condominium Management
 
-Example:
+Web application developed for condominium management. **[Under development]**
 
-```fix: side menu working```
+## Configuring environment
 
-### Tipo e Descrição
+This application was developed in .NET Core, using Entity Framework and Razor Page.
 
-O commit semântico possui os elementos estruturais abaixo (tipos), que informam a intenção do seu commit ao utilizador(a) de seu código.
+### Configuring dependencies:
 
-- `feat`- Commits do tipo feat indicam que seu trecho de código está incluindo um **novo recurso** (se relaciona com o MINOR do versionamento semântico).
+Installing dependencies: 
 
-- `fix` - Commits do tipo fix indicam que seu trecho de código commitado está **solucionando um problema** (bug fix), (se relaciona com o PATCH do versionamento semântico).
+```csharp
+dotnet tool install --global dotnet-ef
+dotnet tool install --global dotnet-aspnet-codegenerator
+```
 
-- `docs` - Commits do tipo docs indicam que houveram **mudanças na documentação**, como por exemplo no Readme do seu repositório. (Não inclui alterações em código).
+Adding dependencies to csproj.
 
-- `test` - Commits do tipo test são utilizados quando são realizadas **alterações em testes**, seja criando, alterando ou excluindo testes unitários. (Não inclui alterações em código)
+```csharp
+dotnet add package Pomelo.EntityFrameworkCore.Mysql 
+dotnet add package Pomelo.EntityFrameworkCore.MySql.Design
+dotnet add package Microsoft.EntityFrameworkCore.Tools
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Microsoft.VisualStudio.Web.CodeGenerators.Mvc
+dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
+```
 
-- `build` - Commits do tipo build são utilizados quando são realizadas modificações em **arquivos de build e dependências**.
+### Configuring database:
 
-- `perf` - Commits do tipo perf servem para identificar quaisquer alterações de código que estejam relacionadas a **performance**.
+In this project we use MySQL as the database. Make sure you have it running on your machine. Otherwise, you can upload an instance to Docker for use with the command below:
 
-- `style` - Commits do tipo style indicam que houveram alterações referentes a **formatações de código**, semicolons, trailing spaces, lint... (Não inclui alterações em código).
+```docker
+docker run -p 3306:3306 --name mysql-database -e MYSQL_ROOT_PASSWORD={PASSWORD} -d mysql
+```
 
-- `refactor` - Commits do tipo refactor referem-se a mudanças devido a **refatorações que não alterem sua funcionalidade**, como por exemplo, uma alteração no formato como é processada determinada parte da tela, mas que manteve a mesma funcionalidade, ou melhorias de performance devido a um code review.
+| Environment Variables | Description |
+| --- | --- |
+| `MYSQL_ROOT_PASSWORD` | Password for the database root user. |
 
-- `chore` - Commits do tipo chore indicam **atualizações de tarefas** de build, configurações de administrador, pacotes... como por exemplo adicionar um pacote no gitignore. (Não inclui alterações em código)
+Access your database and create a database called `qaccess`
 
-- `ci` - Commits do tipo ci indicam mudanças relacionadas a **integração contínua** (*continuous integration*).
+Having an instance of the database running, we need to configure it in the [appsettings.json](./appsettings.json) file.
 
-#
+Change a `DefaultDatabas`e property according to your database access.
 
-## Nomeclaturas para Branchs:
+```json
+ "ConnectionStrings": {
+    "DefaultDatabase": "server=localhost; database=qaccess; user=root; password=4?lm@ei?D&A",
+    "QaccessContext": "Server=(localdb)\\mssqllocaldb;Database=;Trusted_Connection=True;MultipleActiveResultSets=true"
+  }
+```
 
-Example:
+| Properties | Description |
+| --- | --- |
+| `server` | Database execution address.  |
+| `database` | Name of the previously created database..  |
+| `user` | User to access the database.  |
+| `password` | User password..  |
 
-```feature/list-matches```
+### Running the application:
 
-### Tipo e Descrição
+Before running the application, run the dotnet command below to create the tables in our database
 
-Uso prefixos pré-definidos para criar uma branch. Segue abaixo a lista:
+```csharp
+dotnet-ef migrations add CreateTables
+```
 
-- ```__bugfix/__``` - Como o próprio nome já diz, é um BUG e precisa ser corrigido de forma imediata, o quanto antes. Num outro artigo eu explico melhor a utilização desse cara e branches principais.
+Update the database:
 
-- ```__feature/__``` - O nome já diz também o que é, uma nova feature que será adicionada ao projeto, componente e afins.
+```csharp
+dotnet-ef database update
+```
 
-- ```__hotfix/__``` - Às vezes esse termo pode ser usado de outras formas, até mesmo para usar no lugar do bugfix. Porém, eu prefiro separar, deixar com semânticas diferentes. Ele é bem similar ao bugfix/, porém, ele não é um BUG, mas sim uma correção, seja ela de cor, textos, alterações não tão urgentes, que não signifiquem BUG's.
+Make the build:
 
-- ```__improvement/__``` - O nome já mostra para o que serve. Em si é uma melhoria para um fodasse já existente, seja de performance, de escrita, de layout, etc.
+```csharp
+dotnet build
+```
+
+Run the application:
+
+```csharp
+dotnet run
+```
+
+Access:
+
+`localhost:5000`
+
+The application will be running on port 5000. You can change this by changing the property in the [launchSettings.json](./Properties/launchSettings.json) file

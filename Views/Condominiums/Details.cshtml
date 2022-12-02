@@ -1,66 +1,85 @@
 @model QAccess.Models.Condominium
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Funcionários";
 }
 
-<h1>Details</h1>
+<div>
+    <div class="row">
+        <h3>Condôminos</h3>
+    </div>
 
-<div>
-    <h4>Condominium</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BirthDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BirthDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MaritalStatus)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MaritalStatus)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ContactNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ContactNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Cpf)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Cpf)
-        </dd>
-    </dl>
+    <nav class="rounded-3 nav-breadcrumb d-flex justify-content-between align-items-center" aria-label="breadcrumb">
+        <ol class="breadcrumb mx-0 my-0">
+            <li class="breadcrumb-item"><a asp-action="Index">Condôminos</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.CondominiumId</li>
+        </ol>
+    </nav>
+
+    <div class=" my-3 d-flex flex-row-reverse buttons-group-actions">
+        <button data-bs-whatever="@Model.CondominiumId" data-bs-toggle="modal" data-bs-target="#defaultModalAction" type="button" class="btn btn-danger ms-2 d-flex align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg>
+            Excluir
+        </button>
+        <a class="btn btn-edit ms-2 d-flex align-items-center" asp-action="Edit" asp-route-id="@Model.CondominiumId" >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg>
+            Editar
+        </a>
+    </div>
+
+    <div class="form-group-contour rounded-3 p-3">
+        <span class="form-group-title">Dados do Funcionário</span>
+        <fieldset disabled>
+            <div class="scrollarea details initial_margin_negative">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <label for="inputName" class="form-label">@Html.DisplayNameFor(Model => Model.Name):</label>
+                        <input asp-for="Name" type="text" class="form-control" id="inputName">
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="inputGender" class="form-label">@Html.DisplayNameFor(Model => Model.Gender):</label>
+                        <input asp-for="Gender" type="text" class="form-control" id="inputGender">
+                    </div>
+                </div> 
+                <div class="row my-4">
+                    <div class="col-lg-6">
+                        <label for="inputEmail" class="form-label">@Html.DisplayNameFor(Model => Model.Email):</label>
+                        <input asp-for="Email" type="text" class="form-control" id="inputEmail">
+                    </div>
+                    @* <div class="col-lg-4">
+                        <label for="inputPassword" class="form-label">@Html.DisplayNameFor(Model => Model.Password):</label>
+                        <input asp-for="Password" type="text" class="form-control" id="inputPassword">
+                    </div> *@
+                    <div class="col-lg-6">
+                        <label class="form-label" for="BirthDate">Data de Nascimento</label>
+                        <input id="BirthDate" class="form-control" type="datetime-local" asp-for="BirthDate" placeholder="Data de Nascimento...">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label for="inputCpf" class="form-label">@Html.DisplayNameFor(Model => Model.Cpf):</label>
+                        <input asp-for="Cpf" type="text" class="form-control" id="inputCpf">
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="inputContactNumber" class="form-label">@Html.DisplayNameFor(Model => Model.ContactNumber):</label>
+                        <input asp-for="ContactNumber" type="text" class="form-control" id="inputContactNumber">
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="inputMaritalStatus" class="form-label">@Html.DisplayNameFor(Model => Model.MaritalStatus):</label>
+                        <input asp-for="MaritalStatus" type="text" class="form-control" id="inputMaritalStatus">
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col-lg-4">
+                        <label for="inputContactNumber" class="form-label">@Html.DisplayNameFor(Model => Model.ContactNumber):</label>
+                        <input asp-for="ContactNumber" type="text" class="form-control" id="inputContactNumber">
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.CondominiumId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+@{
+    Html.RenderPartial("_ModalDeleteAlert");
+}

@@ -1,19 +1,30 @@
 @model IEnumerable<QAccess.Models.Employee>
 
 @{
-    ViewData["Title"] = "Funcionários";
+    ViewData["Title"] = "Funcionário";
 }
 
-<div style="height: 100%; position: relative;">
+<div class="container-main">
     <div class="row">
         <h3>Funcionários</h3>
     </div>
     
     <div class="row">
         <div class="d-flex flex-row-reverse buttons-group-actions">
-            <button type="button" class="btn btn-danger ms-2 d-flex align-items-center"><img width="17px" src="~/images/trash.svg" alt="">Excluir</button>
-            <a class="btn btn-edit ms-2 d-flex align-items-center"><img width="20px" src="~/images/pencil-square.svg" alt="">Editar</a>
-            <button data-bs-toggle="modal" data-bs-target="#registerdefaultModalAction" class="btn btn-primary ms-2 d-flex align-items-center"><img width="15px" src="~/images/add.svg" alt="">Adicionar</button>
+            <button type="button" class="btn btn-danger ms-2 d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg>
+                Excluir
+            </button>
+
+            <a class="btn btn-edit ms-2 d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg>
+                Editar
+            </a>
+
+            <button data-bs-toggle="modal" data-bs-target="#registerDefaultModalAction" class="btn btn-primary ms-2 d-flex align-items-center">
+                <svg width="15" height="15" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="20.2942" y="0.441162" width="4.41176" height="41.9118" rx="2.20588" fill="white"/><rect x="0.441223" y="24.7058" width="4.41176" height="41.9118" rx="2.20588" transform="rotate(-90 0.441223 24.7058)" fill="white"/></svg>
+                Adicionar
+            </button>
         </div>
     </div>
 
@@ -22,7 +33,7 @@
             <li class="mb-1">
                 <button class="justify-content-between btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#filter-collapse" aria-expanded="false">
                     <div  class="d-flex align-items-center">
-                        <img width="17px" src="~/images/funnel.svg" alt="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-funnel-fill" viewBox="0 0 16 16"><path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z"/></svg>
                         <span class="ps-2">Filtros</span>
                     </div>
                 </button>
@@ -64,198 +75,90 @@
     </div>
 
     <div class="row">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="checkModelAll">
-                        </div>
-                    </th>
-                    <th scope="col">
-                        @Html.DisplayNameFor(model => model.Name)
-                    </th>
-                    <th scope="col">
-                        @Html.DisplayNameFor(model => model.Email)
-                    </th>
-                    <th scope="col">
-                        @Html.DisplayNameFor(model => model.Cpf)
-                    </th>
-                    <th scope="col">
-                        @Html.DisplayNameFor(model => model.ContactNumber)
-                    </th>
-                    <th scope="col">
-                        @Html.DisplayNameFor(model => model.Office)
-                    </th>
-                    <th scope="col">
-                        @Html.DisplayNameFor(model => model.Sector)
-                    </th>
-                    <th scope="col">Ações</th>
-                <tr>
-            </thead>
-            <tbody>
-                @{
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <th scope="col">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="checkModel">
-                                </div>
-                            </th>           
-                            <td>
-                                <a asp-action="Details" asp-route-id="@item.EmployeeId">@Html.DisplayFor(modelItem => item.Name)</a>
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Email)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Cpf)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ContactNumber)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Office)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Sector)
-                            </td>
-                            <td>
-                                <div class="d-flex justify-content-center align-items-center items-actions" style="gap: 20px;">
-                                    <div><img data-bs-whatever="@item.EmployeeId" data-bs-toggle="modal" data-bs-target="#defaultModalAction" width="22px" src="~/images/trash-red.svg" alt=""></div>
-                                    <div><a asp-action="Edit" asp-route-id="@item.EmployeeId"><img width="24px" src="~/images/pencil-square-yellow.svg" alt=""></a></div>
-                                </div>
-                            </td>
-                        </tr>
+        @if (Model.Count() != 0)
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="checkModelAll">
+                            </div>
+                        </th>
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.Email)
+                        </th>
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.Cpf)
+                        </th>
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.ContactNumber)
+                        </th>
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.Office)
+                        </th>
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.Sector)
+                        </th>
+                        <th scope="col">Ações</th>
+                    <tr>
+                </thead>
+                <tbody>
+                    @{
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <th scope="col">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="checkModel">
+                                    </div>
+                                </th>           
+                                <td><a class="text-decoration-none" asp-action="Details" asp-route-id="@item.EmployeeId">@Html.DisplayFor(modelItem => item.Name)</a></td>
+                                <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Cpf)</td>
+                                <td>@Html.DisplayFor(modelItem => item.ContactNumber)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Office)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Sector)</td>
+                                <td>
+                                    <div class="d-flex justify-content-center align-items-center items-actions">
+                                        <span data-bs-whatever="@item.EmployeeId" data-bs-toggle="modal" data-bs-target="#defaultModalAction">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="red" class="bi bi-trash" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg>
+                                        </span>
+                                        <span>
+                                            <a asp-action="Edit" asp-route-id="@item.EmployeeId">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="#CC9A06" class="bi bi-pencil-square" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
                     }
-                }
-            </tbody>
-        </table>
-    </div>
+                </tbody>
+            </table>
+            Html.RenderPartial("_Pagination");
 
-    <div class=" pagination-group d-flex flex-row-reverse">
-        <nav aria-label="...">
-            <ul class="pagination">
-                <li class="page-item disabled">
-                    <a class="page-link">Anterior</a>
-                </li>
-                
-                <li class="page-item">
-                    <a class="page-link" href="#">1</a>
-                </li>
+        }
+        else
+        {
+            <div class="d-flex justify-content-center align-items-center no-registry-message">
+                <img src="/images/not_found_ilustration.jpg" width="250px" class="img-fluid" alt="">
+                <p>Não há registros!</p>
+            </div>
 
-                <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="#">2</a>
-                </li>
-
-                <li class="page-item">
-                    <a class="page-link" href="#">3</a>
-                </li>
-
-                <li class="page-item">
-                    <a class="page-link" href="#">Próximo</a>
-                </li>
-            </ul>
-        </nav>
+            Html.RenderPartial("_Pagination");
+    
+        }
     </div>
 </div>
 
-<!-- Modal -->
-<form asp-action="Create">
-    <div class="modal fade" id="registerdefaultModalAction" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5">Registrar Funcionário</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body d-flex flex-column">
-                        <div class="form-floating">
-                            <input required  id="Name" class="form-control" placeholder="Nome" name="Name" class="form-control" />
-                            <label for="Name">Nome</label>
-                        </div>
-                        <div class="form-floating">
-                            <input required type="email"  id="Email" name="Email" placeholder="Email" class="form-control" />
-                            <label for="Email">Email</label>
-                        </div>
-                        <div class="form-floating">
-                            <input required  type="password" id="Password" name="Password" placeholder="Senha" class="form-control" />
-                            <label for="Password">Senha</label>
-                        </div>
-                        <div class="form-floating">
-                            <input required id="Cpf" name="Cpf" placeholder="Cpf" class="form-control" />
-                            <label for="Cpf">Cpf</label>
-                        </div>
-                        <div class="form-floating">
-                            <input id="ContactNumber" name="ContactNumber" placeholder="Contato" class="form-control" />
-                            <label for="ContactNumber">Contato</label>
-                        </div>
-                        <div class="form-floating">
-                            <input id="Office" name="Office" placeholder="Cargo" class="form-control" />
-                            <label for="Office">Cargo</label>
-                        </div>
-                        <div class="form-floating">
-                            <input name="Sector" class="form-control" placeholder="Setor" />
-                            <label name="Sector">Setor</label>
-                        </div>
-                        <div class="form-floating">
-                            <select class="form-select" id="Gender" name="Gender" aria-label="Seleção de gênero.">
-                                <option selected>Selecione</option>
-                                <option value="Masculino">Masculino</option>
-                                <option value="Feminino">Feminino</option>
-                                <option value="Outros">Outros</option>
-                            </select>
-                            <label for="Gender">Gênero</label>
-                        </div>
-                        <div class="form-floating">
-                            <select class="form-select" id="MaritalStatus" name="MaritalStatus" aria-label="Seleção de Estado Civil">
-                                <option selected>Selecione</option>
-                                <option value="Solteiro">Solteiro</option>
-                                <option value="Casado">Casado</option>
-                                <option value="Divorciado">Divorciado</option>
-                                <option value="Viúva">Viúva</option>
-                            </select>
-                            <label for="Gender">Estado Civil</label>
-                        </div>
-                        <div class="form-floating">
-                            <input id="BirthDate" class="form-control" type="text" name="BirthDate" placeholder="Data de Nascimento..."onfocus="(this.type='datetime-local')" onblur="(this.type='text')">
-                            <label for="BirthDate">Data de Nascimento</label>
-                        </div>
-                    </div>
+@{
+    Html.RenderPartial("_ModalRegister");
+}
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn-danger btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
-                        <button type="submit" class="btn-success btn btn-primary" role="button">Salvar</button>
-                    </div>
-            </div>
-        </div>
-    </div>
-</form>
-
-<!-- Modal -->
-<div class="modal fade" id="defaultModalAction" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5">Deletar Unidade</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body my-2">
-                <div class="alert alert-danger" role="alert">
-                    <span><strong>Alerta!</strong> Não será possível refazer essa operação. O itém será deletado permanentemente.</span>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="0" id="awareId">
-                    <label class="form-check-label" for="awareId">Estou ciente!</label>
-                </div>
-            </div>
-            <div class="modal-footer"> 
-                <form asp-action="Delete">
-                    <input id="defaultInputID" type="hidden" name="id"/>
-                    <button id="defaultButton" class="btn bg-danger btn-primary ms-2 d-flex align-items-center" role="button" type="submit" class="btn btn-danger"><img width="17px" style="margin-right: 3px;" src="~/images/trash.svg" alt="">Excluir</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+@{
+    Html.RenderPartial("_ModalDeleteAlert");
+}

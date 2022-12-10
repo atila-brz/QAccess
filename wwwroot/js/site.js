@@ -4,27 +4,47 @@
 // Write your JavaScript code.
 
 const defaultModalAction = document.getElementById('defaultModalAction');
+const deliveryCorrespondenceModal = document.getElementById('deliveryCorrespondenceModal');
 
-defaultModalAction.addEventListener('show.bs.modal', event => {
+if(defaultModalAction){
+    defaultModalAction.addEventListener('show.bs.modal', event => {
+    
+        var awareId = defaultModalAction.querySelector('#awareId');
+        var defaultButton = defaultModalAction.querySelector('#defaultButton');
+    
+        defaultButton.disabled = true;
+        awareId.checked = false;
+    
+        awareId.addEventListener( 'change', function() {
+    
+            var button = event.relatedTarget
+            var recipient = button.getAttribute('data-bs-whatever')
+            
+            if(this.checked) {
+                defaultButton.disabled = false;
+                var defaultInputID = defaultModalAction.querySelector('#defaultInputID')
+                defaultInputID.value = recipient
+    
+            } else {
+                defaultButton.disabled = true;
+            }
+        });
+    })
+}
 
-    const awareUnits = defaultModalAction.querySelector('#awareId');
-    const buttonUnitID = defaultModalAction.querySelector('#defaultButton');
+if(deliveryCorrespondenceModal){
+    deliveryCorrespondenceModal.addEventListener('show.bs.modal', event => {
+    
+            var buttonDelivery = event.relatedTarget
+            var recipient = buttonDelivery.getAttribute('data-bs-whatever')
+            
+            var inputDeliveryCorrespondenceId = deliveryCorrespondenceModal.querySelector('#deliveryCorrespondenceId')
+            inputDeliveryCorrespondenceId.value = recipient
+    })
+}
 
-    buttonUnitID.disabled = true;
-    awareUnits.checked = false;
-
-    awareUnits.addEventListener( 'change', function() {
-
-        const button = event.relatedTarget
-        const recipient = button.getAttribute('data-bs-whatever')
-        
-        if(this.checked) {
-            buttonUnitID.disabled = false;
-            const inputDeleteUnitID = defaultModalAction.querySelector('#defaultInputID')
-            inputDeleteUnitID.value = recipient
-
-        } else {
-            buttonUnitID.disabled = true;
-        }
-    });
-})
+$('#alertMessage').ready(function(){
+    setTimeout(function() {
+        $('#alertMessage').fadeOut('fast');
+    }, 5000);
+})     

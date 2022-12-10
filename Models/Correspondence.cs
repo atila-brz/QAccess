@@ -9,6 +9,11 @@ namespace QAccess.Models
 {
     public class Correspondence
     {
+        public Correspondence()
+        {
+            this.Status = StatusEnum.Disponivel.ToString();
+        }
+        
         [Key]
         public int CorrespondenceId { get; set; }
 
@@ -18,42 +23,81 @@ namespace QAccess.Models
         public string TrackingCode { get; set; }
 
         [Required]
-        [StringLength(10)]
-        public string Status { get; set; }
+        [StringLength(15)]
+        [Display(Name = "Status")]
+        public string? Status { get; set; }
 
         [Required]
         [StringLength(20)]
         [Display(Name = "Remetente")]
         public string Sender { get; set; }
+
         [Required]
         [ForeignKey("Unit")]
         public int UnitId { get; set; }
-        
-        
+         
         [Display(Name = "Unidade")]
-        public Unit? Unit { get; set; }
+        public virtual Unit? Unit { get; set; }
 
         [Required]
         [Display(Name = "Data Recebida")]
         public DateTime DateDelivery { get; set; }
-        [Display(Name = "Data de retirada")]
-        public DateTime? DateWithdrawal { get; }
+
+        [Display(Name = "Data de Retirada")]
+        public DateTime? DateWithdrawal { get; set;}
         
         [Required]
         [ForeignKey("EmployeeDelivery")]
         public int EmployeeDeliveryId { get; set; }
 
         [Display(Name = "Funcionario que recebeu")]
-        public  Employee? EmployeeDelivery { get; set; }
+        public virtual Employee? EmployeeDelivery { get; set; }
 
         [ForeignKey("EmployeeWithdrawal")]
         public int? EmployeeWithdrawalId { get; set; }
 
         [Display(Name = "Funcionario que entregou")]
-        public Employee? EmployeeWithdrawn { get; }
+        public virtual Employee? EmployeeWithdrawal { get; set;}
 
         [Display(Name = "Resposavel pela retirada")]
-        public string? ResponsibleWithdrawal{ get; }
+        public string? ResponsibleWithdrawal{ get; set;}
 
+        public bool DeliveryCorrespondence(int employeeWithdrawalId, string responsibleWithdrawal)
+        {   
+            if(isAvailable()){
+                this.EmployeeWithdrawalId = employeeWithdrawalId;
+                this.ResponsibleWithdrawal = responsibleWithdrawal;
+                this.Status = StatusEnum.Entregue.ToString();
+
+                this.DateWithdrawal = DateTime.Now;
+
+                return true;
+            }
+            else
+            {
+                if(String.Equals(this.Status, StatusEnum.Entregue) is false)
+                {
+                    this.Status = StatusEnum.Entregue.ToString();
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool isAvailable()
+        {
+            if(this.EmployeeWithdrawalId is null && this.ResponsibleWithdrawal is null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public enum StatusEnum{
+            Disponivel,
+
+            Entregue
+        }
     }
 }

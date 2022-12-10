@@ -1,0 +1,51 @@
+<form asp-action="Create">
+    <div class="modal fade" id="registerDefaultModalAction" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Criar Correspondência</h1>
+                        <button type="button" class="modal-button-close" data-bs-dismiss="modal" aria-label="Close">
+                            <i class="bi bi-x-circle-fill"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body d-flex flex-column gap-3">
+                        <div class="form-floating">
+                            <input id="TrackingCode" class="form-control" placeholder="Código de Rastreio" name="TrackingCode" class="form-control" />
+                            <label for="TrackingCode">Código de Rastreio</label>
+                        </div>
+                        <div class="form-floating">
+                            <input id="Sender" name="Sender" placeholder="Remetente" class="form-control" />
+                            <label for="Sender">Remetente</label>
+                        </div>
+                        <div class="form-floating">
+                            <input id="State" name="State" placeholder="Estado" class="form-control" />
+                            <label for="State">Estado</label>
+                        </div>
+                        <div class="form-floating">
+                            <select class="form-select" name="UnitId" asp-items="ViewBag.UnitId" id="UnitId" aria-label="Unidade">
+                                <option selected>Selecione</option>
+                            </select>
+                            <label for="UnitId">Unidade</label>
+                        </div> 
+                        <div class="form-floating">
+                            <select class ="form-control" asp-items="ViewBag.EmployeeDeliveryId" class="form-select" id="EmployeeDeliveryId" name="EmployeeDeliveryId" aria-label="Funcionário que recebeu">
+                                <option selected>Selecione</option>
+                            </select>
+                            <label for="EmployeeDeliveryId">Funcionário que recebeu</label>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer buttons-group-actions">
+                        <button type="button" class="btn-danger btn btn-primary d-flex align-items-center" data-bs-dismiss="modal" aria-label="Close">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-slash-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M11.354 4.646a.5.5 0 0 0-.708 0l-6 6a.5.5 0 0 0 .708.708l6-6a.5.5 0 0 0 0-.708z"/></svg>
+                            Cancelar
+                        </button>
+                        <button type="submit" class="btn-success btn btn-primary d-flex align-items-center" role="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
+                            Salvar
+                        </button>
+                    </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -4,41 +4,66 @@
     ViewData["Title"] = "Correspondêcia";
 }
 
-<div style="height: 100%; position: relative;">
+<div class="container-main">
+
+    @if(ViewData["messageAlert"] is not null){
+        <div id="alertMessage" class="alert alert-warning alert-dismissible" role="alert">
+            <div>@ViewData["messageAlert"]</div>
+            <button type="button" onload="GFG_Fun()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if(ViewData["messageSuccess"] is not null){
+        <div id="alertMessage" class="alert alert-success alert-dismissible" role="alert">
+            <div>@ViewData["messageSuccess"]</div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
     <div class="row">
-        <h3 style="font-weight: 500;">Correspondências</h3>
+        <h3>Correspondências</h3>
     </div>
-    
-    <div class="row buttons-icons">
-        <div class="buttons-actions d-flex flex-row-reverse">
 
-            @* Need to add actions of the other buttons when available in the corresponding controllers. *@
+    <div class="row">
+        <div class="d-flex flex-row-reverse buttons-group-actions">
+            <button type="button" class="btn btn-danger ms-2 d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg>
+                Excluir
+            </button>
 
-            <a class="btn btn-primary ms-2 d-flex align-items-center" style="background-color: #198754; border: none;" href="#" role="button"><img width="15px" style="margin-right: 3px;" src="~/images/check.svg" alt="">Entregar</a>
-            <a class="btn btn-primary ms-2 d-flex align-items-center" style="background-color: #C81313; border: none;" href="#" role="button"><img width="17px" style="margin-right: 3px;" src="~/images/trash.svg" alt="">Excluir</a>
-            <a class="btn disable btn-primary ms-2 d-flex align-items-center" href="#" role="button" style="background-color: #CC9A06; border: none;"><img width="20px" style="margin-right: 3px;" src="~/images/pencil-square.svg" alt="">Editar</a>
-            <a asp-controller="Correspondences" asp-action="Create" class="btn btn-primary ms-2 d-flex align-items-center" role="button"><img width="15px" style="margin-right: 3px;" src="~/images/add.svg" alt="">Adicionar</a>
+            <a class="btn btn-edit ms-2 d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg>
+                Editar
+            </a>
+
+            <button data-bs-toggle="modal" data-bs-target="#registerDefaultModalAction" class="btn btn-primary ms-2 d-flex align-items-center">
+                <svg width="15" height="15" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="20.2942" y="0.441162" width="4.41176" height="41.9118" rx="2.20588" fill="white"/><rect x="0.441223" y="24.7058" width="4.41176" height="41.9118" rx="2.20588" transform="rotate(-90 0.441223 24.7058)" fill="white"/></svg>
+                Adicionar
+            </button>
+
+            <button class="btn-success btn btn-primary ms-2 d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-check" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2H2Zm3.708 6.208L1 11.105V5.383l4.708 2.825ZM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2-7-4.2Z"/><path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686Z"/></svg>
+                Entregar
+            </button>
         </div>
     </div>
 
     <div class="row filter">
         <ul class="list-unstyled list-group ps-0 nav nav-pills mb-auto">
-            <li class="mb-1" style="width: 100%;">
-                <button style="width: 100%;" class="justify-content-between btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#filter-collapse" aria-expanded="false">
+            <li class="mb-1">
+                <button class="justify-content-between btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#filter-collapse" aria-expanded="false">
                     <div  class="d-flex align-items-center">
-                        <img width="17px" src="~/images/funnel.svg" alt="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-funnel-fill" viewBox="0 0 16 16"><path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z"/></svg>
                         <span class="ps-2">Filtros</span>
                     </div>
                 </button>
-                <div class="collapse filter-group" id="filter-collapse" style="">
 
-                    @* Need to add actions using filters. *@
-
+                <div class="collapse filter-group" id="filter-collapse">
                     <div class="d-flex row flex-nowrap flex-lg-row flex-column">
                         <div class="col-lg-6 col-sm-5">
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Pesquise por uma palavra chave..." aria-label="Recipient's username" aria-describedby="button-addon2">
-                                <button class="btn btn-outline-secondary" type="button" id="button-addon2">
+                                <input type="text" class="form-control" placeholder="Pesquise por uma palavra chave..." aria-label="Recipient's username" aria-describedby="filter_search">
+                                <button class="btn btn-outline-secondary" type="button" id="filter_search">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                                     </svg>
@@ -58,75 +83,114 @@
     </div>
 
     <div class="row">
-        <table class="table">
-            <thead>
-                <tr style="text-align: center;">
-                    <th scope="col">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        </div>
-                    </th>
-                    <th scope="col">@Html.DisplayNameFor(model => model.Status)</th>
-                    <th scope="col">@Html.DisplayNameFor(model => model.Sender)</th>
-                    <th scope="col">@Html.DisplayNameFor(model => model.Unit)</th>
-                    <th scope="col">@Html.DisplayNameFor(model => model.TrackingCode)</th>
-                    <th scope="col">@Html.DisplayNameFor(model => model.DateDelivery)</th>
-                    <th></th>
-                <tr>
-            </thead>
-            <tbody>
-                @{
-                    @foreach (var item in Model)
-                    {
-                        <tr style="text-align: center;">
-                            <th scope="col">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                </div>
-                            </th>                                
-                            <td>@Html.DisplayFor(modelItem => item.Status)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Sender)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Unit.Number)</td>
-                            <td><a asp-action="Detail" asp-controller="Correspondences" asp-route-id="@item.CorrespondenceId">@Html.DisplayFor(modelItem => item.TrackingCode)</a></td>
-                            <td>@Html.DisplayFor(modelItem => item.DateDelivery)</td>
-                            <td>
-                                <div class="d-flex justify-content-center align-items-center items-actions" style="gap: 20px;">
-                                    <div><a asp-action="Delete" asp-route-id="@item.CorrespondenceId"><img width="22px" src="~/images/trash-red.svg" alt=""></a></div>
-                                    <div><a asp-action="Edit" asp-route-id="@item.CorrespondenceId"><img width="24px" src="~/images/pencil-square-yellow.svg" alt=""></a></div>
-                                    <div><a href="#"><img width="24px" src="~/images/check-green.svg" alt=""></a></div>
-                                </div>
-                            </td>
-                        </tr>
+        @if (Model.Count() != 0)
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="checkModelAll">
+                            </div>
+                        </th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.Status)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.Sender)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.Unit)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.TrackingCode)</th>
+                        <th scope="col">@Html.DisplayNameFor(model => model.DateDelivery)</th>
+                        <th></th>
+                    <tr>
+                </thead>
+                <tbody>
+                    @{
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <th scope="col">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="checkModel">
+                                    </div>
+                                </th>                                
+                                @if (String.Equals(item.Status, Correspondence.StatusEnum.Entregue.ToString()))
+                                {
+                                    <td class="fw-bolder text-success">@Html.DisplayFor(modelItem => item.Status)</td>   
+                                }
+                                else
+                                {
+                                    <td class="fw-bolder text-primary">@Html.DisplayFor(modelItem => item.Status)</td>   
+                                }
+                                <td>@Html.DisplayFor(modelItem => item.Sender)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Unit.Number)</td>
+                                <td><a asp-action="Details" asp-route-id="@item.CorrespondenceId">@Html.DisplayFor(modelItem => item.TrackingCode)</a></td>
+                                <td>@Html.DisplayFor(modelItem => item.DateDelivery)</td>
+                                <td>
+                                    <div class="d-flex justify-content-center align-items-center items-actions">
+                                        @{
+                                            if (String.Equals(item.Status, Correspondence.StatusEnum.Disponivel.ToString()))
+                                            {            
+                                                <span style="background: transparent; width: fit-content;" data-bs-whatever="@item.CorrespondenceId" data-bs-toggle="modal" data-bs-target="#deliveryCorrespondenceModal">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="#198754" class="bi bi-envelope-check-fill" viewBox="0 0 16 16"><path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.026A2 2 0 0 0 2 14h6.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.606-3.446l-.367-.225L8 9.586l-1.239-.757ZM16 4.697v4.974A4.491 4.491 0 0 0 12.5 8a4.49 4.49 0 0 0-1.965.45l-.338-.207L16 4.697Z"/><path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686Z"/></svg>                                            
+                                                </span>
+
+                                                <span data-bs-whatever="@item.CorrespondenceId" data-bs-toggle="modal" data-bs-target="#defaultModalAction">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="red" class="bi bi-trash" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg>
+                                                </span>
+
+                                                <span>
+                                                    <a asp-action="Edit" asp-route-id="@item.CorrespondenceId">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="#CC9A06" class="bi bi-pencil-square" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg>
+                                                    </a>
+                                                </span> 
+                                            }
+                                            else{
+                                                <span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="#6C757D" class="bi bi-envelope-check-fill" viewBox="0 0 16 16"><path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.026A2 2 0 0 0 2 14h6.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.606-3.446l-.367-.225L8 9.586l-1.239-.757ZM16 4.697v4.974A4.491 4.491 0 0 0 12.5 8a4.49 4.49 0 0 0-1.965.45l-.338-.207L16 4.697Z"/><path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686Z"/></svg>                                            
+                                                </span>
+
+                                                <span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#6C757D" class="bi bi-trash" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg>
+                                                </span>
+
+                                                <span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="#6C757D" class="bi bi-pencil-square" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg>
+                                                </span> 
+                                            }
+                                        
+                                            
+                                        }
+                                        
+                                    </div>
+                                </td>
+                            </tr>
+                        }
                     }
-                }
-            </tbody>
-        </table>
-    </div>
+                </tbody>
+            </table>
 
-    @* Need to implement paging functionality. *@
-    <div class=" pagination-group d-flex flex-row-reverse">
-        <nav aria-label="...">
-            <ul class="pagination">
-                <li class="page-item disabled">
-                    <a class="page-link">Anterior</a>
-                </li>
-                
-                <li class="page-item">
-                    <a class="page-link" href="#">1</a>
-                </li>
+            Html.RenderPartial("_Pagination");
 
-                <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="#">2</a>
-                </li>
+        }
+        else
+        {
+            <div class="d-flex justify-content-center align-items-center no-registry-message">
+                <img src="/images/not_found_ilustration.jpg" width="250px" class="img-fluid" alt="">
+                <p>Não há registros!</p>
+            </div>
 
-                <li class="page-item">
-                    <a class="page-link" href="#">3</a>
-                </li>
-
-                <li class="page-item">
-                    <a class="page-link" href="#">Próximo</a>
-                </li>
-            </ul>
-        </nav>
+            Html.RenderPartial("_Pagination");
+    
+        }
     </div>
 </div>
+
+@{
+    Html.RenderPartial("_ModalRegister.cshtml");
+}
+
+@{
+    Html.RenderPartial("_ModalDelivery.cshtml");
+}
+
+@{
+    Html.RenderPartial("_ModalDeleteAlert");
+}

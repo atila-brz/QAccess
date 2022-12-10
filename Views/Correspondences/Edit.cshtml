@@ -1,41 +1,58 @@
 @model QAccess.Models.Correspondence
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Correspondêcia";
 }
 
 <div>
     <div class="row">
-        <h3 style="font-weight: 500;">Correspondências</h3>
+        <h3>Correspondências</h3>
     </div>
     <nav class="nav-breadcrumb d-flex justify-content-between align-items-center" aria-label="breadcrumb">
         <ol class="breadcrumb mx-0 my-0">
-            <li class="breadcrumb-item"><a asp-controller="Correspondences" asp-action="Index">Correspondências</a></li>
+            <li class="breadcrumb-item"><a asp-action="Index">Correspondências</a></li>
             <li class="breadcrumb-item active" aria-current="page">@Model.TrackingCode</li>
         </ol>
     </nav>
 
-  <form asp-action="Edit" class="row my-2">
-        <div class=" my-3 buttons-actions d-flex flex-row-reverse">
-            <input type="submit" value="Salvar" style="background-color: #014023;" class="btn btn-primary ms-2 d-flex align-items-center">
-            <a asp-controller="Correspondences" asp-action="Index" type="submit" style="background-color: #590202;" class="btn btn-primary ms-2 d-flex align-items-center">Cancelar</a>
-        </div>
+    <div class="my-3 d-flex flex-row-reverse buttons-group-actions">
+        @if(String.Equals(Model.Status, Correspondence.StatusEnum.Disponivel.ToString()))
+        {
+            <button data-bs-toggle="modal" data-bs-target="#defaultModalAction" type="button" class="btn btn-success ms-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
+                Salvar
+            </button>
+            <a asp-action="Index" class="btn btn-danger btn-secondary ms-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-slash-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M11.354 4.646a.5.5 0 0 0-.708 0l-6 6a.5.5 0 0 0 .708.708l6-6a.5.5 0 0 0 0-.708z"/></svg>
+                Cancelar
+            </a>
+        }
+    </div>
             
+    <form asp-action="Edit" id="formEdit" class="row my-2">
+
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="CorrespondenceId" />
+        <input type="hidden" asp-for="UnitId"/>
+        <input type="hidden" asp-for="EmployeeDeliveryId" />
+        <input type="hidden" asp-for="EmployeeWithdrawalId" />
 
-        <div class="form-group-contour p-3">
-            <span class="form-group-title">Dados da Correspondência</span>
-                <div class="row">
+        <div class="scrollarea details p-3">
+            <div class="form-group-contour p-3">
+                <span class="form-group-title">Dados da Correspondência</span>
+                <div class="row initial_margin_negative">
                     <div class="col-lg-6">
-                        <span><img width="12px" src="~/images/pencil-fill.svg" alt=""></span>
+                        <span>
+                            <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_79_11265)"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.2504 0.122479C11.1684 0.0404602 11.0571 -0.00561523 10.9411 -0.00561523C10.8251 -0.00561523 10.7139 0.0404602 10.6318 0.122479L9.19069 1.5636L12.4343 4.80723L13.8754 3.36698C13.9162 3.32634 13.9485 3.27806 13.9706 3.22491C13.9926 3.17176 14.004 3.11478 14.004 3.05723C14.004 2.99968 13.9926 2.9427 13.9706 2.88955C13.9485 2.8364 13.9162 2.78812 13.8754 2.74748L11.2504 0.122479ZM11.8157 5.42585L8.57206 2.18223L2.88456 7.86973H3.06569C3.18172 7.86973 3.293 7.91582 3.37505 7.99787C3.45709 8.07992 3.50319 8.1912 3.50319 8.30723V8.74473H3.94069C4.05672 8.74473 4.168 8.79082 4.25005 8.87287C4.33209 8.95492 4.37819 9.0662 4.37819 9.18223V9.61973H4.81569C4.93172 9.61973 5.043 9.66582 5.12505 9.74787C5.20709 9.82992 5.25319 9.9412 5.25319 10.0572V10.4947H5.69069C5.80672 10.4947 5.918 10.5408 6.00005 10.6229C6.08209 10.7049 6.12819 10.8162 6.12819 10.9322V11.1134L11.8157 5.42585ZM5.28119 11.9604C5.26278 11.9114 5.25329 11.8595 5.25319 11.8072V11.3697H4.81569C4.69966 11.3697 4.58838 11.3236 4.50633 11.2416C4.42428 11.1595 4.37819 11.0483 4.37819 10.9322V10.4947H3.94069C3.82465 10.4947 3.71338 10.4486 3.63133 10.3666C3.54928 10.2845 3.50319 10.1733 3.50319 10.0572V9.61973H3.06569C2.94966 9.61973 2.83838 9.57364 2.75633 9.49159C2.67428 9.40954 2.62819 9.29826 2.62819 9.18223V8.74473H2.19069C2.13838 8.74464 2.08651 8.73516 2.03756 8.71673L1.88094 8.87248C1.83924 8.91446 1.8065 8.96447 1.78469 9.01948L0.0346873 13.3945C0.00286291 13.474 -0.00492765 13.5611 0.0122814 13.645C0.0294904 13.7289 0.0709422 13.8059 0.131498 13.8664C0.192054 13.927 0.26905 13.9684 0.352942 13.9856C0.436834 14.0028 0.523931 13.9951 0.603437 13.9632L4.97844 12.2132C5.03344 12.1914 5.08345 12.1587 5.12544 12.117L5.28119 11.9612V11.9604Z" fill="#653208"/></g><defs><clipPath id="clip0_79_11265"><rect width="14" height="14" fill="white"/></clipPath></defs></svg>
+                        </span>
                         <label asp-for="Sender" class="form-label"></label>
-                        <input asp-for="Sender" class="form-control" />
-                        
+                        <input asp-for="Sender" class="form-control" /> 
                         <span asp-validation-for="Sender" class="text-danger"></span>
                     </div>
                     <div class="col-lg-3">
-                        <span><img width="12px" src="~/images/pencil-fill.svg" alt=""></span>
+                        <span>
+                            <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_79_11265)"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.2504 0.122479C11.1684 0.0404602 11.0571 -0.00561523 10.9411 -0.00561523C10.8251 -0.00561523 10.7139 0.0404602 10.6318 0.122479L9.19069 1.5636L12.4343 4.80723L13.8754 3.36698C13.9162 3.32634 13.9485 3.27806 13.9706 3.22491C13.9926 3.17176 14.004 3.11478 14.004 3.05723C14.004 2.99968 13.9926 2.9427 13.9706 2.88955C13.9485 2.8364 13.9162 2.78812 13.8754 2.74748L11.2504 0.122479ZM11.8157 5.42585L8.57206 2.18223L2.88456 7.86973H3.06569C3.18172 7.86973 3.293 7.91582 3.37505 7.99787C3.45709 8.07992 3.50319 8.1912 3.50319 8.30723V8.74473H3.94069C4.05672 8.74473 4.168 8.79082 4.25005 8.87287C4.33209 8.95492 4.37819 9.0662 4.37819 9.18223V9.61973H4.81569C4.93172 9.61973 5.043 9.66582 5.12505 9.74787C5.20709 9.82992 5.25319 9.9412 5.25319 10.0572V10.4947H5.69069C5.80672 10.4947 5.918 10.5408 6.00005 10.6229C6.08209 10.7049 6.12819 10.8162 6.12819 10.9322V11.1134L11.8157 5.42585ZM5.28119 11.9604C5.26278 11.9114 5.25329 11.8595 5.25319 11.8072V11.3697H4.81569C4.69966 11.3697 4.58838 11.3236 4.50633 11.2416C4.42428 11.1595 4.37819 11.0483 4.37819 10.9322V10.4947H3.94069C3.82465 10.4947 3.71338 10.4486 3.63133 10.3666C3.54928 10.2845 3.50319 10.1733 3.50319 10.0572V9.61973H3.06569C2.94966 9.61973 2.83838 9.57364 2.75633 9.49159C2.67428 9.40954 2.62819 9.29826 2.62819 9.18223V8.74473H2.19069C2.13838 8.74464 2.08651 8.73516 2.03756 8.71673L1.88094 8.87248C1.83924 8.91446 1.8065 8.96447 1.78469 9.01948L0.0346873 13.3945C0.00286291 13.474 -0.00492765 13.5611 0.0122814 13.645C0.0294904 13.7289 0.0709422 13.8059 0.131498 13.8664C0.192054 13.927 0.26905 13.9684 0.352942 13.9856C0.436834 14.0028 0.523931 13.9951 0.603437 13.9632L4.97844 12.2132C5.03344 12.1914 5.08345 12.1587 5.12544 12.117L5.28119 11.9612V11.9604Z" fill="#653208"/></g><defs><clipPath id="clip0_79_11265"><rect width="14" height="14" fill="white"/></clipPath></defs></svg>
+                        </span>
                         <label asp-for="TrackingCode" class="form-label"></label>
                         <input asp-for="TrackingCode" class="form-control" />
                         <span asp-validation-for="TrackingCode" class="text-danger"></span>
@@ -48,43 +65,31 @@
 
                 <div class="row my-4">
                     <div class="col-lg-6">
-                        <span><img width="12px" src="~/images/pencil-fill.svg" alt=""></span>
+                        <span>
+                            <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_79_11265)"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.2504 0.122479C11.1684 0.0404602 11.0571 -0.00561523 10.9411 -0.00561523C10.8251 -0.00561523 10.7139 0.0404602 10.6318 0.122479L9.19069 1.5636L12.4343 4.80723L13.8754 3.36698C13.9162 3.32634 13.9485 3.27806 13.9706 3.22491C13.9926 3.17176 14.004 3.11478 14.004 3.05723C14.004 2.99968 13.9926 2.9427 13.9706 2.88955C13.9485 2.8364 13.9162 2.78812 13.8754 2.74748L11.2504 0.122479ZM11.8157 5.42585L8.57206 2.18223L2.88456 7.86973H3.06569C3.18172 7.86973 3.293 7.91582 3.37505 7.99787C3.45709 8.07992 3.50319 8.1912 3.50319 8.30723V8.74473H3.94069C4.05672 8.74473 4.168 8.79082 4.25005 8.87287C4.33209 8.95492 4.37819 9.0662 4.37819 9.18223V9.61973H4.81569C4.93172 9.61973 5.043 9.66582 5.12505 9.74787C5.20709 9.82992 5.25319 9.9412 5.25319 10.0572V10.4947H5.69069C5.80672 10.4947 5.918 10.5408 6.00005 10.6229C6.08209 10.7049 6.12819 10.8162 6.12819 10.9322V11.1134L11.8157 5.42585ZM5.28119 11.9604C5.26278 11.9114 5.25329 11.8595 5.25319 11.8072V11.3697H4.81569C4.69966 11.3697 4.58838 11.3236 4.50633 11.2416C4.42428 11.1595 4.37819 11.0483 4.37819 10.9322V10.4947H3.94069C3.82465 10.4947 3.71338 10.4486 3.63133 10.3666C3.54928 10.2845 3.50319 10.1733 3.50319 10.0572V9.61973H3.06569C2.94966 9.61973 2.83838 9.57364 2.75633 9.49159C2.67428 9.40954 2.62819 9.29826 2.62819 9.18223V8.74473H2.19069C2.13838 8.74464 2.08651 8.73516 2.03756 8.71673L1.88094 8.87248C1.83924 8.91446 1.8065 8.96447 1.78469 9.01948L0.0346873 13.3945C0.00286291 13.474 -0.00492765 13.5611 0.0122814 13.645C0.0294904 13.7289 0.0709422 13.8059 0.131498 13.8664C0.192054 13.927 0.26905 13.9684 0.352942 13.9856C0.436834 14.0028 0.523931 13.9951 0.603437 13.9632L4.97844 12.2132C5.03344 12.1914 5.08345 12.1587 5.12544 12.117L5.28119 11.9612V11.9604Z" fill="#653208"/></g><defs><clipPath id="clip0_79_11265"><rect width="14" height="14" fill="white"/></clipPath></defs></svg>
+                        </span>
                         <label for="inputResponsibleWithdrawal" class="form-label">@Html.DisplayNameFor(Model => Model.ResponsibleWithdrawal):</label>
-                        <input asp-for="ResponsibleWithdrawal" type="text" class="form-control" id="inputResponsibleWithdrawal">
+                        <input disabled asp-for="ResponsibleWithdrawal" type="text" class="form-control" id="inputResponsibleWithdrawal">
                     </div>
                     <div class="col-lg-3">
                         <label for="inputDateWithdrawal" class="form-label">@Html.DisplayNameFor(Model => Model.DateWithdrawal):</label>
                         <input disabled asp-for="DateWithdrawal" type="text" class="form-control" id="inputDateWithdrawal">
                     </div>   
-                        <div class="col-lg-3">
-                            <label class="col-form-label col-sm-2 pt-0">@Html.DisplayNameFor(Model => Model.Status):</label>
-                            <fieldset disabled>
-                                <div style="gap: 20px;" class="d-flex justify-content-start align-items-center">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="gridRadios" id="checkboxDelivery" value="">
-                                            <label class="form-check-label" for="checkboxDelivery">Entregue</label>
-                                        </div>
-                                        <div class="form-check my-1">
-                                            <input class="form-check-input" type="radio" name="gridRadios" id="checkboxAvailable" value="option2" checked>
-                                            <label class="form-check-label" for="checkboxAvailable">Disponível</label>
-                                        </div>
-                                    @{
-                                            bool check = true;
-                                            if(check == true)
-                                            {
-                                                <script>
-
-                                                    var checkboxDelivery = document.querySelector("#checkboxDelivery");
-                                                    var checkboxAvailable = document.querySelector("#checkboxAvailable");
-
-                                                    checkboxAvailable.checked = false;
-                                                    checkboxDelivery.checked = true;
-                                                </script>
-                                            }      
-                                    }
+                    <div class="col-lg-3">
+                        <label class="col-form-label col-sm-2 pt-0">@Html.DisplayNameFor(Model => Model.Status):</label>
+                        <fieldset disabled>
+                            <div class="gap-3 d-flex justify-content-start align-items-center">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gridRadios" id="checkboxDelivery">
+                                    <label class="form-check-label" for="checkboxDelivery">Entregue</label>
                                 </div>
-                            </fieldset>
-                        </div>   
+                                <div class="form-check my-1">
+                                    <input class="form-check-input" type="radio" name="gridRadios" id="checkboxAvailable" checked>
+                                    <label class="form-check-label" for="checkboxAvailable">Disponível</label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>   
                 </div>
 
                 <fieldset disabled>
@@ -108,34 +113,58 @@
                         </div>
                     </div>
                 </fieldset>
-        </div>
-
-        <fieldset disabled>
-            <div class="form-group-contour p-3 my-4">
-                <span class="form-group-title">Dados do funcionário</span>                
-                <div class="row">
-                    <h6>Entrega na Portaria:</h6>
-                     <div class="col-lg-6">
-                        <label for="inputRemetente" class="form-label">@Html.DisplayNameFor(Model => Model.EmployeeDelivery.Name)</label>
-                        <input asp-for="EmployeeDelivery.Name" type="text" class="form-control" id="inputRemetente">
-                    </div>
-                    <div class="col-lg-6">
-                        <label for="inputRemetente" class="form-label">@Html.DisplayNameFor(Model => Model.EmployeeDelivery.EmployeeId)</label>
-                        <input asp-for="EmployeeDelivery.EmployeeId" type="text" class="form-control" id="inputRemetente">
-                    </div>
-                </div>
-
-                <div class="row my-4">
-                    <h6>Retirada na Portaria:</h6>
-                    <div class="col-lg-6">
-                        <label for="inputEmployeeWithdrawn" class="form-label">@Html.DisplayNameFor(Model => Model.EmployeeWithdrawn.Name)</label>
-                        <input asp-for="EmployeeWithdrawn.Name" type="text" class="form-control" id="inputEmployeeWithdrawn">
-                    </div>
-                    <div class="col-lg-6">
-                        <label for="inputEmployeeWithdrawn" class="form-label">@Html.DisplayNameFor(Model => Model.EmployeeWithdrawn.EmployeeId)</label>
-                        <input asp-for="EmployeeWithdrawn.EmployeeId" type="text" class="form-control" id="inputEmployeeWithdrawn">
-                    </div>                  
-                </div>
             </div>
-        </fieldset>
+
+            <div class="form-group-contour p-3 my-4">
+                <fieldset disabled>
+                    <span class="form-group-title">Dados do funcionário</span>                
+                    <div class="row initial_margin_negative">
+                        <h6>Entrega na Portaria:</h6>
+                        <div class="col-lg-6">
+                            <label for="inputRemetente" class="form-label">@Html.DisplayNameFor(Model => Model.EmployeeDelivery.Name)</label>
+                            <input asp-for="EmployeeDelivery.Name" type="text" class="form-control" id="inputRemetente">
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="inputRemetente" class="form-label">@Html.DisplayNameFor(Model => Model.EmployeeDelivery.EmployeeId)</label>
+                            <input asp-for="EmployeeDelivery.EmployeeId" type="text" class="form-control" id="inputRemetente">
+                        </div>
+                    </div>
+
+                    <div class="row my-4">
+                        <h6>Retirada na Portaria:</h6>
+                        <div class="col-lg-6">
+                            <label for="inputEmployeeWithdrawal" class="form-label">@Html.DisplayNameFor(Model => Model.EmployeeWithdrawal.Name)</label>
+                            <input asp-for="EmployeeWithdrawal.Name" type="text" class="form-control" id="inputEmployeeWithdrawal">
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="inputEmployeeWithdrawal" class="form-label">@Html.DisplayNameFor(Model => Model.EmployeeWithdrawal.EmployeeId)</label>
+                            <input asp-for="EmployeeWithdrawal.EmployeeId" type="text" class="form-control" id="inputEmployeeWithdrawal">
+                        </div>                  
+                    </div>
+                </fieldset>
+
+                @{
+                    Html.RenderPartial("_ModalEditAlert");
+                }
+            </div>
+        </div>
     </form>
+
+@if(String.Equals(Model.Status, Correspondence.StatusEnum.Entregue.ToString()))
+{
+    @section Scripts {
+        <script>
+
+            var checkboxDelivery = document.querySelector("#checkboxDelivery");
+            var checkboxAvailable = document.querySelector("#checkboxAvailable");
+
+            checkboxAvailable.checked = false;
+            checkboxDelivery.checked = true;
+
+            $(document).ready(function (){
+                var content = $("#formEdit").contents();
+                $("#formEdit").replaceWith(content);
+            })
+        </script>
+    }
+}

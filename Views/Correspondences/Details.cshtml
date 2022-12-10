@@ -1,15 +1,12 @@
 @model QAccess.Models.Correspondence
 
 @{
-    ViewData["Title"] = "Details";
-
-    @* Verification should be done by the current status of the mail. *@ 
-    bool status = false;
+    ViewData["Title"] = "Correspondêcia";
 }
 
 <div>
     <div class="row">
-        <h3 style="font-weight: 500;">Correspondências</h3>
+        <h3>Correspondências</h3>
     </div>
     <nav class="nav-breadcrumb d-flex justify-content-between align-items-center" aria-label="breadcrumb">
         <ol class="breadcrumb mx-0 my-0">
@@ -18,22 +15,51 @@
         </ol>
     </nav>
 
-    <div class=" my-3 buttons-actions d-flex flex-row-reverse">
-        @{
-            if(!status)
-            {
-                <a class="btn btn-primary ms-2 d-flex align-items-center"  style="background-color: #198754; border: none;" href="#" role="button"><img width="15px" style="margin-right: 3px;" src="~/images/check.svg" alt="">Entregar</a>
+    <div class="d-flex align-items-center justify-content-between">
+        <div class="ms-2 buttons_status">
+            @if(String.Equals(Model.Status, Correspondence.StatusEnum.Disponivel.ToString())){
+                <span  class=" disabled btn btn-outline-primary">@Html.DisplayFor(model => model.Status)</span>
             }
-        }
-        <a class="btn btn-primary ms-2 d-flex align-items-center" asp-action="Edit" asp-controller="Correspondences" asp-route-id="1" role="button" style="background-color: #CC9A06; border: none;"><img width="20px" style="margin-right: 3px;" src="~/images/pencil-square.svg" alt="">Editar</a>
+            else{
+                <span class="disabled btn btn-outline-success">@Html.DisplayFor(model => model.Status)</span>
+            }
+        </div>
+
+        <div class=" my-3 buttons-actions d-flex flex-row-reverse buttons-group-actions">
+            @if(String.Equals(Model.Status, Correspondence.StatusEnum.Disponivel.ToString()))
+            {
+                <button data-bs-whatever="@Model.CorrespondenceId" data-bs-toggle="modal" data-bs-target="#deliveryCorrespondenceModal" class="btn-success btn btn-primary ms-2 d-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-check" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2H2Zm3.708 6.208L1 11.105V5.383l4.708 2.825ZM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2-7-4.2Z"/><path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686Z"/></svg>
+                    Entregar
+                </button>
+
+                <a class="btn btn-edit ms-2 d-flex align-items-center" asp-action="Edit" asp-route-id="@Model.CorrespondenceId" >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg>
+                    Editar
+                </a>    
+            }
+            else
+            {
+                <span class=" disabled btn-success btn btn-primary ms-2 d-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-check" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2H2Zm3.708 6.208L1 11.105V5.383l4.708 2.825ZM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2-7-4.2Z"/><path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686Z"/></svg>
+                    Entregar
+                </span>
+
+                <span class="disabled btn btn-edit ms-2 d-flex align-items-center" asp-action="Edit" asp-route-id="@Model.CorrespondenceId" >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg>
+                    Editar
+                </span>
+            }
+                
+        </div>
     </div>
                 
-    <form class="row my-4">
+    <div class="row my-4 scrollarea details p-3">
         <div class="form-group-contour p-3">
             <span class="form-group-title">Dados da Correspondência</span>
             <fieldset disabled>
-                <div class="row">
-                     <div class="col-lg-6">
+                <div class="row initial_margin_negative">
+                    <div class="col-lg-6">
                         <label for="inputSender" class="form-label">@Html.DisplayNameFor(Model => Model.Sender):</label>
                         <input asp-for="Sender" type="text" class="form-control" id="inputSender">
                     </div>
@@ -59,28 +85,15 @@
 
                     <div class="col-lg-3">
                         <label class="col-form-label col-sm-2 pt-0">@Html.DisplayNameFor(Model => Model.Status):</label>
-                        <div style="gap: 20px;" class="d-flex justify-content-start align-items-center">
+                        <div class="gap-3 d-flex justify-content-start align-items-center">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gridRadios" id="checkboxDelivery" value="">
+                                <input class="form-check-input" type="radio" name="gridRadios" id="checkboxDelivery">
                                 <label class="form-check-label" for="checkboxDelivery">Entregue</label>
                             </div>
                             <div class="form-check my-1">
-                                <input class="form-check-input" type="radio" name="gridRadios" id="checkboxAvailable" value="option2" checked>
+                                <input class="form-check-input" type="radio" name="gridRadios" id="checkboxAvailable" checked>
                                 <label class="form-check-label" for="checkboxAvailable">Disponível</label>
                             </div>
-                            @{
-                                    if(status)
-                                    {
-                                        <script>
-
-                                            var checkboxDelivery = document.querySelector("#checkboxDelivery");
-                                            var checkboxAvailable = document.querySelector("#checkboxAvailable");
-
-                                            checkboxAvailable.checked = false;
-                                            checkboxDelivery.checked = true;
-                                        </script>
-                                    }      
-                            }
                         </div>
                     </div>                       
                 </div>
@@ -96,11 +109,11 @@
                     </div>
                     <div class="col-lg-3">
                         <label for="inputUnitTower" class="form-label">@Html.DisplayNameFor(Model => Model.Unit.Tower):</label>
-                        <input type="text" class="form-control" id="inputUnitTower">
+                        <input asp-for="@Model.Unit.Tower" type="text" class="form-control" id="inputUnitTower">
                     </div>
                     <div class="col-lg-3">
                         <label for="inputUnitId" class="form-label">@Html.DisplayNameFor(Model => Model.Unit.UnitId):</label>
-                        <input type="text" class="form-control" id="inputUnitId">
+                        <input asp-for="@Model.Unit.UnitId" type="text" class="form-control" id="inputUnitId">
                     </div>
                 </div>
                 
@@ -110,31 +123,48 @@
             <span class="form-group-title">Dados do funcionário</span>
             <fieldset disabled>
                 
-                <div class="row">
+                <div class="row initial_margin_negative">
                     <h6>Entrega na Portaria:</h6>
-                     <div class="col-lg-6">
+                    <div class="col-lg-6">
                         <label for="inputRemetente" class="form-label">@Html.DisplayNameFor(Model => Model.EmployeeDelivery.Name)</label>
-                        <input type="text" class="form-control" id="inputRemetente">
+                        <input asp-for="@Model.EmployeeDelivery.Name" type="text" class="form-control" id="inputRemetente">
                     </div>
                     <div class="col-lg-6">
                         <label for="inputRemetente" class="form-label">@Html.DisplayNameFor(Model => Model.EmployeeDelivery.EmployeeId)</label>
-                        <input type="text" class="form-control" id="inputRemetente">
+                        <input asp-for="@Model.EmployeeDelivery.EmployeeId" type="text" class="form-control" id="inputRemetente">
                     </div>
                 </div>
 
                 <div class="row my-4">
                     <h6>Retirada na Portaria:</h6>
                     <div class="col-lg-6">
-                        <label for="inputEmployeeWithdrawn" class="form-label">@Html.DisplayNameFor(Model => Model.EmployeeWithdrawn.Name)</label>
-                        <input type="text" class="form-control" id="inputEmployeeWithdrawn">
+                        <label for="inputEmployeeWithdrawal" class="form-label">@Html.DisplayNameFor(Model => Model.EmployeeWithdrawal.Name)</label>
+                        <input asp-for="@Model.EmployeeWithdrawal.Name" type="text" class="form-control" id="inputEmployeeWithdrawal">
                     </div>
                     <div class="col-lg-6">
-                        <label for="inputEmployeeWithdrawn" class="form-label">@Html.DisplayNameFor(Model => Model.EmployeeWithdrawn.EmployeeId)</label>
-                        <input type="text" class="form-control" id="inputEmployeeWithdrawn">
+                        <label for="inputEmployeeWithdrawal" class="form-label">@Html.DisplayNameFor(Model => Model.EmployeeWithdrawal.EmployeeId)</label>
+                        <input asp-for="@Model.EmployeeWithdrawal.EmployeeId" type="text" class="form-control" id="inputEmployeeWithdrawal">
                     </div>               
                 </div>
                 
             </fieldset>
         </div>
-    </form>
+    </div>
 
+@{
+    Html.RenderPartial("_ModalDelivery.cshtml");
+}
+
+@if(String.Equals(Model.Status, Correspondence.StatusEnum.Entregue.ToString()))
+{
+    @section Scripts {
+        <script>
+
+            var checkboxDelivery = document.querySelector("#checkboxDelivery");
+            var checkboxAvailable = document.querySelector("#checkboxAvailable");
+
+            checkboxAvailable.checked = false;
+            checkboxDelivery.checked = true;
+        </script>
+    }
+}  

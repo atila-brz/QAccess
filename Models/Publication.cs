@@ -42,11 +42,13 @@ namespace QAccess.Models
         public string Type { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
         [Display(Name = "Data de criação")]
         public DateTime CreateDate { get; set; }
         public bool IsActive { get; set; }
 
         [Display(Name = "Data de Atualização")]
+        [DataType(DataType.Date)]
         public DateTime? UpdateDate { get; set; }
 
         public int Views { get; set; }

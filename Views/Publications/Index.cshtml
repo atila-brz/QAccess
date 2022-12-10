@@ -71,7 +71,7 @@
     <div class="row d-flex scrollarea list">
         @if (Model.Count() != 0)
         {
-            <div class="row row-cols-2 row-cols-lg-4 g-3" style="max-height: 100%">
+            <div class="row row-cols-1 row-cols-lg-4 g-3 overflow-hidden" >
                 @foreach (var item in Model)
                 {
                     <a type="button" asp-action="Details" asp-route-id="@item.PublicationId" class="link_publication">

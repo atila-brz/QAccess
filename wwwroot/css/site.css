@@ -405,15 +405,22 @@ table tr{
 .link_publication{
   text-decoration: none;
   color: #000;
+  transition: 0.2s ease-in all;
+  
 }
 .link_publication:hover{
   text-decoration: none;
   color: #000;
-  transform: scale(1.05);
+  transform: scale(1.02);
+  overflow: hidden;
 }
 .image_publication{
   width: 100%;
   min-width: 200px;
+}
+.image_detail_publications{
+  width: 100%;
+  height: 100%;
 }
 /* ------------------------------ */
 

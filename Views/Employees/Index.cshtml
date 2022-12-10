@@ -1,89 +1,164 @@
 @model IEnumerable<QAccess.Models.Employee>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Funcionário";
 }
 
-<h1>Index</h1>
+<div class="container-main">
+    <div class="row">
+        <h3>Funcionários</h3>
+    </div>
+    
+    <div class="row">
+        <div class="d-flex flex-row-reverse buttons-group-actions">
+            <button type="button" class="btn btn-danger ms-2 d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg>
+                Excluir
+            </button>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Password)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Gender)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cpf)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BirthDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MaritalStatus)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ContactNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Office)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Sector)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gender)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cpf)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BirthDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaritalStatus)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ContactNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Office)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sector)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.EmployeeId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.EmployeeId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.EmployeeId">Delete</a>
-            </td>
-        </tr>
+            <a class="btn btn-edit ms-2 d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg>
+                Editar
+            </a>
+
+            <button data-bs-toggle="modal" data-bs-target="#registerDefaultModalAction" class="btn btn-primary ms-2 d-flex align-items-center">
+                <svg width="15" height="15" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="20.2942" y="0.441162" width="4.41176" height="41.9118" rx="2.20588" fill="white"/><rect x="0.441223" y="24.7058" width="4.41176" height="41.9118" rx="2.20588" transform="rotate(-90 0.441223 24.7058)" fill="white"/></svg>
+                Adicionar
+            </button>
+        </div>
+    </div>
+
+    <div class="row filter">
+        <ul class="list-unstyled list-group ps-0 nav nav-pills mb-auto">
+            <li class="mb-1">
+                <button class="justify-content-between btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#filter-collapse" aria-expanded="false">
+                    <div  class="d-flex align-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-funnel-fill" viewBox="0 0 16 16"><path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z"/></svg>
+                        <span class="ps-2">Filtros</span>
+                    </div>
+                </button>
+                <div class="collapse filter-group" id="filter-collapse">
+                    <div class="d-flex row flex-nowrap flex-lg-row flex-column">
+                        <div class="col-lg-6 col-sm-5">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Pesquise por uma palavra chave..." aria-label="Filter" aria-describedby="button-filter">
+                                <a class="btn btn-outline-secondary" type="button" id="button-filter">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-5">
+                            <select id="inputState" placeholder="Setor" class="form-select">
+                                <option selected>Setor</option>
+                                @foreach (var item in Model)
+                                {
+                                    <option value="@item.Sector">@Html.DisplayFor(modelItem => item.Sector)</option>
+                                }
+                                
+                            </select>
+                        </div>
+
+                        <div class="col-lg-3 col-sm-5">
+                            <select id="inputState" placeholder="Mês" class="form-select">
+                                <option selected>Cargo</option>
+                                @foreach (var item in Model)
+                                {
+                                    <option value="@item.Office">@Html.DisplayFor(modelItem => item.Office)</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+            </li>
+        </ul>
+    </div>
+
+    <div class="row">
+        @if (Model.Count() != 0)
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="checkModelAll">
+                            </div>
+                        </th>
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.Email)
+                        </th>
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.Cpf)
+                        </th>
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.ContactNumber)
+                        </th>
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.Office)
+                        </th>
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.Sector)
+                        </th>
+                        <th scope="col">Ações</th>
+                    <tr>
+                </thead>
+                <tbody>
+                    @{
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <th scope="col">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="checkModel">
+                                    </div>
+                                </th>           
+                                <td><a class="text-decoration-none" asp-action="Details" asp-route-id="@item.EmployeeId">@Html.DisplayFor(modelItem => item.Name)</a></td>
+                                <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Cpf)</td>
+                                <td>@Html.DisplayFor(modelItem => item.ContactNumber)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Office)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Sector)</td>
+                                <td>
+                                    <div class="d-flex justify-content-center align-items-center items-actions">
+                                        <span data-bs-whatever="@item.EmployeeId" data-bs-toggle="modal" data-bs-target="#defaultModalAction">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="red" class="bi bi-trash" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg>
+                                        </span>
+                                        <span>
+                                            <a asp-action="Edit" asp-route-id="@item.EmployeeId">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="#CC9A06" class="bi bi-pencil-square" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+            Html.RenderPartial("_Pagination");
+
+        }
+        else
+        {
+            <div class="d-flex justify-content-center align-items-center no-registry-message">
+                <img src="/images/not_found_ilustration.jpg" width="250px" class="img-fluid" alt="">
+                <p>Não há registros!</p>
+            </div>
+
+            Html.RenderPartial("_Pagination");
+    
+        }
+    </div>
+</div>
+
+@{
+    Html.RenderPartial("_ModalRegister");
 }
-    </tbody>
-</table>
+
+@{
+    Html.RenderPartial("_ModalDeleteAlert");
+}

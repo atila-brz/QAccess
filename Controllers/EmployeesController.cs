@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using QAccess.Models;
 
-namespace QAccess.Controllers
+namespace QAccess
 {
     public class EmployeesController : Controller
     {
@@ -45,25 +45,30 @@ namespace QAccess.Controllers
         }
 
         // GET: Employees/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
+        // public IActionResult Create()
+        // {
+        //     return View();
+        // }
 
         // POST: Employees/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EmployeeId,Name,Email,Password,Gender,Cpf,BirthDate,MaritalStatus,ContactNumber,Office,Sector")] Employee employee)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(employee);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+        public async Task<IActionResult> Create([Bind("EmployeeId,Name,Email,Gender,Cpf,BirthDate,MaritalStatus,ContactNumber,Office,Sector")] Employee employee)
+        {   
+
+            if (ModelState.IsValid) 
+            {                
+                if(employee.MaritalStatusIsValid(employee.MaritalStatus) is not false && employee.GenderIsValid(employee.Gender) is not false){
+                    _context.Add(employee);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+
+                return View(employee);
             }
-            return View(employee);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Employees/Edit/5
@@ -87,7 +92,7 @@ namespace QAccess.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EmployeeId,Name,Email,Password,Gender,Cpf,BirthDate,MaritalStatus,ContactNumber,Office,Sector")] Employee employee)
+        public async Task<IActionResult> Edit(int id, [Bind("EmployeeId,Name,Email,Gender,Cpf,BirthDate,MaritalStatus,ContactNumber,Office,Sector")] Employee employee)
         {
             if (id != employee.EmployeeId)
             {
@@ -98,8 +103,13 @@ namespace QAccess.Controllers
             {
                 try
                 {
-                    _context.Update(employee);
-                    await _context.SaveChangesAsync();
+                    if(employee.MaritalStatusIsValid(employee.MaritalStatus) is not false && employee.GenderIsValid(employee.Gender) is not false){
+                        _context.Update(employee);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Details), new { id = employee.EmployeeId});
+                    }
+                    
+                    return View(employee);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -112,7 +122,7 @@ namespace QAccess.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details), new { id = employee.EmployeeId});
             }
             return View(employee);
         }

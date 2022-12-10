@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using QAccess.Models;
 
+
 namespace QAccess.Controllers
 {
     public class CorrespondencesController : Controller
@@ -19,8 +20,20 @@ namespace QAccess.Controllers
         }
 
         // GET: Correspondences
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? messageAlert, string? messageSuccess)
         {
+            if(messageAlert is not null){
+                ViewData["messageAlert"] =  messageAlert;
+            }
+
+            if(messageSuccess is not null){
+                ViewData["messageSuccess"] =  messageSuccess;
+            }
+            
+            ViewData["EmployeeWithdrawalId"] = new SelectList(_context.Employees, "EmployeeId", "Name");
+            ViewData["EmployeeDeliveryId"] = new SelectList(_context.Employees, "EmployeeId", "Name");
+            ViewData["UnitId"] = new SelectList(_context.Units, "UnitId", "Block");
+            
             var qAccessContext = _context.Correspondences.Include(c => c.EmployeeDelivery).Include(c => c.Unit);
             return View(await qAccessContext.ToListAsync());
         }
@@ -33,10 +46,13 @@ namespace QAccess.Controllers
                 return NotFound();
             }
 
+            ViewData["EmployeeWithdrawalId"] = new SelectList(_context.Employees, "EmployeeId", "Name");
             var correspondence = await _context.Correspondences
                 .Include(c => c.EmployeeDelivery)
+                .Include(c => c.EmployeeWithdrawal)
                 .Include(c => c.Unit)
                 .FirstOrDefaultAsync(m => m.CorrespondenceId == id);
+                
             if (correspondence == null)
             {
                 return NotFound();
@@ -45,41 +61,25 @@ namespace QAccess.Controllers
             return View(correspondence);
         }
 
-        // GET: Correspondences/Create
-        public IActionResult Create()
-        {
-            ViewData["EmployeeDeliveryId"] = new SelectList(_context.Employees, "EmployeeId", "ContactNumber");
-            ViewData["UnitId"] = new SelectList(_context.Units, "UnitId", "Block");
-            return View();
-        }
-
         // POST: Correspondences/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CorrespondenceId,TrackingCode,Status,Sender,UnitId,DateDelivery,EmployeeDeliveryId")] Correspondence correspondence)
-        {
-            Employee employee = await _context.Employees.FindAsync(correspondence.EmployeeDeliveryId);
-            correspondence.EmployeeDelivery = employee;
-            Unit unit = await _context.Units.FindAsync(correspondence.UnitId);
-            correspondence.Unit = unit;
+        public async Task<IActionResult> Create([Bind("CorrespondenceId,TrackingCode,Sender,UnitId,DateDelivery,EmployeeDeliveryId,EmployeeWithdrawalId")] Correspondence correspondence)
+        {   
+            correspondence.DateDelivery = DateTime.Now;
+            
             if (ModelState.IsValid)
             {
                 _context.Add(correspondence);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }else
-            {
-                var messsage = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
-                foreach (var item in messsage)
-                {
-                    ModelState.AddModelError("", item);
-                }
+                return RedirectToAction(nameof(Index), new { messageSuccess = "Correspondência registrada!"});
             }
-            ViewData["EmployeeDeliveryId"] = new SelectList(_context.Employees, "EmployeeId", "Name", correspondence.EmployeeDeliveryId);
-            ViewData["UnitId"] = new SelectList(_context.Units, "UnitId", "Number", correspondence.UnitId);
-            return View(correspondence);
+
+            ViewData["EmployeeDeliveryId"] = new SelectList(_context.Employees, "EmployeeId", "ContactNumber", correspondence.EmployeeDeliveryId);
+            ViewData["UnitId"] = new SelectList(_context.Units, "UnitId", "Block", correspondence.UnitId);
+            return RedirectToAction(nameof(Index), new { messageAlert = "Não foi possível registrar a correspondência!"});
         }
 
         // GET: Correspondences/Edit/5
@@ -90,7 +90,17 @@ namespace QAccess.Controllers
                 return NotFound();
             }
 
-            var correspondence = await _context.Correspondences.FindAsync(id);
+            var correspondence = await _context.Correspondences
+                .Include(c => c.EmployeeDelivery)
+                .Include(c => c.EmployeeWithdrawal)
+                .Include(c => c.Unit)
+                .FirstOrDefaultAsync(m => m.CorrespondenceId == id);
+
+            if(!correspondence.isAvailable())
+            {
+                return RedirectToAction(nameof(Details), new {id = correspondence.CorrespondenceId});
+            }
+                
             if (correspondence == null)
             {
                 return NotFound();
@@ -121,39 +131,14 @@ namespace QAccess.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CorrespondenceExists(correspondence.CorrespondenceId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    return NotFound();
                 }
-                return RedirectToAction(nameof(Index));
+
+                return RedirectToAction(nameof(Details));
             }
+
             ViewData["EmployeeDeliveryId"] = new SelectList(_context.Employees, "EmployeeId", "ContactNumber", correspondence.EmployeeDeliveryId);
             ViewData["UnitId"] = new SelectList(_context.Units, "UnitId", "Block", correspondence.UnitId);
-            return View(correspondence);
-        }
-
-        // GET: Correspondences/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.Correspondences == null)
-            {
-                return NotFound();
-            }
-
-            var correspondence = await _context.Correspondences
-                .Include(c => c.EmployeeDelivery)
-                .Include(c => c.Unit)
-                .FirstOrDefaultAsync(m => m.CorrespondenceId == id);
-            if (correspondence == null)
-            {
-                return NotFound();
-            }
-
             return View(correspondence);
         }
 
@@ -169,11 +154,48 @@ namespace QAccess.Controllers
             var correspondence = await _context.Correspondences.FindAsync(id);
             if (correspondence != null)
             {
-                _context.Correspondences.Remove(correspondence);
+                if(correspondence.isAvailable())
+                {
+                    _context.Correspondences.Remove(correspondence);
+                }
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delivery(int id, int employeeWithdrawalId, string responsibleWithdrawal)
+        {
+            if(!CorrespondenceExists(id))
+            {
+                return RedirectToAction(nameof(Index), new {messageAlert = "Não foi possível atualizar a correspondência!"});
+            }
+            else
+            {
+                var correspondence = await _context.Correspondences.FindAsync(id);
+
+                if(correspondence.DeliveryCorrespondence(employeeWithdrawalId, responsibleWithdrawal)){
+                    try
+                    {
+                        _context.Update(correspondence);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index), new {messageSuccess = "Correspondência atualizada!"});
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        return RedirectToAction(nameof(Index), new {messageAlert = "Não foi possível atualizar a correspondência!"});
+                    }
+                }
+            } 
+
+            return RedirectToAction(nameof(Index), new {messageAlert = "Não foi possível atualizar a correspondência!"});
+        }
+
+        private bool EmployeeExists(int id)
+        {
+            return (_context.Employees?.Any(e => e.EmployeeId == id)).GetValueOrDefault();
         }
 
         private bool CorrespondenceExists(int id)

@@ -12,19 +12,21 @@
                         <label for="Name">Nome</label>
                     </div>
                     <div class="form-floating">
-                        <input required type="email"  id="Email" name="Email" placeholder="Email" class="form-control" />
+                        <input required type="text"  id="Email" name="Email" placeholder="Email" class="form-control" />
                         <label for="Email">Email</label>
+                        <span id="alertEmail" class="text-danger d-none"></span>
                     </div>
                     @* <div class="form-floating">
                         <input required  type="password" id="Password" name="Password" placeholder="Senha" class="form-control" />
                         <label for="Password">Senha</label>
                     </div> *@
                     <div class="form-floating">
-                        <input required id="Cpf" name="Cpf" placeholder="Cpf" class="form-control" />
+                        <input required id="Cpf" oninput="maskCpf(this)" type="text" name="Cpf" placeholder="Cpf" class="form-control" />
                         <label for="Cpf">Cpf</label>
+                        <span id="alertCpf" class="text-danger d-none"></span>
                     </div>
                     <div class="form-floating">
-                        <input id="ContactNumber" name="ContactNumber" placeholder="Contato" class="form-control" />
+                        <input id="ContactNumber" type="tel" name="ContactNumber" placeholder="Contato" class="form-control" />
                         <label for="ContactNumber">Contato</label>
                     </div>
                     <div class="form-floating">

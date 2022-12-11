@@ -32,7 +32,7 @@ namespace QAccess.Models
         // public string Password { get; set; }
 
         [Required]
-        [StringLength(11)]
+        [StringLength(14)]
         public string Cpf { get; set; }
 
         [Required]
@@ -48,7 +48,7 @@ namespace QAccess.Models
         public string MaritalStatus { get; set; }
 
         [Required]
-        [StringLength(11)]
+        [StringLength(14)]
         [Display(Name = "Contato")]
         public string ContactNumber { get; set; }
 

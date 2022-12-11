@@ -39,7 +39,7 @@ namespace QAccess.Models
 
         [Required]
         [Display(Name = "Tipo de Publicação")]
-        public string Type { get; set; }
+        public PublicationTypeEnum Type { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
@@ -55,5 +55,17 @@ namespace QAccess.Models
 
         [Display(Name = "Foto")]
         public string Photo { get; set; }
+        public enum PublicationTypeEnum
+        {
+            [Display(Name = "Troca")]
+            Trade,
+            [Display(Name = "Serviço")]
+            Service,
+            [Display(Name = "Produto")]
+            Product,
+            [Display(Name = "Outros")]
+            Other
+        }
     }
+
 }

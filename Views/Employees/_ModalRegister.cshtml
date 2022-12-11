@@ -20,8 +20,9 @@
                         <label for="Password">Senha</label>
                     </div> *@
                     <div class="form-floating">
-                        <input required id="Cpf" name="Cpf" placeholder="Cpf" class="form-control" />
+                        <input required id="Cpf" name="Cpf" oninput="maskCpf(this)" type="text" placeholder="Cpf" class="form-control" />
                         <label for="Cpf">Cpf</label>
+                        <span id="alertCpf" class="text-danger d-none"></span>
                     </div>
                     <div class="form-floating">
                         <input id="ContactNumber" name="ContactNumber" placeholder="Contato" class="form-control" />

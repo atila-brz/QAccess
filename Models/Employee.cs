@@ -37,7 +37,7 @@ namespace QAccess.Models
         public string Gender { get; set; }
 
         [Required]
-        [StringLength(11)]
+        [StringLength(14)]
         [Display(Name = "Cpf")]
         public string Cpf { get; set; }
 
@@ -50,7 +50,7 @@ namespace QAccess.Models
         public DateTime BirthDate { get; set; }
 
         [Required]
-        [StringLength(11)]
+        [StringLength(14)]
         [Display(Name = "Contato")]
         public string ContactNumber { get; set; }
 

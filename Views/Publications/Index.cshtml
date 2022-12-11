@@ -157,7 +157,15 @@
                         <label for="ContactNumber">Número de contato</label>
                     </div>
                     <div class="form-floating">
-                        <input placeholder="Tipo de anúncio" id="Type" name="Type" class="form-control" />
+                        <select class="form-select" id="MaritalStatus" name="MaritalStatus" aria-label="Seleção de Estado Civil">
+                            <option selected>Selecione</option>
+                            @{
+                                foreach (string type in Enum.GetNames(typeof(Publication.PublicationTypeEnum)))  
+                                {  
+                                    <option value="@type">@type</option>
+                                }  
+                            }
+                        </select>
                         <label for="Type">Tipo de Anúncio</label>
                     </div>
                     <div class="form-group">

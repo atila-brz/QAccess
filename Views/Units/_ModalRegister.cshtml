@@ -1,4 +1,4 @@
-<form asp-action="Create">
+<form asp-action="Create" id="formCreate">
     <div class="modal fade" id="registerDefaultModalAction" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
@@ -10,16 +10,19 @@
                 </div>
                 <div class="modal-body d-flex flex-column gap-3">
                     <div class="form-floating">
-                        <input required maxlength="10" id="Tower" class="form-control" placeholder="Torre" name="Tower" class="form-control" />
+                        <input maxlength="10" id="Tower" class="form-control" placeholder="Torre" name="Tower" class="form-control" />
                         <label for="Tower">Torre</label>
+                        <span id="alertTower" class="text-danger d-none"></span>
                     </div>
                     <div class="form-floating">
-                        <input required maxlength="10" id="Block" name="Block" placeholder="Bloco" class="form-control" />
+                        <input maxlength="10" id="Block" name="Block" placeholder="Bloco" class="form-control" />
                         <label for="Block">Bloco</label>
+                        <span id="alertBlock" class="text-danger d-none"></span>
                     </div>
                     <div class="form-floating">
-                        <input required maxlength="6" id="Block" name="Number" placeholder="Número" class="form-control" />
-                        <label for="Block">Número</label>
+                        <input maxlength="6" id="Number" name="Number" placeholder="Número" class="form-control" />
+                        <label for="Number">Número</label>
+                        <span id="alertNumber" class="text-danger d-none"></span>
                     </div>
                     <div class="form-floating">
                         <input maxlength="20" id="Country" name="Country" placeholder="País" class="form-control" />

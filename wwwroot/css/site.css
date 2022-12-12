@@ -99,9 +99,9 @@ textarea{
   width: 70%
 }
 
-.icons-profile svg{
+.icons-profile{
   transition: ease-in 0.3s;
-  max-width: 32px;
+  max-width: 30px;
 }
 
 .profile-text{

@@ -177,3 +177,69 @@
 @{
     Html.RenderPartial("_ModalDeleteAlert");
 }
+
+@section Scripts{
+    <script>
+        $(document).ready(function (){
+            $(".modal-footer .btn-success").addClass("disabled")
+            
+            $('#Name').blur(function(){
+                if(!$(this).val()){
+                    $('#alertName').text('Campo obrigatório!').removeClass('d-none');
+                }else{
+                    $('#alertName').text('').addClass('d-none');
+                }
+            })
+            $('#ContactNumber').blur(function(){
+                if(!$(this).val()){
+                    $('#alertContactNumber').text('Campo obrigatório!').removeClass('d-none');
+                }else{
+                    $('#alertContactNumber').text('').addClass('d-none');
+                }
+            })
+            $('#Office').blur(function(){
+                if(!$(this).val()){
+                    $('#alertOffice').text('Campo obrigatório!').removeClass('d-none');
+                }else{
+                    $('#alertOffice').text('').addClass('d-none');
+                }
+            })
+            $('#Sector').blur(function(){
+                if(!$(this).val()){
+                    $('#alertSector').text('Campo obrigatório!').removeClass('d-none');
+                }else{
+                    $('#alertSector').text('').addClass('d-none');
+                }
+            })
+            $('#BirthDate').blur(function(){
+                if(!$(this).val()){
+                    $('#alertBirthDate').text('Campo obrigatório!').removeClass('d-none');
+                }else{
+                    $('#alertBirthDate').text('').addClass('d-none');
+                }
+            })
+            $('#Gender').blur(function(){
+                if($(this).val() == "Selecione"){
+                    $('#alertGender').text('Seleção obrigatória!').removeClass('d-none');
+                }else{
+                    $('#alertGender').text('').addClass('d-none');
+                }
+            })
+            $('#MaritalStatus').blur(function(){
+                if($(this).val() == "Selecione"){
+                    $('#alertMaritalStatus').text('Seleção obrigatória!').removeClass('d-none');
+                }else{
+                    $('#alertMaritalStatus').text('').addClass('d-none');
+                }
+            })
+            $('#formCreate').change(function(){
+                if($("#Name").val() && $("#ContactNumber").val() && $('#Office').val() && $('#Sector').val && $('#BirthDate').val() &&
+                $('#Gender').val() && $('#MaritalStatus').val() && $('#Email').val() && $('#Cpf').val()){
+                    $(".modal-footer .btn-success").removeClass("disabled")
+                }else{
+                    $(".modal-footer .btn-success").addClass("disabled")
+                }
+            })
+        })  
+    </script>
+}

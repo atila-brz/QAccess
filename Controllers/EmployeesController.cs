@@ -19,23 +19,36 @@ namespace QAccess
         }
 
         // GET: Employees
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? messageAlert, string? messageSuccess)
         {
-              return _context.Employees != null ? 
-                          View(await _context.Employees.ToListAsync()) :
-                          Problem("Entity set 'QAccessContext.Employees'  is null.");
+            if(messageAlert is not null){
+                ViewData["messageAlert"] =  messageAlert;
+            }
+
+            if(messageSuccess is not null){
+                ViewData["messageSuccess"] =  messageSuccess;
+            }
+
+            return _context.Employees != null ? 
+                    View(await _context.Employees.ToListAsync()) :
+                    NotFound();
         }
 
         // GET: Employees/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, string? messageSuccess)
         {
             if (id == null || _context.Employees == null)
             {
                 return NotFound();
             }
 
+            if(messageSuccess is not null){
+                ViewData["messageSuccess"] =  messageSuccess;
+            }
+
             var employee = await _context.Employees
                 .FirstOrDefaultAsync(m => m.EmployeeId == id);
+
             if (employee == null)
             {
                 return NotFound();
@@ -43,12 +56,6 @@ namespace QAccess
 
             return View(employee);
         }
-
-        // GET: Employees/Create
-        // public IActionResult Create()
-        // {
-        //     return View();
-        // }
 
         // POST: Employees/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -61,14 +68,15 @@ namespace QAccess
             if (ModelState.IsValid) 
             {                
                 if(employee.MaritalStatusIsValid(employee.MaritalStatus) is not false && employee.GenderIsValid(employee.Gender) is not false){
+                    
                     _context.Add(employee);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Index), new { messageSuccess = "Novo funcionário registrado!"});
                 }
 
-                return View(employee);
+                return RedirectToAction(nameof(Index), new { messageAlert = "Não foi possível adicionar um novo funcionário!"});
             }
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new { messageAlert = "Não foi possível adicionar um novo funcionário!"});
         }
 
         // GET: Employees/Edit/5
@@ -80,6 +88,7 @@ namespace QAccess
             }
 
             var employee = await _context.Employees.FindAsync(id);
+
             if (employee == null)
             {
                 return NotFound();
@@ -104,44 +113,22 @@ namespace QAccess
                 try
                 {
                     if(employee.MaritalStatusIsValid(employee.MaritalStatus) is not false && employee.GenderIsValid(employee.Gender) is not false){
+                       
                         _context.Update(employee);
                         await _context.SaveChangesAsync();
-                        return RedirectToAction(nameof(Details), new { id = employee.EmployeeId});
+                        return RedirectToAction(nameof(Details), new { id = employee.EmployeeId, messageSuccess = "Os dados do funcionário foram atualizados!"});
                     }
                     
+                    ViewData["messageAlert"] =  "Não foi possível atualizar os dados do funcionário!";
                     return View(employee);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmployeeExists(employee.EmployeeId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    return NotFound();
                 }
-                return RedirectToAction(nameof(Details), new { id = employee.EmployeeId});
-            }
-            return View(employee);
-        }
-
-        // GET: Employees/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.Employees == null)
-            {
-                return NotFound();
             }
 
-            var employee = await _context.Employees
-                .FirstOrDefaultAsync(m => m.EmployeeId == id);
-            if (employee == null)
-            {
-                return NotFound();
-            }
-
+            ViewData["messageAlert"] =  "Não foi possível atualizar os dados do funcionário!";
             return View(employee);
         }
 
@@ -152,9 +139,10 @@ namespace QAccess
         {
             if (_context.Employees == null)
             {
-                return Problem("Entity set 'QAccessContext.Employees'  is null.");
+                return NotFound();
             }
             var employee = await _context.Employees.FindAsync(id);
+
             if (employee != null)
             {
                 _context.Employees.Remove(employee);

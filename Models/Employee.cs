@@ -13,12 +13,12 @@ namespace QAccess.Models
         [Display(Name = "Identificação do Funcionário")]
         public int EmployeeId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Campo inválido!")]
         [StringLength(50)]
         [Display(Name = "Nome")]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Campo inválido!")]
         [EmailAddress]
         [StringLength(50)]
         [Display(Name = "Email")]
@@ -31,35 +31,35 @@ namespace QAccess.Models
         // [Display(Name = "Senha")]
         // public string Password { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Campo inválido!")]
         [StringLength(20)]
         [Display(Name = "Gênero")]
         public string Gender { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Campo inválido!")]
         [StringLength(14)]
         [Display(Name = "Cpf")]
         public string Cpf { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Campo inválido!")]
         [Display(Name = "Estado civil")]
         public string MaritalStatus { get; set; }
 
-        [Required]
-        [Display(Name = "Data de nascimento")]
+        [Required(ErrorMessage = "Campo inválido!")]
+        [Display(Name = "Data de Nascimento")]
         public DateTime BirthDate { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Campo inválido!")]
         [StringLength(14)]
         [Display(Name = "Contato")]
         public string ContactNumber { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Campo inválido!")]
         [StringLength(20)]
         [Display(Name = "Cargo")]
         public string Office { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Campo inválido!")]
         [StringLength(20)]
         [Display(Name = "Setor")]
         public string Sector { get; set; }

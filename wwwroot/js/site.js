@@ -6,35 +6,43 @@
 const defaultModalAction = document.getElementById('defaultModalAction');
 const deliveryCorrespondenceModal = document.getElementById('deliveryCorrespondenceModal');
 
-if(defaultModalAction) {
+if(defaultModalAction){
     defaultModalAction.addEventListener('show.bs.modal', event => {
-
-        const awareUnits = defaultModalAction.querySelector('#awareId');
-        const buttonUnitID = defaultModalAction.querySelector('#defaultButton');
-
-        buttonUnitID.disabled = true;
-        awareUnits.checked = false;
-
-        if(awareUnits){
-            awareUnits.addEventListener( 'change', function() {
-        
-                const button = event.relatedTarget
-                const recipient = button.getAttribute('data-bs-whatever')
-                
-                if(this.checked) {
-                    buttonUnitID.disabled = false;
-                    const inputDeleteUnitID = defaultModalAction.querySelector('#defaultInputID')
-                    inputDeleteUnitID.value = recipient
-        
-                } else {
-                    buttonUnitID.disabled = true;
-                }
-            });
-        }
+    
+        var awareId = defaultModalAction.querySelector('#awareId');
+        var defaultButton = defaultModalAction.querySelector('#defaultButton');
+        var defaultInputID = defaultModalAction.querySelector('#defaultInputID')
+    
+        defaultButton.disabled = true;
+        awareId.checked = false;
+    
+        awareId.addEventListener( 'change', function() {
+    
+            var button = event.relatedTarget
+            var recipient = button.getAttribute('data-bs-whatever')
+            
+            if(this.checked) {
+                defaultButton.disabled = false;
+                defaultInputID.value = recipient
+    
+            } else {
+                defaultButton.disabled = true;
+                defaultInputID.value = null;
+            }
+        });
     })
 }
 
-// functions for fomrs
+if(deliveryCorrespondenceModal){
+    deliveryCorrespondenceModal.addEventListener('show.bs.modal', event => {
+    
+            var buttonDelivery = event.relatedTarget
+            var recipient = buttonDelivery.getAttribute('data-bs-whatever')
+            
+            var inputDeliveryCorrespondenceId = deliveryCorrespondenceModal.querySelector('#deliveryCorrespondenceId')
+            inputDeliveryCorrespondenceId.value = recipient
+    })
+}
 
 function maskCpf(i){
 
@@ -53,18 +61,17 @@ function maskCpf(i){
 
 
 var inputCpf = document.getElementById('Cpf');
-
 if(inputCpf){
     var alertCpf = document.getElementById('alertCpf');
     inputCpf.addEventListener('blur', function(value) {
         var cpf = value.target.value;
             cpf = cpf.replace(/[^\d]+/g, '');
             if (cpf == '') {
-                alertCpf.textContent = 'CPF não pode ser vazio';
+                alertCpf.textContent = 'Campo obrigatório!';
                 alertCpf.classList.remove('d-none');
                 return false;
             }
-            // Elimina CPFs invalidos conhecidos    
+
             if (cpf.length != 11 ||
                 cpf == "00000000000" ||
                 cpf == "11111111111" ||
@@ -81,7 +88,7 @@ if(inputCpf){
                     alertCpf.classList.remove('d-none');
                     return false;
                 }
-            // Valida 1o digito 
+
             add = 0;
                 for (i = 0; i < 9; i++){
                     add += parseInt(cpf.charAt(i)) * (10 - i);
@@ -95,7 +102,7 @@ if(inputCpf){
                 alertCpf.textContent = 'CPF inválido';
                 return false;
             }
-            // Valida 2o digito 
+            
             add = 0;
             for (i = 0; i < 10; i++){
                 add += parseInt(cpf.charAt(i)) * (11 - i);
@@ -110,7 +117,6 @@ if(inputCpf){
                 return false;
             }
             alertCpf.classList.add('d-none');
-            console.log('CPF válido');
             return true;
     });
 }
@@ -122,7 +128,7 @@ if(inputEmail){
     inputEmail.addEventListener('blur', function(value) {
         var email = value.target.value;
         if(email == ''){
-            alertEmail.textContent = 'Email não pode ser vazio';
+            alertEmail.textContent = 'Campo obrigatório!';
             alertEmail.classList.remove('d-none');
             return false;
         }
@@ -132,7 +138,78 @@ if(inputEmail){
             return false;
         }
         alertEmail.classList.add('d-none');
-        console.log('Email válido');
         return true;
     });
 }   
+
+
+// Jquery
+$(document).ready(function(){
+    $('#alertMessage').ready(function(){
+        setTimeout(function() {
+            $('#alertMessage').fadeOut('fast');
+        }, 5000);
+    })     
+})
+
+$(document).ready(function (){
+    $(".modal-footer .btn-success").addClass("disabled")
+    
+    $('#Name').blur(function(){
+        if(!$(this).val()){
+            $('#alertName').text('Campo obrigatório!').removeClass('d-none');
+        }else{
+            $('#alertName').text('').addClass('d-none');
+        }
+    })
+    $('#ContactNumber').blur(function(){
+        if(!$(this).val()){
+            $('#alertContactNumber').text('Campo obrigatório!').removeClass('d-none');
+        }else{
+            $('#alertContactNumber').text('').addClass('d-none');
+        }
+    })
+    $('#Office').blur(function(){
+        if(!$(this).val()){
+            $('#alertOffice').text('Campo obrigatório!').removeClass('d-none');
+        }else{
+            $('#alertOffice').text('').addClass('d-none');
+        }
+    })
+    $('#Sector').blur(function(){
+        if(!$(this).val()){
+            $('#alertSector').text('Campo obrigatório!').removeClass('d-none');
+        }else{
+            $('#alertSector').text('').addClass('d-none');
+        }
+    })
+    $('#BirthDate').blur(function(){
+        if(!$(this).val()){
+            $('#alertBirthDate').text('Campo obrigatório!').removeClass('d-none');
+        }else{
+            $('#alertBirthDate').text('').addClass('d-none');
+        }
+    })
+    $('#Gender').blur(function(){
+        if($(this).val() == "Selecione"){
+            $('#alertGender').text('Seleção obrigatória!').removeClass('d-none');
+        }else{
+            $('#alertGender').text('').addClass('d-none');
+        }
+    })
+    $('#MaritalStatus').blur(function(){
+        if($(this).val() == "Selecione"){
+            $('#alertMaritalStatus').text('Seleção obrigatória!').removeClass('d-none');
+        }else{
+            $('#alertMaritalStatus').text('').addClass('d-none');
+        }
+    })
+    $('#formCreate').change(function(){
+        if($("#Name").val() && $("#ContactNumber").val() && $('#Office').val() && $('#Sector').val && $('#BirthDate').val() &&
+        $('#Gender').val() && $('#MaritalStatus').val() && $('#Email').val() && $('#Cpf').val()){
+            $(".modal-footer .btn-success").removeClass("disabled")
+        }else{
+            $(".modal-footer .btn-success").addClass("disabled")
+        }
+    })
+})

@@ -5,6 +5,14 @@
 }
 
 <div>
+
+     @if(ViewData["messageSuccess"] is not null){
+        <div id="alertMessage" class="alert alert-success alert-dismissible" role="alert">
+            <div>@ViewData["messageSuccess"]</div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    
     <div class="row">
         <h3>Unidades</h3>
     </div>

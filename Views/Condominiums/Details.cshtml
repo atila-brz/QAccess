@@ -1,10 +1,18 @@
 @model QAccess.Models.Condominium
 
 @{
-    ViewData["Title"] = "Funcionários";
+    ViewData["Title"] = "Condômino";
 }
 
 <div>
+
+    @if(ViewData["messageSuccess"] is not null){
+        <div id="alertMessage" class="alert alert-success alert-dismissible" role="alert">
+            <div>@ViewData["messageSuccess"]</div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
     <div class="row">
         <h3>Condôminos</h3>
     </div>
@@ -42,7 +50,7 @@
                     </div>
                 </div> 
                 <div class="row my-4">
-                    <div class="col-lg-6">
+                    <div class="col-lg-8">
                         <label for="inputEmail" class="form-label">@Html.DisplayNameFor(Model => Model.Email):</label>
                         <input asp-for="Email" type="text" class="form-control" id="inputEmail">
                     </div>
@@ -50,7 +58,7 @@
                         <label for="inputPassword" class="form-label">@Html.DisplayNameFor(Model => Model.Password):</label>
                         <input asp-for="Password" type="text" class="form-control" id="inputPassword">
                     </div> *@
-                    <div class="col-lg-6">
+                    <div class="col-lg-4">
                         <label class="form-label" for="BirthDate">Data de Nascimento</label>
                         <input id="BirthDate" class="form-control" type="datetime-local" asp-for="BirthDate" placeholder="Data de Nascimento...">
                     </div>
@@ -67,12 +75,6 @@
                     <div class="col-lg-4">
                         <label for="inputMaritalStatus" class="form-label">@Html.DisplayNameFor(Model => Model.MaritalStatus):</label>
                         <input asp-for="MaritalStatus" type="text" class="form-control" id="inputMaritalStatus">
-                    </div>
-                </div>
-                <div class="row my-4">
-                    <div class="col-lg-4">
-                        <label for="inputContactNumber" class="form-label">@Html.DisplayNameFor(Model => Model.ContactNumber):</label>
-                        <input asp-for="ContactNumber" type="text" class="form-control" id="inputContactNumber">
                     </div>
                 </div>
             </div>

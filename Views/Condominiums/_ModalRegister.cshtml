@@ -1,4 +1,4 @@
-<form asp-action="Create">
+<form asp-action="Create" id="formCreate">
     <div class="modal fade" id="registerDefaultModalAction" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
@@ -8,26 +8,28 @@
                 </div>
                 <div class="modal-body d-flex flex-column gap-3">
                     <div class="form-floating">
-                        <input required  id="Name" class="form-control" placeholder="Nome" name="Name" class="form-control" />
+                        <input maxlength="50" id="Name" class="form-control" placeholder="Nome" name="Name" class="form-control" />
                         <label for="Name">Nome</label>
+                        <span id="alertName" class="text-danger d-none"></span>
                     </div>
                     <div class="form-floating">
-                        <input required type="text"  id="Email" name="Email" placeholder="Email" class="form-control" />
+                        <input type="text"  id="Email" name="Email" placeholder="Email" class="form-control" />
                         <label for="Email">Email</label>
                         <span id="alertEmail" class="text-danger d-none"></span>
                     </div>
                     @* <div class="form-floating">
-                        <input required  type="password" id="Password" name="Password" placeholder="Senha" class="form-control" />
+                        <input  type="password" id="Password" name="Password" placeholder="Senha" class="form-control" />
                         <label for="Password">Senha</label>
                     </div> *@
                     <div class="form-floating">
-                        <input required id="Cpf" oninput="maskCpf(this)" type="text" name="Cpf" placeholder="Cpf" class="form-control" />
+                        <input max="14" id="Cpf" oninput="maskCpf(this)" type="text" name="Cpf" placeholder="Cpf" class="form-control" />
                         <label for="Cpf">Cpf</label>
                         <span id="alertCpf" class="text-danger d-none"></span>
                     </div>
                     <div class="form-floating">
-                        <input id="ContactNumber" type="tel" name="ContactNumber" placeholder="Contato" class="form-control" />
+                        <input max="14" id="ContactNumber" type="tel" name="ContactNumber" placeholder="Contato" class="form-control" />
                         <label for="ContactNumber">Contato</label>
+                        <span id="alertContactNumber" class="text-danger d-none"></span>
                     </div>
                     <div class="form-floating">
                         <select class="form-select" id="Gender" name="Gender" aria-label="Seleção de gênero.">
@@ -40,6 +42,7 @@
                             }
                         </select>
                         <label for="Gender">Gênero</label>
+                        <span id="alertGender" class="text-danger d-none"></span>
                     </div>
                     <div class="form-floating">
                         <select class="form-select" id="MaritalStatus" name="MaritalStatus" aria-label="Seleção de Estado Civil">
@@ -51,11 +54,13 @@
                                 }  
                             }
                         </select>
-                        <label for="Gender">Estado Civil</label>
+                        <label for="MaritalStatus">Estado Civil</label>
+                        <span id="alertMaritalStatus" class="text-danger d-none"></span>
                     </div>
                     <div class="form-floating">
                         <input id="BirthDate" class="form-control" type="text" name="BirthDate" placeholder="Data de Nascimento..."onfocus="(this.type='datetime-local')" onblur="(this.type='text')">
                         <label for="BirthDate">Data de Nascimento</label>
+                        <span id="alertBirthDate" class="text-danger d-none"></span>
                     </div>
                 </div>
 

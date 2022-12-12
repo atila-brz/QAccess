@@ -5,6 +5,21 @@
 }
 
 <div class="container-main">
+
+    @if(ViewData["messageAlert"] is not null){
+        <div id="alertMessage" class="alert alert-warning alert-dismissible" role="alert">
+            <div>@ViewData["messageAlert"]</div>
+            <button type="button" onload="GFG_Fun()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if(ViewData["messageSuccess"] is not null){
+        <div id="alertMessage" class="alert alert-success alert-dismissible" role="alert">
+            <div>@ViewData["messageSuccess"]</div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
     <div class="row">
         <h3>Condôminos</h3>
     </div>
@@ -47,26 +62,6 @@
                                 </a>
                             </div>
                         </div>
-                        @* <div class="col-lg-3 col-sm-5">
-                            <select id="inputState" placeholder="Setor" class="form-select">
-                                <option selected>Setor</option>
-                                @foreach (var item in Model)
-                                {
-                                    <option value="@item.Sector">@Html.DisplayFor(modelItem => item.Sector)</option>
-                                }
-                                
-                            </select>
-                        </div>
-
-                        <div class="col-lg-3 col-sm-5">
-                            <select id="inputState" placeholder="Mês" class="form-select">
-                                <option selected>Cargo</option>
-                                @foreach (var item in Model)
-                                {
-                                    <option value="@item.Office">@Html.DisplayFor(modelItem => item.Office)</option>
-                                }
-                            </select>
-                        </div> *@
                     </div>
                 </div>
                 
@@ -153,4 +148,56 @@
 
 @{
     Html.RenderPartial("_ModalDeleteAlert");
+}
+
+@section Scripts{
+    <script>
+        $(document).ready(function (){
+            $(".modal-footer .btn-success").addClass("disabled")
+            
+            $('#Name').blur(function(){
+                if(!$(this).val()){
+                    $('#alertName').text('Campo obrigatório!').removeClass('d-none');
+                }else{
+                    $('#alertName').text('').addClass('d-none');
+                }
+            })
+            $('#ContactNumber').blur(function(){
+                if(!$(this).val()){
+                    $('#alertContactNumber').text('Campo obrigatório!').removeClass('d-none');
+                }else{
+                    $('#alertContactNumber').text('').addClass('d-none');
+                }
+            })
+            $('#BirthDate').blur(function(){
+                if(!$(this).val()){
+                    $('#alertBirthDate').text('Campo obrigatório!').removeClass('d-none');
+                }else{
+                    $('#alertBirthDate').text('').addClass('d-none');
+                }
+            })
+            $('#Gender').blur(function(){
+                if($(this).val() == "Selecione"){
+                    $('#alertGender').text('Seleção obrigatória!').removeClass('d-none');
+                }else{
+                    $('#alertGender').text('').addClass('d-none');
+                }
+            })
+            $('#MaritalStatus').blur(function(){
+                if($(this).val() == "Selecione"){
+                    $('#alertMaritalStatus').text('Seleção obrigatória!').removeClass('d-none');
+                }else{
+                    $('#alertMaritalStatus').text('').addClass('d-none');
+                }
+            })
+            $('#formCreate').change(function(){
+                if($("#Name").val() && $("#ContactNumber").val() && $('#BirthDate').val() &&
+                $('#Gender').val() && $('#MaritalStatus').val() && $('#Email').val() && $('#Cpf').val()){
+                    $(".modal-footer .btn-success").removeClass("disabled")
+                }else{
+                    $(".modal-footer .btn-success").addClass("disabled")
+                }
+            })
+        })  
+    </script>
 }

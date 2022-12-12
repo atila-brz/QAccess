@@ -19,23 +19,36 @@ namespace QAccess.Controllers
         }
 
         // GET: Condominiums
-        public async Task<IActionResult> Index()
-        {
-              return _context.Codominiums != null ? 
-                          View(await _context.Codominiums.ToListAsync()) :
-                          Problem("Entity set 'QAccessContext.Codominiums'  is null.");
+        public async Task<IActionResult> Index(string? messageAlert, string? messageSuccess)
+        {   
+            if(messageAlert is not null){
+                ViewData["messageAlert"] =  messageAlert;
+            }
+
+            if(messageSuccess is not null){
+                ViewData["messageSuccess"] =  messageSuccess;
+            }
+
+            return _context.Codominiums != null ? 
+                        View(await _context.Codominiums.ToListAsync()) :
+                        NotFound();
         }
 
         // GET: Condominiums/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, string? messageSuccess)
         {
             if (id == null || _context.Codominiums == null)
             {
                 return NotFound();
             }
 
+            if(messageSuccess is not null){
+                ViewData["messageSuccess"] =  messageSuccess;
+            }
+
             var condominium = await _context.Codominiums
                 .FirstOrDefaultAsync(m => m.CondominiumId == id);
+
             if (condominium == null)
             {
                 return NotFound();
@@ -43,12 +56,6 @@ namespace QAccess.Controllers
 
             return View(condominium);
         }
-
-        // GET: Condominiums/Create
-        // public IActionResult Create()
-        // {
-        //     return View();
-        // }
 
         // POST: Condominiums/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -63,13 +70,13 @@ namespace QAccess.Controllers
                 {
                     _context.Add(condominium);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Index), new { messageSuccess = "Novo condômino registrado!"});
                 }   
                 
-                return View(condominium);
+                return RedirectToAction(nameof(Index), new { messageAlert = "Não foi possível adicionar um novo condômino!"});
             
             }
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new { messageAlert = "Não foi possível adicionar um novo condômino!"});
         }
 
         // GET: Condominiums/Edit/5
@@ -81,10 +88,12 @@ namespace QAccess.Controllers
             }
 
             var condominium = await _context.Codominiums.FindAsync(id);
+
             if (condominium == null)
             {
                 return NotFound();
             }
+
             return View(condominium);
         }
 
@@ -108,42 +117,18 @@ namespace QAccess.Controllers
                     {
                         _context.Update(condominium);
                         await _context.SaveChangesAsync();
-                        return RedirectToAction(nameof(Details), new { id = condominium.CondominiumId});
+                        return RedirectToAction(nameof(Details), new { id = condominium.CondominiumId, messageSuccess = "Os dados do condômino foram atualizados!"});
                     }
 
                     return View(condominium);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CondominiumExists(condominium.CondominiumId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    return NotFound();
                 }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(condominium);
-        }
-
-        // GET: Condominiums/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.Codominiums == null)
-            {
-                return NotFound();
             }
 
-            var condominium = await _context.Codominiums
-                .FirstOrDefaultAsync(m => m.CondominiumId == id);
-            if (condominium == null)
-            {
-                return NotFound();
-            }
-
+            ViewData["messageAlert"] =  "Não foi possível atualizar os dados do condômino!";
             return View(condominium);
         }
 
@@ -154,9 +139,10 @@ namespace QAccess.Controllers
         {
             if (_context.Codominiums == null)
             {
-                return Problem("Entity set 'QAccessContext.Codominiums'  is null.");
+                return NotFound();
             }
             var condominium = await _context.Codominiums.FindAsync(id);
+
             if (condominium != null)
             {
                 _context.Codominiums.Remove(condominium);

@@ -32,14 +32,14 @@ namespace QAccess.Controllers
             
             ViewData["EmployeeWithdrawalId"] = new SelectList(_context.Employees, "EmployeeId", "Name");
             ViewData["EmployeeDeliveryId"] = new SelectList(_context.Employees, "EmployeeId", "Name");
-            ViewData["UnitId"] = new SelectList(_context.Units, "UnitId", "Block");
+            ViewData["UnitId"] = new SelectList(_context.Units, "UnitId", "Number");
             
             var qAccessContext = _context.Correspondences.Include(c => c.EmployeeDelivery).Include(c => c.Unit);
             return View(await qAccessContext.ToListAsync());
         }
 
         // GET: Correspondences/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, string? messageSuccess)
         {
             if (id == null || _context.Correspondences == null)
             {
@@ -47,6 +47,11 @@ namespace QAccess.Controllers
             }
 
             ViewData["EmployeeWithdrawalId"] = new SelectList(_context.Employees, "EmployeeId", "Name");
+            
+            if(messageSuccess is not null){
+                ViewData["messageSuccess"] =  messageSuccess;
+            }
+
             var correspondence = await _context.Correspondences
                 .Include(c => c.EmployeeDelivery)
                 .Include(c => c.EmployeeWithdrawal)
@@ -105,6 +110,7 @@ namespace QAccess.Controllers
             {
                 return NotFound();
             }
+
             ViewData["EmployeeDeliveryId"] = new SelectList(_context.Employees, "EmployeeId", "ContactNumber", correspondence.EmployeeDeliveryId);
             ViewData["UnitId"] = new SelectList(_context.Units, "UnitId", "Block", correspondence.UnitId);
             return View(correspondence);
@@ -134,11 +140,12 @@ namespace QAccess.Controllers
                     return NotFound();
                 }
 
-                return RedirectToAction(nameof(Details));
+                return RedirectToAction(nameof(Details), new { id = correspondence.CorrespondenceId, messageSuccess = "Os dados da correspondência foram atualizados!"});
             }
 
             ViewData["EmployeeDeliveryId"] = new SelectList(_context.Employees, "EmployeeId", "ContactNumber", correspondence.EmployeeDeliveryId);
             ViewData["UnitId"] = new SelectList(_context.Units, "UnitId", "Block", correspondence.UnitId);
+            ViewData["messageAlert"] =  "Não foi possível atualizar os dados da correspondência!";
             return View(correspondence);
         }
 
@@ -185,7 +192,7 @@ namespace QAccess.Controllers
                     }
                     catch (DbUpdateConcurrencyException)
                     {
-                        return RedirectToAction(nameof(Index), new {messageAlert = "Não foi possível atualizar a correspondência!"});
+                        return NotFound();
                     }
                 }
             } 

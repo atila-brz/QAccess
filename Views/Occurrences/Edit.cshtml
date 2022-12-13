@@ -4,6 +4,12 @@
     ViewData["Title"] = "Ocorrência";
 }
 
+@if(ViewData["messageAlert"] is not null){
+    <div id="alertMessage" class="alert alert-warning alert-dismissible" role="alert">
+        <div>@ViewData["messageAlert"]</div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 
 <div class="row ">
     <h3>Ocorrências</h3>

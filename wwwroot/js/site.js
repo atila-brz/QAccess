@@ -5,6 +5,9 @@
 
 const defaultModalAction = document.getElementById('defaultModalAction');
 const deliveryCorrespondenceModal = document.getElementById('deliveryCorrespondenceModal');
+const finishOccurrenceModal = document.getElementById('DefaultModalFinish');
+const selectOccurrenceModal = document.getElementById('DefaultModalSelect');
+
 
 if(defaultModalAction){
     defaultModalAction.addEventListener('show.bs.modal', event => {
@@ -41,6 +44,28 @@ if(deliveryCorrespondenceModal){
             
             var inputDeliveryCorrespondenceId = deliveryCorrespondenceModal.querySelector('#deliveryCorrespondenceId')
             inputDeliveryCorrespondenceId.value = recipient
+    })
+}
+
+if(selectOccurrenceModal){
+    selectOccurrenceModal.addEventListener('show.bs.modal', event => {
+    
+            var buttonFinish = event.relatedTarget
+            var recipient = buttonFinish.getAttribute('data-bs-whatever')
+            
+            var inputSelectOccurrenceId = selectOccurrenceModal.querySelector('#inputSelectOccurrenceId')
+            inputSelectOccurrenceId.value = recipient
+    })
+}
+
+if(finishOccurrenceModal){
+    finishOccurrenceModal.addEventListener('show.bs.modal', event => {
+    
+            var buttonFinish = event.relatedTarget
+            var recipient = buttonFinish.getAttribute('data-bs-whatever')
+            
+            var inputFinishOccurrenceId = finishOccurrenceModal.querySelector('#inputFinishOccurrenceId')
+            inputFinishOccurrenceId.value = recipient
     })
 }
 

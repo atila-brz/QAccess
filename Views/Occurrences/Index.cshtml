@@ -161,6 +161,44 @@
                     }
                 }
             });
+
+            $(".modal-footer .btn-register").addClass("disabled")
+            
+            $('#Locale').blur(function(){
+                if(!$(this).val()){
+                    $('#alertLocale').text('Campo obrigatório!').removeClass('d-none');
+                }else{
+                    $('#alertLocale').text('').addClass('d-none');
+                }
+            })
+            $('#CondominiumId').blur(function(){
+                if($(this).val() == "Selecione"){
+                    $('#alertCondominiumId').text('Campo obrigatório!').removeClass('d-none');
+                }else{
+                    $('#alertCondominiumId').text('').addClass('d-none');
+                }
+            })
+            $('#Title').blur(function(){
+                if(!$(this).val()){
+                    $('#alertTitle').text('Campo obrigatório!').removeClass('d-none');
+                }else{
+                    $('#alertTitle').text('').addClass('d-none');
+                }
+            })
+            $('#Description').blur(function(){
+                if(!$(this).val()){
+                    $('#alertDescription').text('Campo obrigatório!').removeClass('d-none');
+                }else{
+                    $('#alertDescription').text('').addClass('d-none');
+                }
+            })
+            $('#formCreate').change(function(){
+                if($("#Description").val() && $("#Title").val() && $("#Locale").val() && $('#CondominiumId').val() != "Selecione"){
+                    $(".modal-footer .btn-register").removeClass("disabled")
+                }else{
+                    $(".modal-footer .btn-register").addClass("disabled")
+                }
+            })
         });
     </script>
 }

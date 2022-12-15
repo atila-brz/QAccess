@@ -64,7 +64,7 @@ namespace QAccess.Controllers
         }
 
         // GET: Occurrences/Details/5
-        public async Task<IActionResult> Details(int? id, string? messageSuccess)
+        public async Task<IActionResult> Details(int? id, string? messageAlert, string? messageSuccess)
         {
             if (id == null || _context.Occurrences == null)
             {
@@ -74,6 +74,12 @@ namespace QAccess.Controllers
             if(messageSuccess is not null){
                 ViewData["messageSuccess"] =  messageSuccess;
             }
+
+            if(messageAlert is not null){
+                ViewData["messageAlert"] =  messageAlert;
+            }
+
+            ViewData["ResponsibleOfficial"] = new SelectList(_context.Employees, "EmployeeId", "Name");
 
             var occurrence = await _context.Occurrences
                 .Include(o => o.Responsable)
@@ -224,7 +230,7 @@ namespace QAccess.Controllers
                 }
                 return RedirectToAction(nameof(Details), new { id = occurrence.OccurrenceId, messageSuccess = "O status da ocorrência foi atualizado!"});
             }
-            return RedirectToAction(nameof(Details), new { id = occurrence.OccurrenceId, messageSuccess = "Não foi possível atualizar o status da ocorrência!"});
+            return RedirectToAction(nameof(Details), new { id = occurrence.OccurrenceId, messageAlert = "Não foi possível atualizar o status da ocorrência!"});
         }
 
 

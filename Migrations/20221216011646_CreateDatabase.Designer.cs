@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QAccess.Models;
 
@@ -10,9 +11,10 @@ using QAccess.Models;
 namespace QAccess.Migrations
 {
     [DbContext(typeof(QAccessContext))]
-    partial class QAccessContextModelSnapshot : ModelSnapshot
+    [Migration("20221216011646_CreateDatabase")]
+    partial class CreateDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

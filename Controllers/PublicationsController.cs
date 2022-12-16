@@ -19,15 +19,29 @@ namespace QAccess.Controllers
         }
 
         // GET: Publications
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? messageAlert, string? messageSuccess)
         {
+            if(messageAlert is not null){
+                ViewData["messageAlert"] =  messageAlert;
+            }
+
+            if(messageSuccess is not null){
+                ViewData["messageSuccess"] =  messageSuccess;
+            }
+
+            ViewData["CondominiumId"] = new SelectList(_context.Codominiums, "CondominiumId", "Name");
+
             var qAccessContext = _context.Publications.Include(p => p.Creator);
             return View(await qAccessContext.ToListAsync());
         }
 
         // GET: Publications/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, string? messageSuccess)
         {
+            if(messageSuccess is not null){
+                ViewData["messageSuccess"] =  messageSuccess;
+            }
+
             if (id == null || _context.Publications == null)
             {
                 return NotFound();
@@ -36,45 +50,37 @@ namespace QAccess.Controllers
             var publication = await _context.Publications
                 .Include(p => p.Creator)
                 .FirstOrDefaultAsync(m => m.PublicationId == id);
+                
             if (publication == null)
             {
                 return NotFound();
             }
-            if(publication.CondominiumId != 2)
-            {
-                publication.Views++;
-                _context.Update(publication);
-                await _context.SaveChangesAsync();
-            }
+
+            publication.Views++;
+            _context.Update(publication);
+            await _context.SaveChangesAsync();
+
             return View(publication);
         }
-
-        // // GET: Publications/Create
-        // public IActionResult Create()
-        // {
-        //     ViewData["CondominiumId"] = new SelectList(_context.Codominiums, "CondominiumId", "ContactNumber");
-        //     return View();
-        // }
 
         // POST: Publications/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PublicationId,Title,Description,Link,ContactNumber,Type,Photo")] Publication publication)
+        public async Task<IActionResult> Create([Bind("CondominiumId, PublicationId,Title,Description,Link,ContactNumber,Type,Photo")] Publication publication)
         {
             publication.CreateDate = DateTime.Now;
             publication.IsActive = false;
             publication.Views = 0;
             publication.UpdateDate = publication.CreateDate;
-            publication.CondominiumId = 1;// TODO: Change this to the logged user's condominium
             if (ModelState.IsValid)
             {
                 _context.Add(publication);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index),  new { messageSuccess = "Anúncio registrado com sucesso!"});
             }
-            return View(publication);
+            return RedirectToAction(nameof(Index), new { messageAlert = "Não foi possível registrar um novo anúncio!"});
         }
 
         // GET: Publications/Edit/5
@@ -116,39 +122,15 @@ namespace QAccess.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PublicationExists(publication.PublicationId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    return NotFound();
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details), new { id = publication.PublicationId, messageSuccess = "Os dados do anúncio foram atualizados!"});
             }
             ViewData["CondominiumId"] = await _context.Codominiums.FindAsync(publication.CondominiumId);
+            ViewData["messageAlert"] =  "Não foi possível atualizar os dados do anúncio";
             return View(publication);
         }
 
-        // // GET: Publications/Delete/5
-        // public async Task<IActionResult> Delete(int? id)
-        // {
-        //     if (id == null || _context.Publications == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     var publication = await _context.Publications
-        //         .Include(p => p.Creator)
-        //         .FirstOrDefaultAsync(m => m.PublicationId == id);
-        //     if (publication == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     return View(publication);
-        // }
 
         // POST: Publications/Delete/5
         [HttpPost, ActionName("Delete")]

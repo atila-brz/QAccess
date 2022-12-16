@@ -17,36 +17,36 @@ namespace QAccess.Models
         [Key]
         public int CorrespondenceId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Campo inválido!")]
         [StringLength(30)]
         [Display(Name = "Código de Rastreio")]
         public string TrackingCode { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Campo inválido!")]
         [StringLength(15)]
         [Display(Name = "Status")]
         public string? Status { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Campo inválido!")]
         [StringLength(20)]
         [Display(Name = "Remetente")]
         public string Sender { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Campo inválido!")]
         [ForeignKey("Unit")]
         public int UnitId { get; set; }
          
         [Display(Name = "Unidade")]
         public virtual Unit? Unit { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Campo inválido!")]
         [Display(Name = "Data Recebida")]
         public DateTime DateDelivery { get; set; }
 
         [Display(Name = "Data de Retirada")]
         public DateTime? DateWithdrawal { get; set;}
         
-        [Required]
+        [Required(ErrorMessage = "Campo inválido!")]
         [ForeignKey("EmployeeDelivery")]
         public int EmployeeDeliveryId { get; set; }
 

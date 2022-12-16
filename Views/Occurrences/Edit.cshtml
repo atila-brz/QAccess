@@ -78,6 +78,7 @@
                         </span>
                         <label asp-for="Title" class="control-label"></label>
                         <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
                     </div>
                     <div class="col-lg-4 d-sm-none d-lg-inline">
                         <label class="control-label">@Html.DisplayNameFor(o => Model.OccurrenceId)</label>
@@ -90,7 +91,7 @@
                         </span>
                     <label asp-for="Description" class="control-label"></label>
                     <textarea asp-for="Description" rows="2" class="form-control"></textarea>
-
+                    <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
                 <div class="form-group my-2">
                     <label asp-for="PhotoBase64"  class="control-label label_photos"></label>

@@ -11,12 +11,12 @@
     </div>
 }
 
-    @if(ViewData["messageAlert"] is not null){
-        <div id="alertMessage" class="alert alert-warning alert-dismissible" role="alert">
-            <div>@ViewData["messageAlert"]</div>
-            <button type="button" onload="GFG_Fun()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    }
+@if(ViewData["messageAlert"] is not null){
+    <div id="alertMessage" class="alert alert-warning alert-dismissible" role="alert">
+        <div>@ViewData["messageAlert"]</div>
+        <button type="button" onload="GFG_Fun()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 
 <div class="row mb-2 flex-nowrap w-100 d-flex ">
     <h3>Ocorrências</h3>

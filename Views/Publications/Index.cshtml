@@ -5,6 +5,21 @@
 }
 
 <div class="container-main">
+
+    @if(ViewData["messageAlert"] is not null){
+        <div id="alertMessage" class="alert alert-warning alert-dismissible" role="alert">
+            <div>@ViewData["messageAlert"]</div>
+            <button type="button" onload="GFG_Fun()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if(ViewData["messageSuccess"] is not null){
+        <div id="alertMessage" class="alert alert-success alert-dismissible" role="alert">
+            <div>@ViewData["messageSuccess"]</div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    
     <div class="row">
         <h3>Classificados</h3>
     </div>
@@ -143,6 +158,13 @@
                 </div>
                 <div class="modal-body d-flex flex-column gap-3">
                     <div class="form-floating">
+                        <select id="CondominiumId" name="CondominiumId" class ="form-select" aria-label="Seleção de gênero." asp-items="ViewBag.CondominiumId">
+                            <option selected>Selecione</option>
+                        </select>
+                        <label for="CondominiumId">Condômino</label>
+                        <span id="alertCondominiumId" class="text-danger d-none"></span>
+                    </div>
+                    <div class="form-floating">
                         <input placeholder="Titulo" id="Title" name="Title" class="form-control" />
                         <label for="Title">Titulo</label>
                     </div>
@@ -201,7 +223,6 @@
                         </svg>
                         Salvar
                     </button>
-
                 </div>
             </div>
         </div>

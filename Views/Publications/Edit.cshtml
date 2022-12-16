@@ -4,6 +4,13 @@
     ViewData["Title"] = "Detalhes";
 }
 
+@if(ViewData["messageAlert"] is not null){
+    <div id="alertMessage" class="alert alert-warning alert-dismissible" role="alert">
+        <div>@ViewData["messageAlert"]</div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
 <div class="row mb-2 flex-nowrap w-100 d-flex ">
     <h3>Anúncio</h3>
 </div>
@@ -47,9 +54,10 @@
                     <div class="col-lg-8 col-sm-12 me-4">
                         <label asp-for="Creator" class="form-label"></label>
                         <input value="@Model.Creator.Name" disabled class="form-control" />
+                        <span asp-validation-for="Creator" class="text-danger"></span>
                     </div>
                     <div class="col-lg-4 d-sm-none d-lg-inline">
-                        <label class="form-label">Visualizações</label>
+                        <label asp-for="Views"class="form-label"></label>
                         <input value="@Model.Views" disabled class="form-control" />
                     </div>
                 </div>
@@ -57,15 +65,17 @@
                     <div class="col-lg-8 col-sm-12 me-4">
                         <label asp-for="Title" class="form-label"></label>
                         <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
                     </div>
                     <div class="col-lg-4 d-sm-none d-lg-inline">
-                        <label class="form-label">Id Anúncio</label>
+                        <label asp-for="PublicationId" class="form-label"></label>
                         <input value="@Model?.PublicationId" disabled class="form-control" />
                     </div>
                 </div>
                 <div class="form-group col-lg-12 mt-2 me-4">
                     <label asp-for="Description" class="form-label"></label>
                     <textarea asp-for="Description" class="form-control" rows="2" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
                 <div class="form-group mt-2">
                     <div class="form-group my-2">

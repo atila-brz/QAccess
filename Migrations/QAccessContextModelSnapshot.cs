@@ -16,42 +16,8 @@ namespace QAccess.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.10")
+                .HasAnnotation("ProductVersion", "6.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
-
-            modelBuilder.Entity("QAccess.Models.Assembly", b =>
-                {
-                    b.Property<int>("AssemblyId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("Data")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Link")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Local")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Minutes")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Theme")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.HasKey("AssemblyId");
-
-                    b.ToTable("Assemblies");
-                });
 
             modelBuilder.Entity("QAccess.Models.Condominium", b =>
                 {
@@ -64,13 +30,13 @@ namespace QAccess.Migrations
 
                     b.Property<string>("ContactNumber")
                         .IsRequired()
-                        .HasMaxLength(11)
-                        .HasColumnType("varchar(11)");
+                        .HasMaxLength(14)
+                        .HasColumnType("varchar(14)");
 
                     b.Property<string>("Cpf")
                         .IsRequired()
-                        .HasMaxLength(11)
-                        .HasColumnType("varchar(11)");
+                        .HasMaxLength(14)
+                        .HasColumnType("varchar(14)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -87,13 +53,8 @@ namespace QAccess.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("varchar(16)");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.HasKey("CondominiumId");
 
@@ -109,11 +70,17 @@ namespace QAccess.Migrations
                     b.Property<DateTime>("DateDelivery")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<DateTime?>("DateWithdrawal")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<int>("EmployeeDeliveryId")
                         .HasColumnType("int");
 
                     b.Property<int?>("EmployeeWithdrawalId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ResponsibleWithdrawal")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Sender")
                         .IsRequired()
@@ -122,8 +89,8 @@ namespace QAccess.Migrations
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("varchar(10)");
+                        .HasMaxLength(15)
+                        .HasColumnType("varchar(15)");
 
                     b.Property<string>("TrackingCode")
                         .IsRequired()
@@ -136,6 +103,8 @@ namespace QAccess.Migrations
                     b.HasKey("CorrespondenceId");
 
                     b.HasIndex("EmployeeDeliveryId");
+
+                    b.HasIndex("EmployeeWithdrawalId");
 
                     b.HasIndex("UnitId");
 
@@ -153,18 +122,18 @@ namespace QAccess.Migrations
 
                     b.Property<string>("ContactNumber")
                         .IsRequired()
-                        .HasMaxLength(11)
-                        .HasColumnType("varchar(11)");
+                        .HasMaxLength(14)
+                        .HasColumnType("varchar(14)");
 
                     b.Property<string>("Cpf")
                         .IsRequired()
-                        .HasMaxLength(11)
-                        .HasColumnType("varchar(11)");
+                        .HasMaxLength(14)
+                        .HasColumnType("varchar(14)");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("Gender")
                         .IsRequired()
@@ -173,28 +142,22 @@ namespace QAccess.Migrations
 
                     b.Property<string>("MaritalStatus")
                         .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("varchar(10)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("Office")
                         .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("varchar(40)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("varchar(16)");
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<string>("Sector")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.HasKey("EmployeeId");
 
@@ -262,7 +225,8 @@ namespace QAccess.Migrations
 
                     b.Property<string>("ContactNumber")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(11)
+                        .HasColumnType("varchar(11)");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime(6)");
@@ -288,9 +252,8 @@ namespace QAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime(6)");
@@ -364,6 +327,10 @@ namespace QAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("QAccess.Models.Employee", "EmployeeWithdrawal")
+                        .WithMany()
+                        .HasForeignKey("EmployeeWithdrawalId");
+
                     b.HasOne("QAccess.Models.Unit", "Unit")
                         .WithMany()
                         .HasForeignKey("UnitId")
@@ -371,6 +338,8 @@ namespace QAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("EmployeeDelivery");
+
+                    b.Navigation("EmployeeWithdrawal");
 
                     b.Navigation("Unit");
                 });

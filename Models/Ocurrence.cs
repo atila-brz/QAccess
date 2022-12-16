@@ -14,12 +14,12 @@ namespace QAccess.Models
         [Display(Name = "Identificação da Ocorrência")]
         public int OccurrenceId { get; set; }
 
-        [Required (ErrorMessage = "O titulo é obrigadorio")]
+        [Required (ErrorMessage = "Campo Inválido!")]
         [StringLength(30)]
         [Display(Name = "Titulo")]
         public string Title { get; set; }
 
-        [Required]
+        [Required (ErrorMessage = "Campo Inválido!")]
         [ForeignKey("Responsable")]
         public int CondominiumId { get; set; }
         [Display(Name = "Autor")]
@@ -31,15 +31,15 @@ namespace QAccess.Models
         [Display(Name = "Funcionario Responsável")]
         public virtual Employee? ResponsibleOfficial { get; set; }
         
-        [Required]
+        [Required (ErrorMessage = "Campo Inválido!")]
         [StringLength(30)]
         [Display(Name = "Local")]
         public string Locale { get; set; }
 
-        [Required]
+        [Required (ErrorMessage = "Campo Inválido!")]
         public StatusOccurrence Status { get; set; }
 
-        [Required]
+        [Required (ErrorMessage = "Campo Inválido!")]
         [StringLength(200)]
         [Display(Name = "Descrição")]
         public string Description { get; set; }
@@ -48,12 +48,12 @@ namespace QAccess.Models
         [Display(Name = "Resposta")]
         public string? Answer { get; set; }
 
-        [Required]
+        [Required (ErrorMessage = "Campo Inválido!")]
         [Display(Name = "Data de Criação")]
         public DateTime CreationDate { get; set; }
 
         [Display(Name = "Fotos")]
-        [Required (ErrorMessage = "Por favor, adicione a foto ")]
+        [Required (ErrorMessage = "Por favor, adicione uma foto!")]
         public string PhotoBase64 { get; set; }
 
         public enum StatusOccurrence

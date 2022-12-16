@@ -4,6 +4,12 @@
     ViewData["Title"] = "Ocorrência";
 }
 
+@if(ViewData["messageAlert"] is not null){
+    <div id="alertMessage" class="alert alert-warning alert-dismissible" role="alert">
+        <div>@ViewData["messageAlert"]</div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 
 <div class="row ">
     <h3>Ocorrências</h3>
@@ -61,7 +67,7 @@
                         <input asp-for="Responsable.Name" disabled class="form-control" />
                     </div>
                     <div class="col-lg-4 d-sm-none d-lg-inline">
-                        <label class="control-label">Id Autor</label>
+                        <label class="control-label">@Html.DisplayNameFor(o => Model.Responsable.CondominiumId)</label>
                         <input asp-for="Responsable.CondominiumId" disabled class="form-control" />
                     </div>
                 </div>
@@ -72,9 +78,10 @@
                         </span>
                         <label asp-for="Title" class="control-label"></label>
                         <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
                     </div>
                     <div class="col-lg-4 d-sm-none d-lg-inline">
-                        <label class="control-label">Id Ocorrêcia</label>
+                        <label class="control-label">@Html.DisplayNameFor(o => Model.OccurrenceId)</label>
                         <input asp-for="OccurrenceId" disabled class="form-control" />
                     </div>
                 </div>
@@ -84,7 +91,7 @@
                         </span>
                     <label asp-for="Description" class="control-label"></label>
                     <textarea asp-for="Description" rows="2" class="form-control"></textarea>
-
+                    <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
                 <div class="form-group my-2">
                     <label asp-for="PhotoBase64"  class="control-label label_photos"></label>

@@ -10,14 +10,15 @@ namespace QAccess.Models
     public class Publication
     {
         [Key]
+        [Display(Name = "Identificação do Anúncio")]
         public int PublicationId { get; set; }
 
-        [Required]
+        [Required (ErrorMessage = "Campo Inválido!")]
         [StringLength(50)]
         [Display(Name = "Título")]
         public string Title { get; set; }
 
-        [Required]
+        [Required (ErrorMessage = "Campo Inválido!")]
         [StringLength(250)]
         [Display(Name = "Descrição")]
         public string Description { get; set; }
@@ -26,7 +27,7 @@ namespace QAccess.Models
         [Display(Name = "Link")]
         public string? Link { get; set; }
         
-        [Required]
+        [Required (ErrorMessage = "Campo Inválido!")]
         [ForeignKey("Creator")]
         public int CondominiumId { get; set; }
 
@@ -37,11 +38,11 @@ namespace QAccess.Models
         [Display(Name = "Número de contato")]
         public string ContactNumber { get; set; }
 
-        [Required]
+        [Required (ErrorMessage = "Campo Inválido!")]
         [Display(Name = "Tipo de Publicação")]
         public PublicationTypeEnum Type { get; set; }
 
-        [Required]
+        [Required (ErrorMessage = "Campo Inválido!")]
         [DataType(DataType.Date)]
         [Display(Name = "Data de criação")]
         public DateTime CreateDate { get; set; }
@@ -51,6 +52,7 @@ namespace QAccess.Models
         [DataType(DataType.Date)]
         public DateTime? UpdateDate { get; set; }
 
+        [Display(Name = "Visualizações")]
         public int Views { get; set; }
 
         [Display(Name = "Foto")]

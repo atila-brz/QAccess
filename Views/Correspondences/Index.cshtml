@@ -121,7 +121,7 @@
                                 }
                                 <td>@Html.DisplayFor(modelItem => item.Sender)</td>
                                 <td>@Html.DisplayFor(modelItem => item.Unit.Number)</td>
-                                <td><a asp-action="Details" asp-route-id="@item.CorrespondenceId">@Html.DisplayFor(modelItem => item.TrackingCode)</a></td>
+                                <td><a class="text-decoration-none" asp-action="Details" asp-route-id="@item.CorrespondenceId">@Html.DisplayFor(modelItem => item.TrackingCode)</a></td>
                                 <td>@Html.DisplayFor(modelItem => item.DateDelivery)</td>
                                 <td>
                                     <div class="d-flex justify-content-center align-items-center items-actions">
@@ -193,4 +193,70 @@
 
 @{
     Html.RenderPartial("_ModalDeleteAlert");
+}
+
+@section Scripts{
+    <script>
+        $(document).ready(function (){
+            $(".modal-footer .btn-register").addClass("disabled")
+            $(".modal-footer .btn-delivery").addClass("disabled")
+            
+            $('#TrackingCode').blur(function(){
+                if(!$(this).val()){
+                    $('#alertTrackingCode').text('Campo obrigatório!').removeClass('d-none');
+                }else{
+                    $('#alertTrackingCode').text('').addClass('d-none');
+                }
+            })
+            $('#Sender').blur(function(){
+                if(!$(this).val()){
+                    $('#alertSender').text('Campo obrigatório!').removeClass('d-none');
+                }else{
+                    $('#alertSender').text('').addClass('d-none');
+                }
+            })
+            $('#UnitNumber').blur(function(){
+                if($(this).val() == "Selecione"){
+                    $('#alertUnitNumber').text('Campo obrigatório!').removeClass('d-none');
+                }else{
+                    $('#alertUnitNumber').text('').addClass('d-none');
+                }
+            })
+            $('#EmployeeDeliveryName').blur(function(){
+                if($(this).val() == "Selecione"){
+                    $('#alertEmployeeDeliveryName').text('Campo obrigatório!').removeClass('d-none');
+                }else{
+                    $('#alertEmployeeDeliveryName').text('').addClass('d-none');
+                }
+            })
+            $('#EmployeeWithdrawalName').blur(function(){
+                if($(this).val() == "Selecione"){
+                    $('#alertEmployeeWithdrawalName').text('Campo obrigatório!').removeClass('d-none');
+                }else{
+                    $('#alertEmployeeWithdrawalName').text('').addClass('d-none');
+                }
+            })
+            $('#responsibleWithdrawal').blur(function(){
+                if(!$(this).val()){
+                    $('#alertresponsibleWithdrawal').text('Campo obrigatório!').removeClass('d-none');
+                }else{
+                    $('#alertresponsibleWithdrawal').text('').addClass('d-none');
+                }
+            })
+            $('#formCreate').change(function(){
+                if($("#TrackingCode").val() && $("#Sender").val() && $('#UnitNumber').val() != "Selecione" && $('#EmployeeDeliveryName').val() != "Selecione"){
+                    $(".modal-footer .btn-register").removeClass("disabled")
+                }else{
+                    $(".modal-footer .btn-register").addClass("disabled")
+                }
+            })
+            $('#formDelivery').change(function(){
+                if($("#responsibleWithdrawal").val() && $("#EmployeeWithdrawalName").val() != "Selecione"){
+                    $(".modal-footer .btn-delivery").removeClass("disabled")
+                }else{
+                    $(".modal-footer .btn-delivery").addClass("disabled")
+                }
+            })
+        })  
+    </script>
 }

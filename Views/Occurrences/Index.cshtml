@@ -6,6 +6,21 @@
 }
 
 <div class="container-main">
+
+    @if(ViewData["messageAlert"] is not null){
+        <div id="alertMessage" class="alert alert-warning alert-dismissible" role="alert">
+            <div>@ViewData["messageAlert"]</div>
+            <button type="button" onload="GFG_Fun()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if(ViewData["messageSuccess"] is not null){
+        <div id="alertMessage" class="alert alert-success alert-dismissible" role="alert">
+            <div>@ViewData["messageSuccess"]</div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    
     <div class="row">
         <h3>Ocorrências</h3>
     </div>
@@ -146,6 +161,44 @@
                     }
                 }
             });
+
+            $(".modal-footer .btn-register").addClass("disabled")
+            
+            $('#Locale').blur(function(){
+                if(!$(this).val()){
+                    $('#alertLocale').text('Campo obrigatório!').removeClass('d-none');
+                }else{
+                    $('#alertLocale').text('').addClass('d-none');
+                }
+            })
+            $('#CondominiumId').blur(function(){
+                if($(this).val() == "Selecione"){
+                    $('#alertCondominiumId').text('Campo obrigatório!').removeClass('d-none');
+                }else{
+                    $('#alertCondominiumId').text('').addClass('d-none');
+                }
+            })
+            $('#Title').blur(function(){
+                if(!$(this).val()){
+                    $('#alertTitle').text('Campo obrigatório!').removeClass('d-none');
+                }else{
+                    $('#alertTitle').text('').addClass('d-none');
+                }
+            })
+            $('#Description').blur(function(){
+                if(!$(this).val()){
+                    $('#alertDescription').text('Campo obrigatório!').removeClass('d-none');
+                }else{
+                    $('#alertDescription').text('').addClass('d-none');
+                }
+            })
+            $('#formCreate').change(function(){
+                if($("#Description").val() && $("#Title").val() && $("#Locale").val() && $('#CondominiumId').val() != "Selecione"){
+                    $(".modal-footer .btn-register").removeClass("disabled")
+                }else{
+                    $(".modal-footer .btn-register").addClass("disabled")
+                }
+            })
         });
     </script>
 }

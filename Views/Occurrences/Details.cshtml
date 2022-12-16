@@ -4,6 +4,20 @@
     ViewData["Title"] = "Ocorrência";
 }
 
+@if(ViewData["messageSuccess"] is not null){
+    <div id="alertMessage" class="alert alert-success alert-dismissible" role="alert">
+        <div>@ViewData["messageSuccess"]</div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if(ViewData["messageAlert"] is not null){
+    <div id="alertMessage" class="alert alert-warning alert-dismissible" role="alert">
+        <div>@ViewData["messageAlert"]</div>
+        <button type="button" onload="GFG_Fun()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
 <div class="row mb-2 flex-nowrap w-100 d-flex ">
     <h3>Ocorrências</h3>
 </div>
@@ -31,34 +45,40 @@
 
         <div class="d-flex buttons-group-actions ">
             @if(@Model.Status == Occurrence.StatusOccurrence.Open){     
-                <form class="d-flex" asp-action="Select">
-                    <input type="hidden" name="id" value="@Model?.OccurrenceId"/>
-                    <button type="submit" class="btn btn-success ms-2 d-flex align-items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-check" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M10.854 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 8.793l2.646-2.647a.5.5 0 0 1 .708 0z"/><path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/><path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/></svg>
-                        Solucionar
-                    </button>
-                </form>
+                <button data-bs-whatever="@Model.OccurrenceId" data-bs-toggle="modal" data-bs-target="#DefaultModalSelect" class="btn btn-success ms-2 d-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-check" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M10.854 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 8.793l2.646-2.647a.5.5 0 0 1 .708 0z"/><path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/><path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/></svg>
+                    Solucionar
+                </button>
 
-               
-                }else if(@Model.Status == Occurrence.StatusOccurrence.InProgress){
-                <form class="d-flex" id="finish-form" asp-action="Finish">
-                    <input type="hidden" name="id" value="@Model?.OccurrenceId"/>
-                    <button type="submit" id="finish" class="btn btn-primary">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-check" viewBox="0 0 16 16"><path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z"/><path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686Z"/></svg>                        
-                        Finalizar
-                    </button>
-                </form>
-                }
+                <button data-bs-whatever="@Model?.OccurrenceId" data-bs-toggle="modal" data-bs-target="#defaultModalAction" class="btn btn-danger ms-2 d-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg>
+                    Excluir
+                </button>
 
-            <button data-bs-whatever="@Model?.OccurrenceId" data-bs-toggle="modal" data-bs-target="#defaultModalAction" class="btn btn-danger ms-2 d-flex align-items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg>
-                Excluir
-            </button>
+                <a asp-action="Edit" asp-route-id="@Model?.OccurrenceId" class="btn btn-edit ms-2 d-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg>
+                    Editar
+                </a>
+            }
+            else if(@Model.Status == Occurrence.StatusOccurrence.InProgress){
+                <button data-bs-whatever="@Model.OccurrenceId" data-bs-toggle="modal" data-bs-target="#DefaultModalFinish" class="btn btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-check" viewBox="0 0 16 16"><path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z"/><path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686Z"/></svg>                        
+                    Finalizar
+                </button>
+            }
 
-            <a asp-action="Edit" asp-route-id="@Model?.OccurrenceId" class="btn btn-edit ms-2 d-flex align-items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg>
-                Editar
-            </a>
+            @if(@Model.Status != Occurrence.StatusOccurrence.Open)
+            {
+                <button  disabled class="btn btn-danger ms-2 d-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg>
+                    Excluir
+                </button>
+
+                <button disabled class="btn btn-edit ms-2 d-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg>
+                    Editar
+                </button>
+            }
         </div>
     </div>
 </div>
@@ -73,7 +93,7 @@
                     <input value="@Model.Responsable.Name" disabled class="form-control" />
                 </div>
                 <div class="col-lg-4 d-sm-none d-lg-inline">
-                    <label class="form-label">Id Autor</label>
+                    <label class="form-label">@Html.DisplayNameFor(o => Model.Responsable.CondominiumId)</label>
                     <input value="@Model.CondominiumId" disabled class="form-control" />
                 </div>
             </div>
@@ -83,11 +103,11 @@
                     <input value="@Model.Title" disabled class="form-control" />
                 </div>
                 <div class="col-lg-4 d-sm-none d-lg-inline">
-                    <label class="form-label">Id Ocorrêcia</label>
+                    <label class="form-label">@Html.DisplayNameFor(o => Model.OccurrenceId)</label>
                     <input value="@Model?.OccurrenceId" disabled class="form-control" />
                 </div>
             </div>
-            @if (@Model.Status == Occurrence.StatusOccurrence.Open)
+            @if (@Model.Status == Occurrence.StatusOccurrence.Open || @Model.Status == Occurrence.StatusOccurrence.InProgress)
             {
                 <div class="form-group mt-2">
                     <label asp-for="Description" class="form-label"></label>
@@ -100,18 +120,13 @@
                         <textarea placeholder="@Model?.Description" rows="3" disabled class="form-control"></textarea>
                     </div>
 
-                    <div class="form-group col-lg-6 mt-2">
-                        <label asp-for="Answer"  class="form-label"></label>
-
-                        @if (@Model.Status == Occurrence.StatusOccurrence.InProgress)
-                        {
-                            <textarea asp-for="Answer" rows="3" id="answer" required class="form-control"></textarea>
-                            <span id="error_answer"></span>
-                        }else{
+                    @if (@Model.Status == Occurrence.StatusOccurrence.Closed)
+                    {
+                        <div class="form-group col-lg-6 mt-2">
+                            <label asp-for="Answer"  class="form-label"></label>
                             <textarea placeholder="@Model?.Answer" disabled rows="3" id="answer" required class="form-control"></textarea>
-                        }
-                    </div>
-
+                            </div>
+                    }
                 </div>
             }
             
@@ -136,9 +151,17 @@
     Html.RenderPartial("_ModalImage");
 }
 
-@{
+@if (@Model.Status == Occurrence.StatusOccurrence.Open){
     Html.RenderPartial("_ModalDeleteAlert");
-}
+ }
+
+ @if (@Model.Status == Occurrence.StatusOccurrence.InProgress){
+    Html.RenderPartial("_ModalFinish");
+ }
+
+ @if (@Model.Status == Occurrence.StatusOccurrence.Open){
+    Html.RenderPartial("_ModalSelect");
+ }
 
 @section Scripts {
     <script>
@@ -149,21 +172,38 @@
                 var modal = $(this);
                 modal.find('.modal-body img').attr('src', recipient);
             });
-            $('#answer').on('blur', function(){
-                console.log('teste');
-                var answer = $(this).val();
-                if(answer.length > 0){
-                    $('#finish-form').append('<input type="hidden" name="answer" value="'+answer+'"/>');
+            
+            $(".modal-footer .btn-finish").addClass("disabled")
+            $(".modal-footer .btn-select").addClass("disabled")
+            
+            $('#Answer').blur(function(){
+                if(!$(this).val()){
+                    $('#alertAnswer').text('Campo obrigatório!').removeClass('d-none');
+                }else{
+                    $('#alertAnswer').text('').addClass('d-none');
                 }
-            });
-            $('#finish').click(function(event) {
-                var answer = $('#answer').val();
-                if (answer == null || answer == "") {
-                    $('#error_answer').addClass('text-danger');
-                    $('#error_answer').text('O campo resposta é obrigatório');
-                    return false;
+            })
+            $('#ResponsibleOfficial').blur(function(){
+                if($(this).val() == "Selecione"){
+                    $('#alertResponsibleOfficial').text('Campo obrigatório!').removeClass('d-none');
+                }else{
+                    $('#alertResponsibleOfficial').text('').addClass('d-none');
                 }
-            });
+            })
+            $('#formFinish').change(function(){
+                if($("#Answer").val()){
+                    $(".modal-footer .btn-finish").removeClass("disabled")
+                }else{
+                    $(".modal-footer .btn-finish").addClass("disabled")
+                }
+            })
+             $('#formSelect').change(function(){
+                if($('#ResponsibleOfficial').val() != "Selecione"){
+                    $(".modal-footer .btn-select").removeClass("disabled")
+                }else{
+                    $(".modal-footer .btn-select").addClass("disabled")
+                }
+            })
         });
     </script>
 }

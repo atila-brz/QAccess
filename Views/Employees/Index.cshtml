@@ -234,7 +234,7 @@
             })
             $('#formCreate').change(function(){
                 if($("#Name").val() && $("#ContactNumber").val() && $('#Office').val() && $('#Sector').val && $('#BirthDate').val() &&
-                $('#Gender').val() && $('#MaritalStatus').val() && $('#Email').val() && $('#Cpf').val()){
+                $('#Gender').val() != "Selecione" && $('#MaritalStatus').val() != "Selecione" && $('#Email').val() && $('#Cpf').val()){
                     $(".modal-footer .btn-success").removeClass("disabled")
                 }else{
                     $(".modal-footer .btn-success").addClass("disabled")

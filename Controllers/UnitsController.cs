@@ -19,23 +19,36 @@ namespace QAccess.Controllers
         }
 
         // GET: Units
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? messageAlert, string? messageSuccess)
         {
-              return _context.Units != null ? 
-                          View(await _context.Units.ToListAsync()) :
-                          Problem("Entity set 'QAccessContext.Units'  is null.");
+            if(messageAlert is not null){
+                ViewData["messageAlert"] =  messageAlert;
+            }
+
+            if(messageSuccess is not null){
+                ViewData["messageSuccess"] =  messageSuccess;
+            }
+
+            return _context.Units != null ? 
+                        View(await _context.Units.ToListAsync()) :
+                        NotFound();
         }
 
         // GET: Units/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, string? messageSuccess)
         {
             if (id == null || _context.Units == null)
             {
                 return NotFound();
             }
 
+            if(messageSuccess is not null){
+                ViewData["messageSuccess"] =  messageSuccess;
+            }
+
             var unit = await _context.Units
                 .FirstOrDefaultAsync(m => m.UnitId == id);
+
             if (unit == null)
             {
                 return NotFound();
@@ -43,12 +56,6 @@ namespace QAccess.Controllers
 
             return View(unit);
         }
-
-        // GET: Units/Create
-        // public IActionResult Create()
-        // {
-        //     return View();
-        // }
 
         // POST: Units/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -61,9 +68,9 @@ namespace QAccess.Controllers
             {
                 _context.Add(unit);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index),  new { messageSuccess = "Unidade registrada com sucesso!"});
             }
-            return View(unit);
+            return RedirectToAction(nameof(Index), new { messageAlert = "Não foi possível registrar uma nova unidade!"});
         }
 
         // GET: Units/Edit/5
@@ -75,6 +82,7 @@ namespace QAccess.Controllers
             }
 
             var unit = await _context.Units.FindAsync(id);
+
             if (unit == null)
             {
                 return NotFound();
@@ -103,35 +111,12 @@ namespace QAccess.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UnitExists(unit.UnitId))
-                    {
                         return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
                 }
-                return RedirectToAction(nameof(Details), new { id = unit.UnitId});
-            }
-            return View(unit);
-        }
-
-        // GET: Units/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.Units == null)
-            {
-                return NotFound();
+                return RedirectToAction(nameof(Details), new { id = unit.UnitId, messageSuccess = "Os dados da unidade foram atualizados!"});
             }
 
-            var unit = await _context.Units
-                .FirstOrDefaultAsync(m => m.UnitId == id);
-            if (unit == null)
-            {
-                return NotFound();
-            }
-
+            ViewData["messageAlert"] =  "Não foi possível atualizar os dados da unidade!";
             return View(unit);
         }
 
@@ -142,7 +127,7 @@ namespace QAccess.Controllers
         {
             if (_context.Units == null)
             {
-                return Problem("Entity set 'QAccessContext.Units'  is null.");
+                return NotFound();
             }
             var unit = await _context.Units.FindAsync(id);
             if (unit != null)

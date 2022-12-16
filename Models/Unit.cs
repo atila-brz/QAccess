@@ -10,17 +10,17 @@ namespace QAccess.Models
         [Display(Name = "Identificação da Unidade")]
         public int UnitId { get; set; }
 
-        [Required(ErrorMessage = "Campo obrigatório!")]
+        [Required(ErrorMessage = "Campo inválido!")]
         [StringLength(10)]
         [Display(Name = "Torre")]
         public string Tower { get; set; }
 
-        [Required(ErrorMessage = "Campo obrigatório!")]
+        [Required(ErrorMessage = "Campo inválido!")]
         [StringLength(10)]
         [Display(Name = "Bloco")]
         public string Block { get; set; }
         
-        [Required(ErrorMessage = "Campo obrigatório!")]
+        [Required(ErrorMessage = "Campo inválido!")]
         [StringLength(6)]
         [Display(Name = "Número")]
         public string Number { get; set; }

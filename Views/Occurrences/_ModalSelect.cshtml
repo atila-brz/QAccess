@@ -1,0 +1,35 @@
+<form asp-action="Select" id="formSelect">
+    <div class="modal fade" id="DefaultModalSelect" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Selecionar Ocorrência</h1>
+                        <button type="button" class="modal-button-close" data-bs-dismiss="modal" aria-label="Close">
+                            <i class="bi bi-x-circle-fill"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body d-flex flex-column gap-3">
+                        <input id="inputSelectOccurrenceId" type="hidden" name="id"/>
+                        <div class="form-floating">
+                            <select class ="form-select" asp-items="ViewBag.ResponsibleOfficial" class="form-select" id="ResponsibleOfficial" name="employeeId" aria-label="Funcionário">
+                                <option selected>Selecione</option>
+                            </select>
+                            <label for="ResponsibleOfficial">Funcionário</label>
+                            <span id="alertResponsibleOfficial" class="text-danger d-none"></span>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer buttons-group-actions">
+                        <button type="button" class="btn-danger btn btn-primary d-flex align-items-center" data-bs-dismiss="modal" aria-label="Close">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-slash-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M11.354 4.646a.5.5 0 0 0-.708 0l-6 6a.5.5 0 0 0 .708.708l6-6a.5.5 0 0 0 0-.708z"/></svg>
+                            Cancelar
+                        </button>
+                        <button type="submit" class="btn-select btn btn-success ms-2 d-flex align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-check" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M10.854 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 8.793l2.646-2.647a.5.5 0 0 1 .708 0z"/><path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/><path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/></svg>
+                            Solucionar
+                        </button>
+                    </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -5,6 +5,21 @@
 }
 
 <div class="container-main">
+
+    @if(ViewData["messageAlert"] is not null){
+        <div id="alertMessage" class="alert alert-warning alert-dismissible" role="alert">
+            <div>@ViewData["messageAlert"]</div>
+            <button type="button" onload="GFG_Fun()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if(ViewData["messageSuccess"] is not null){
+        <div id="alertMessage" class="alert alert-success alert-dismissible" role="alert">
+            <div>@ViewData["messageSuccess"]</div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    
     <div class="row">
         <h3>Classificados</h3>
     </div>
@@ -130,9 +145,9 @@
 </script>
 }
 
-<div class="modal fade" id="modalForCreate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <form asp-action="Create">
+<form asp-action="Create">
+    <div class="modal fade" id="modalForCreate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
@@ -142,6 +157,13 @@
                     </button>
                 </div>
                 <div class="modal-body d-flex flex-column gap-3">
+                    <div class="form-floating">
+                        <select id="CondominiumId" name="CondominiumId" class ="form-select" aria-label="Seleção de gênero." asp-items="ViewBag.CondominiumId">
+                            <option selected>Selecione</option>
+                        </select>
+                        <label for="CondominiumId">Condômino</label>
+                        <span id="alertCondominiumId" class="text-danger d-none"></span>
+                    </div>
                     <div class="form-floating">
                         <input placeholder="Titulo" id="Title" name="Title" class="form-control" />
                         <label for="Title">Titulo</label>
@@ -201,9 +223,8 @@
                         </svg>
                         Salvar
                     </button>
-
                 </div>
             </div>
         </div>
-    </form>
-</div>
+    </div>
+</form>

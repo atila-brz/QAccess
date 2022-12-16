@@ -15,7 +15,6 @@ namespace QAccess.Models
         public DbSet<Occurrence> Occurrences { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Condominium> Codominiums { get; set; }
-        public DbSet<Assembly> Assemblies { get; set; }
         public DbSet<Publication> Publications { get; set; }
         
     }

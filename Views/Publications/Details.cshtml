@@ -4,6 +4,13 @@
     ViewData["Title"] = "Details";
 }
 
+@if(ViewData["messageSuccess"] is not null){
+    <div id="alertMessage" class="alert alert-success alert-dismissible" role="alert">
+        <div>@ViewData["messageSuccess"]</div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
 <div class="row mb-2 flex-nowrap w-100 d-flex ">
     <h3>Anúncio</h3>
 </div>
@@ -14,8 +21,6 @@
     </ol>
 </nav>
 
-@* TODO: Change this to the logged user's condominium *@
-@if(@Model.CondominiumId == 1){
 <div class="row my-3">
     <div class="d-flex justify-content-end">
         <div class="d-flex buttons-group-actions ">
@@ -30,9 +35,6 @@
         </div>
     </div>
 </div>
-
-}
-
 
 <div class="row my-4">
     <div class="form-group-contour rounded-3 p-3">
@@ -54,11 +56,11 @@
             <div class="scrollarea details ms-md-2 col-md-6 col-12">
                 <div class="d-flex justify-content-between pe-4">
                     <div class="col-lg-8 col-sm-12 me-4">
-                        <label class="form-label">Criador</label>
+                        <label asp-for="Creator" class="form-label"></label>
                         <input value="@Model.Creator.Name" disabled class="form-control" />
                     </div>
                     <div class="col-lg-4 d-sm-none d-lg-inline">
-                        <label class="form-label">Visualizações</label>
+                        <label asp-for="Views" class="form-label"></label>
                         <input value="@Model.Views" disabled class="form-control" />
                     </div>
                 </div>
@@ -68,7 +70,7 @@
                         <input value="@Model.Title" disabled class="form-control" />
                     </div>
                     <div class="col-lg-4 d-sm-none d-lg-inline">
-                        <label class="form-label">Id Anúncio</label>
+                        <label asp-for="PublicationId" class="form-label">Id Anúncio</label>
                         <input value="@Model?.PublicationId" disabled class="form-control" />
                     </div>
                 </div>

@@ -19,20 +19,29 @@ namespace QAccess.Controllers
         }
 
         // GET: Occurrences
-        public async Task<IActionResult> Index(string? query)
+        public async Task<IActionResult> Index(string? query, string? messageAlert, string? messageSuccess)
         {
 
+            if(messageAlert is not null){
+                ViewData["messageAlert"] =  messageAlert;
+            }
+
+            if(messageSuccess is not null){
+                ViewData["messageSuccess"] =  messageSuccess;
+            }
+
             ViewData["CondominiumId"] = new SelectList(_context.Codominiums, "CondominiumId", "Name");
+            
             if(String.Equals(query, Convert.ToString(Occurrence.StatusOccurrence.InProgress), StringComparison.OrdinalIgnoreCase))
             {
-                var qAccessContext = _context.Occurrences.Where(o => o.Status == Occurrence.StatusOccurrence.InProgress && o.EmployeeId == 1)
+                var qAccessContext = _context.Occurrences.Where(o => o.Status == Occurrence.StatusOccurrence.InProgress)
                 .Include(o => o.Responsable)
                 .Include(o => o.ResponsibleOfficial);
                 return View(await qAccessContext.ToListAsync());
             }
             else if(String.Equals(query, Convert.ToString(Occurrence.StatusOccurrence.Closed), StringComparison.OrdinalIgnoreCase))
             {
-                var qAccessContext = _context.Occurrences.Where(o => o.Status == Occurrence.StatusOccurrence.Closed && o.EmployeeId == 1)
+                var qAccessContext = _context.Occurrences.Where(o => o.Status == Occurrence.StatusOccurrence.Closed)
                 .Include(o => o.Responsable)
                 .Include(o => o.ResponsibleOfficial);;
                 return View(await qAccessContext.ToListAsync());
@@ -55,12 +64,22 @@ namespace QAccess.Controllers
         }
 
         // GET: Occurrences/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, string? messageAlert, string? messageSuccess)
         {
             if (id == null || _context.Occurrences == null)
             {
                 return NotFound();
             }
+
+            if(messageSuccess is not null){
+                ViewData["messageSuccess"] =  messageSuccess;
+            }
+
+            if(messageAlert is not null){
+                ViewData["messageAlert"] =  messageAlert;
+            }
+
+            ViewData["ResponsibleOfficial"] = new SelectList(_context.Employees, "EmployeeId", "Name");
 
             var occurrence = await _context.Occurrences
                 .Include(o => o.Responsable)
@@ -74,13 +93,6 @@ namespace QAccess.Controllers
             return View(occurrence);
         }
 
-        // GET: Occurrences/Create
-        // public IActionResult Create()
-        // {
-        //     ViewData["CondominiumId"] = new SelectList(_context.Codominiums, "CondominiumId", "Name");
-        //     return View();
-        // }
-
         // POST: Occurrences/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -91,14 +103,14 @@ namespace QAccess.Controllers
             DateTime date = DateTime.Now;
             occurrence.CreationDate = date;
             occurrence.Status = Occurrence.StatusOccurrence.Open;
+
             if (ModelState.IsValid)
             {
                 _context.Add(occurrence);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index),  new { messageSuccess = "Ocorrência registrada com sucesso!"});
             }
-            ViewData["CondominiumId"] = new SelectList(_context.Codominiums, "CondominiumId", "Name", occurrence.CondominiumId);
-            return View(occurrence);
+            return RedirectToAction(nameof(Index), new { messageAlert = "Não foi possível registrar uma nova ocorrência!"});
         }
 
         // GET: Occurrences/Edit/5
@@ -110,6 +122,12 @@ namespace QAccess.Controllers
             }
 
             var occurrence = await _context.Occurrences.FindAsync(id);
+
+            if(!String.Equals(occurrence.Status, Occurrence.StatusOccurrence.Open))
+            {
+                return RedirectToAction(nameof(Details), new { id = occurrence.OccurrenceId});
+            }
+            
             if (occurrence == null)
             {
                 return NotFound();
@@ -140,31 +158,28 @@ namespace QAccess.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!OccurrenceExists(occurrence.OccurrenceId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    return NotFound();
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details), new { id = occurrence.OccurrenceId, messageSuccess = "Os dados da ocorrência foram atualizados!"});
             }
+            
+            ViewData["messageAlert"] =  "Não foi possível atualizar os dados da ocorrência!";
             return View(occurrence);
         }
 
         // POST: Occurrences/Select/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Select(int id)
+        public async Task<IActionResult> Select(int id, int employeeId = 10)
         {
             Occurrence occurrence = await _context.Occurrences.FindAsync(id);
-            if(await _context.Employees.FindAsync(1)==null)
+            
+            if(await _context.Employees.FindAsync(employeeId) == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index), new { messageAlert = "Não foi possível registrar uma nova ocorrência!"});
             }
-            occurrence.selectedForEmployee(1);
+
+            occurrence.selectedForEmployee(employeeId);
 
             if (id != occurrence.OccurrenceId)
             {
@@ -180,16 +195,10 @@ namespace QAccess.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!OccurrenceExists(occurrence.OccurrenceId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    return NotFound();
                 }
-                return RedirectToAction(nameof(Details), new { id = occurrence.OccurrenceId});
+
+                return RedirectToAction(nameof(Details), new { id = occurrence.OccurrenceId, messageSuccess = "O status da ocorrência foi atualizado!"});
             }
             return View(occurrence);
         }
@@ -217,18 +226,11 @@ namespace QAccess.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!OccurrenceExists(occurrence.OccurrenceId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    return NotFound();
                 }
-                return RedirectToAction(nameof(Details), new { id = occurrence.OccurrenceId});
+                return RedirectToAction(nameof(Details), new { id = occurrence.OccurrenceId, messageSuccess = "O status da ocorrência foi atualizado!"});
             }
-            return RedirectToAction(nameof(Details), new { id = occurrence.OccurrenceId});
+            return RedirectToAction(nameof(Details), new { id = occurrence.OccurrenceId, messageAlert = "Não foi possível atualizar o status da ocorrência!"});
         }
 
 
@@ -239,7 +241,7 @@ namespace QAccess.Controllers
         {
             if (_context.Occurrences == null)
             {
-                return Problem("Entity set 'QAccessContext.Occurrences'  is null.");
+                return NotFound();
             }
             var occurrence = await _context.Occurrences.FindAsync(id);
             if (occurrence != null)

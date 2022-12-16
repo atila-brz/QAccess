@@ -5,6 +5,21 @@
 }
 
 <div class="container-main">
+    
+    @if(ViewData["messageAlert"] is not null){
+        <div id="alertMessage" class="alert alert-warning alert-dismissible" role="alert">
+            <div>@ViewData["messageAlert"]</div>
+            <button type="button" onload="GFG_Fun()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if(ViewData["messageSuccess"] is not null){
+        <div id="alertMessage" class="alert alert-success alert-dismissible" role="alert">
+            <div>@ViewData["messageSuccess"]</div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
     <div class="row">
         <h3>Unidades</h3>
     </div>
@@ -104,7 +119,7 @@
                                         <input class="form-check-input" type="checkbox" value="" id="checkModel">
                                     </div>
                                 </th>           
-                                <td><a asp-action="Details" asp-route-id="@item.UnitId">@Html.DisplayFor(modelItem => item.UnitId)</a></td>
+                                <td><a asp-action="Details" class="text-decoration-none" asp-route-id="@item.UnitId">@Html.DisplayFor(modelItem => item.UnitId)</a></td>
                                 <td>@Html.DisplayFor(modelItem => item.Block)</td>
                                 <td>@Html.DisplayFor(modelItem => item.Tower)</td>
                                 <td>@Html.DisplayFor(modelItem => item.Number)</td>
@@ -148,4 +163,41 @@
 
 @{
     Html.RenderPartial("_ModalDeleteAlert");
+}
+
+@section Scripts{
+    <script>
+        $(document).ready(function (){
+            $(".modal-footer .btn-success").addClass("disabled")
+            
+            $('#Tower').blur(function(){
+                if(!$(this).val()){
+                    $('#alertTower').text('Campo obrigatório!').removeClass('d-none');
+                }else{
+                    $('#alertTower').text('').addClass('d-none');
+                }
+            })
+            $('#Block').blur(function(){
+                if(!$(this).val()){
+                    $('#alertBlock').text('Campo obrigatório!').removeClass('d-none');
+                }else{
+                    $('#alertBlock').text('').addClass('d-none');
+                }
+            })
+            $('#Number').blur(function(){
+                if(!$(this).val()){
+                    $('#alertNumber').text('Campo obrigatório!').removeClass('d-none');
+                }else{
+                    $('#alertNumber').text('').addClass('d-none');
+                }
+            })
+            $('#formCreate').change(function(){
+                if($("#Tower").val() && $("#Block").val() && $('#Number').val()){
+                    $(".modal-footer .btn-success").removeClass("disabled")
+                }else{
+                    $(".modal-footer .btn-success").addClass("disabled")
+                }
+            })
+        })  
+    </script>
 }

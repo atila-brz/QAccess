@@ -67,7 +67,7 @@
                         <input asp-for="Responsable.Name" disabled class="form-control" />
                     </div>
                     <div class="col-lg-4 d-sm-none d-lg-inline">
-                        <label class="control-label">Id Autor</label>
+                        <label class="control-label">@Html.DisplayNameFor(o => Model.Responsable.CondominiumId)</label>
                         <input asp-for="Responsable.CondominiumId" disabled class="form-control" />
                     </div>
                 </div>
@@ -80,7 +80,7 @@
                         <input asp-for="Title" class="form-control" />
                     </div>
                     <div class="col-lg-4 d-sm-none d-lg-inline">
-                        <label class="control-label">Id Ocorrêcia</label>
+                        <label class="control-label">@Html.DisplayNameFor(o => Model.OccurrenceId)</label>
                         <input asp-for="OccurrenceId" disabled class="form-control" />
                     </div>
                 </div>
